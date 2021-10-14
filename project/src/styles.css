@@ -1,0 +1,72 @@
+/* You can add global styles to this file, and also import other style files */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+button {
+  background: none;
+  border: none;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+html {
+  font-family: 'Open Sans', sans-serif;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1186px;
+}
+.btn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 30px;
+  margin: 0 auto;
+  border: 1px solid #9873FF;
+  color: #9873FF;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.5s, background 0.5s;
+}
+.btn:hover {
+  background-color: #B89EFF;
+  color: white;
+}
+.table {
+  width: 100%;
+  margin-bottom: 40px;
+  border-collapse: collapse;
+}
+.table__heading {
+  cursor: pointer;
+  padding: 8px 0px;
+  padding-left: 20px;
+  margin-right: 2px;
+  text-align: start;
+  font-size: 12px;
+  line-height: 16px;
+  color: #B0B0B0;
+  transition: color 0.5s;
+}
+.table__row {
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid #E5E5E5;
+}
+.table__row:last-child {
+  margin-bottom: 40px;
+}
+.table__data {
+  border: none;
+  padding: 0px 20px;
+  font-size: 14px;
+}

@@ -1,0 +1,35 @@
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 0 5px #333333;
+  z-index: 1;
+
+  &__list{
+    display: flex;
+  }
+
+  &__item:not(:last-child){
+    margin-right: 50px;
+  }
+
+  &__link{
+    color: #333;
+
+    &.active{
+      color: #9873FF;
+    }
+  }
+
+}
+.main{
+  min-height: 100vh;
+  background-color: #E5E5E5;
+  padding-top: 130px;
+  padding-bottom: 130px;
+}

@@ -1,0 +1,18 @@
+<header class="header">
+  <ul class="header__list">
+    <li class="header__item">
+      <a routerLink="/" class="header__link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Инциденты</a>
+    </li>
+    <li class="header__item">
+      <a routerLink="/process" class="header__link" routerLinkActive="active">Процесс</a>
+    </li>
+    <li class="header__item">
+      <a routerLink="/users" class="header__link" routerLinkActive="active">Пользователи</a>
+    </li>
+  </ul>
+</header>
+<main class="main">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
