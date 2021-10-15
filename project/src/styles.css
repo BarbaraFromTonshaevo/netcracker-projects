@@ -41,6 +41,52 @@ html {
   background-color: #B89EFF;
   color: white;
 }
+.btn-purple {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5px;
+  padding: 12.5px 35px;
+  background-color: #9873FF;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.5s;
+}
+.btn-purple:hover {
+  background-color: #B89EFF;
+}
+.btn-line {
+  cursor: pointer;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 25px;
+  font-size: 12px;
+  text-decoration-line: underline;
+  color: #333;
+  transition: color 0.5s;
+}
+.btn-line:hover {
+  color: #B89EFF;
+}
+.btn-change {
+  transition: color 0.5s;
+}
+.btn-change:hover {
+  color: #B89EFF;
+}
+.btn-change__icon {
+  display: inline-block;
+  margin-right: 2.5px;
+  width: 12px;
+  height: 12px;
+  background-image: url("https://i.ibb.co/GFxcYCK/Vector.png");
+  background-size: 12px;
+}
 .table {
   width: 100%;
   margin-bottom: 40px;
@@ -69,4 +115,68 @@ html {
   border: none;
   padding: 0px 20px;
   font-size: 14px;
+}
+.popup {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
+  padding: 20px 0px;
+  transition: all 0.5s;
+}
+.popup__body {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup__form {
+  background-color: #fff;
+  width: 450px;
+  position: relative;
+  padding: 25px 30px;
+}
+.popup__close {
+  width: 16px;
+  height: 16px;
+  color: #333;
+  position: absolute;
+  top: 21.77px;
+  right: 21.77px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+.popup__close:hover {
+  color: #9873FF;
+}
+.popup__heading {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #333;
+}
+.popup__info {
+  display: flex;
+  flex-direction: column;
+}
+.popup__label {
+  color: #C8C5D1;
+  font-size: 10px;
+}
+.popup__input {
+  border: none;
+  border-bottom: 1px solid #C8C5D1;
+  height: 20px;
+  margin-bottom: 15px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  color: #333;
 }

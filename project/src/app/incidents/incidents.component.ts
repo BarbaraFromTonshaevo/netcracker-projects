@@ -16,6 +16,7 @@ import { incidents } from '../data/incidents.data'
       <th class="table__heading">Дата начала</th>
       <th class="table__heading">Дедлайн</th>
       <th class="table__heading">Статус</th>
+      <th class="table__heading">Действия</th>
     </thead>
     <tbody>
       <tr class="table__row" *ngFor="let incident of incidents">
@@ -26,17 +27,30 @@ import { incidents } from '../data/incidents.data'
         <td class="table__data">{{incident.startDate | date:"dd.MM.yyyy"}}</td>
         <td class="table__data">{{incident.dueDate | date:"dd.MM.yyyy"}}</td>
         <td class="table__data">{{incident.status}}</td>
+        <td class="table__data">
+          <button class="btn-change">
+            <div class="btn-change__icon"></div>
+            <span class="btn-change__span">Изменить</span>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-  <button class="btn">Добавить инцидент</button>
-
+  <button class="btn" (click)="addIncident()">Добавить инцидент</button>
+  <app-incident-popup *ngIf=isOpenedPopup ></app-incident-popup>
   `,
   styleUrls: ['./incidents.component.less']
 })
 export class IncidentsComponent implements OnInit {
   incidents: Array<Incident> = incidents;
+  isOpenedPopup = false;
+
   constructor() { }
+
+  addIncident(){
+    console.log('open popup');
+    this.isOpenedPopup = true;
+  }
 
   ngOnInit(): void {
   }
