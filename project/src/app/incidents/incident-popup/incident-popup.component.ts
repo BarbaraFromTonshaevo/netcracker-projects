@@ -10,13 +10,13 @@ import { Component, OnInit, Output } from '@angular/core';
         <h2 class="popup__heading">Новый инцидент</h2>
         <div class="popup__info">
           <label class="popup__label">Название инцидента*</label>
-          <input class="popup__input" type="text" name="surname">
-          <label class="popup__label">Исполнитель</label>
           <input class="popup__input" type="text" name="name">
+          <label class="popup__label">Исполнитель</label>
+          <input class="popup__input" type="text" name="assignee">
           <label class="popup__label">Область*</label>
-          <input class="popup__input" type="text" name="lastname">
+          <input class="popup__input" type="text" name="area">
           <label class="popup__label">Дедлайн*</label>
-          <input class="popup__input" type="date" name="calendar">
+          <input class="popup__input" type="date" name="duedate">
         </div>
         <button class="popup__save btn-purple" name="update">Сохранить</button>
         <button class="popup__cancel btn-line" name="cancel">Отмена</button>

@@ -31,7 +31,8 @@ import {users} from '../data/users.data'
       </tr>
     </tbody>
   </table>
-  <button class="btn">Добавить пользователя</button>
+  <button class="btn" (click)="addUser()">Добавить пользователя</button>
+  <app-users-popup *ngIf="isOpenedPopup"></app-users-popup>
 
 
   `,
@@ -39,7 +40,12 @@ import {users} from '../data/users.data'
 })
 export class UsersComponent implements OnInit {
   users: Array<User> = users;
+  isOpenedPopup = false;
   constructor() { }
+
+  addUser(){
+    this.isOpenedPopup = true;
+  }
 
   ngOnInit(): void {
   }
