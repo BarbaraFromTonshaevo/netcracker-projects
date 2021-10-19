@@ -9,6 +9,12 @@ export const users = [
     login: 'alex17',
     dateOfBirth: new Date(1996, 3, 17),
     position: 'Старший дизайнер',
+    incidents: [
+      {
+        id: 12345,
+        name: "Testing adaptive",
+      }
+    ]
   },
   {
     id: 54321,

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../model/user'
-import {users} from '../data/users.data'
+import {User} from '../model/user';
+import {users} from '../data/users.data';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-users',
@@ -23,7 +25,7 @@ import {users} from '../data/users.data'
         <td class="table__data">{{user.dateOfBirth | date:"dd.MM.yyyy"}}</td>
         <td class="table__data">{{user.position}}</td>
         <td class="table__data">
-          <button class="btn-change">
+          <button class="btn-change" (click)="openUser(('user/' + user.id))">
             <div class="btn-change__icon"></div>
             <span class="btn-change__span">Изменить</span>
           </button>
@@ -32,7 +34,7 @@ import {users} from '../data/users.data'
     </tbody>
   </table>
   <button class="btn" (click)="addUser()">Добавить пользователя</button>
-  <app-users-popup *ngIf="isOpenedPopup"></app-users-popup>
+  <app-users-popup *ngIf='isOpenedPopup' (closeClicked)='closeUserPopup($event)'></app-users-popup>
 
 
   `,
@@ -41,10 +43,21 @@ import {users} from '../data/users.data'
 export class UsersComponent implements OnInit {
   users: Array<User> = users;
   isOpenedPopup = false;
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   addUser(){
     this.isOpenedPopup = true;
+  }
+
+  closeUserPopup($event: any){
+    console.log('closeIncidentPopup');
+    this.isOpenedPopup = false;
+  }
+
+  openUser(route: string){
+    this.router.navigate([route]);
   }
 
   ngOnInit(): void {

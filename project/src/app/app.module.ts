@@ -3,8 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { IncidentPageModule } from './incident-page/incident-page.module';
 import { IncidentsModule } from './incidents/incidents.module';
 import { ProcessModule } from './process/process.module';
+import { UserPageModule } from './user-page/user-page.module';
 import { UsersModule } from './users/users.module';
 
 @NgModule({
@@ -16,7 +18,9 @@ import { UsersModule } from './users/users.module';
     AppRoutingModule,
     IncidentsModule,
     ProcessModule,
-    UsersModule
+    UsersModule,
+    IncidentPageModule,
+    UserPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -195,3 +195,60 @@ html{
   line-height: 19px;
   color: #333;
 }
+
+
+//PAGE //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+.page{
+  &__form{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 30px;
+  }
+
+  &__heading{
+    margin-bottom: 30px;
+  }
+
+  &__id{
+    color: #666666;
+  }
+
+  &__input{
+    width: 60%;
+    border: none;
+    border-bottom: 1px solid #C8C5D1;
+    height: 40px;
+
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  &__incidents-link{
+    color: #333;
+    &:hover{
+      color: #9873FF;
+    }
+  }
+
+  &__incidents-id{
+    color: #B89EFF;
+    margin-right: 10px;
+    font-size: 20px;
+  }
+
+  &__incidents-name{
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__incidents-label{
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  &__incidents-list{
+    margin-bottom: 15px;
+  }
+}

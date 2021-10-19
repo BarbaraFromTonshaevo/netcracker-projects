@@ -1,0 +1,36 @@
+<h2  class="heading page__heading">Пользователь <span class="page__id">ID: {{currentUser.id}}</span></h2>
+<form action="" class="page__form">
+  <label class="page__label label">Имя:</label>
+  <input class="page__input input" type="text" name="name" [value]="currentUser.fullname.name">
+  <label class="page__label label">Фамилия:</label>
+  <input class="page__input input" type="text" name="surname" [value]="currentUser.fullname.surname">
+  <label class="page__label label">Отчество:</label>
+  <input class="page__input input" type="text" name="lastname" [value]="currentUser.fullname.lastname">
+  <label class="page__label label">Дата рождения:</label>
+  <input class="page__input input" type="date" name="dateOfBirth" [value]="setDate(currentUser.dateOfBirth)">
+  <label class="page__label label">Логин:</label>
+  <input class="page__input input" type="text" name="login" [value]="currentUser.login">
+  <label class="page__label label">Должность:</label>
+  <input class="page__input input" type="text" name="position" [value]="currentUser.position">
+  <div class="page__incidents">
+    <label class="page__label page__incidents-label">Инциденты:</label>
+    <ul class="page__incidents-list">
+      <li class="page__incidents-item" *ngFor="let incident of currentUser.incidents">
+        <button class="page__incidents-link" (click)="openRoute(('incident/'+currentUser.id))">
+          <span class="page__incidents-id">{{incident.id}}</span>
+          <span class="page__incidents-name">{{incident.name}}</span>
+        </button>
+      </li>
+    </ul>
+    <div class="page__incidents-search" *ngIf="isOpenedIncidentSearch">
+      <input type="text" class="incidents-search__input input">
+      <button class="incidents-search__btn incidents-search__btn_add" (click)="addIncident()">Добавить</button>
+      <button class="incidents-search__btn incidents-search__btn_cancel" (click)="changeIsOpenedIncidentSearch()">Отмена</button>
+    </div>
+    <button class="btn-change"  *ngIf="!isOpenedIncidentSearch" (click)="changeIsOpenedIncidentSearch()">
+      <div class="btn-change__icon"></div>
+      <span class="btn-change__span">Добавить инцидент</span>
+    </button>
+  </div>
+  <button class="page__save btn">Сохранить изменения</button>
+</form>

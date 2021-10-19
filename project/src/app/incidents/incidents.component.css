@@ -1,0 +1,8 @@
+.btn-assignee {
+  cursor: pointer;
+  color: #333;
+  transition: color 0.5s;
+}
+.btn-assignee:hover {
+  color: #9873FF;
+}

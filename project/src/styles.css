@@ -180,3 +180,46 @@ html {
   line-height: 19px;
   color: #333;
 }
+.page__form {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 30px;
+}
+.page__heading {
+  margin-bottom: 30px;
+}
+.page__id {
+  color: #666666;
+}
+.page__input {
+  width: 60%;
+  border: none;
+  border-bottom: 1px solid #C8C5D1;
+  height: 40px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+}
+.page__incidents-link {
+  color: #333;
+}
+.page__incidents-link:hover {
+  color: #9873FF;
+}
+.page__incidents-id {
+  color: #B89EFF;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.page__incidents-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.page__incidents-label {
+  display: block;
+  margin-bottom: 15px;
+}
+.page__incidents-list {
+  margin-bottom: 15px;
+}
