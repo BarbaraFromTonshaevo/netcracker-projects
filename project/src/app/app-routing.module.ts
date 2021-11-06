@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IncidentPageComponent } from './incident-page/incident-page.component';
-import { IncidentsComponent } from './incidents/incidents.component';
-import { ProcessComponent } from './process/process.component';
-import { UserPageComponent } from './user-page/user-page.component';
-import { UsersComponent } from './users/users.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { IncidentPageComponent } from './modules/incident/incident-page/incident-page.component';
+import { IncidentsComponent } from './modules/incident/incidents/incidents.component';
+import { ProcessComponent } from './modules/process/process.component';
+import { UserPageComponent } from './modules/user/user-page/user-page.component';
+import { UsersComponent } from './modules/user/users/users.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 export const routes: Routes = [
   {

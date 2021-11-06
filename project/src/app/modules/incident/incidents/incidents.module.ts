@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IncidentsComponent } from './incidents.component';
-import { AppFioPipe } from '../cdk/pipes/fio.pipe';
-import { IncidentPopupModule } from './incident-popup/incident-popup.module';
+import { AppFioPipe } from 'src/app/modules/cdk/pipes/fio.pipe';
+import { IncidentPopupComponent } from './incident-popup/incident-popup.component';
 
 
 
@@ -10,10 +10,10 @@ import { IncidentPopupModule } from './incident-popup/incident-popup.module';
   declarations: [
     IncidentsComponent,
     AppFioPipe,
+    IncidentPopupComponent,
   ],
   imports: [
     CommonModule,
-    IncidentPopupModule,
   ],
   exports: [
     IncidentsComponent

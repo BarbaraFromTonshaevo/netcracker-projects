@@ -1,4 +1,4 @@
-import {User} from './user'
+import {User} from '../../user/model/user'
 export interface Incident {
   id: number;
   name: string;

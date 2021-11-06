@@ -1,4 +1,4 @@
-import { users } from "./users.data"
+import { users } from "../../user/data/users.data"
 export const incidents = [
   {
     id: 12345,
