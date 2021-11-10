@@ -3,11 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IncidentPageModule } from './modules/incident/incident-page/incident-page.module';
-import { IncidentsModule } from './modules/incident/incidents/incidents.module';
+import { IncidentModule } from './modules/incident/incident.module';
 import { ProcessModule } from './modules/process/process.module';
-import { UserPageModule } from './modules/user/user-page/user-page.module';
-import { UsersModule } from './modules/user/users/users.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { StoreModule } from '@ngrx/store';
+import { UserModule } from './modules/user/user.module';
+import { SearchListModule } from './modules/cdk/search-list/search-list.module';
+
 
 @NgModule({
   declarations: [
@@ -16,11 +19,17 @@ import { UsersModule } from './modules/user/users/users.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    IncidentsModule,
+    IncidentModule,
     ProcessModule,
-    UsersModule,
-    IncidentPageModule,
-    UserPageModule,
+    UserModule,
+    SearchListModule,
+    StoreModule.forRoot({}, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      }
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]

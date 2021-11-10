@@ -1,8 +1,14 @@
-import {User} from '../../user/model/user'
 export interface Incident {
   id: number;
   name: string;
-  assignee?: User;
+  assignee?: {
+    id: number,
+    fullname: {
+      name: string,
+      surname: string,
+      lastname: string,
+    }
+  };
   area: string;
   startDate: Date;
   dueDate: Date;

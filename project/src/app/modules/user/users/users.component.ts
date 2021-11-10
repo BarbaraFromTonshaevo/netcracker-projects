@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../model/user';
-import {users} from '../data/users.data';
+// import {users} from '../data/users.data';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { UserState } from '../store/user.reducer';
+import { userListSelector } from '../store/user.selector';
+
+
 
 
 @Component({
@@ -17,7 +23,8 @@ import { Router } from '@angular/router';
       <th class="table__heading">Должность</th>
       <th class="table__heading">Действия</th>
     </thead>
-    <tbody>
+    <tbody *ngIf="users$ | async as users">
+    <!-- <tbody> -->
       <tr class="table__row" *ngFor="let user of users">
         <td class="table__data">{{user.id}}</td>
         <td class="table__data">{{user.fullname.surname}} {{user.fullname.name}} {{user.fullname.lastname}}</td>
@@ -41,9 +48,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./users.component.less']
 })
 export class UsersComponent implements OnInit {
-  users: Array<User> = users;
+  // users: Array<User> = users;
+  users$: Observable<User[]> = this.store$.pipe(select(userListSelector));
+
   isOpenedPopup = false;
   constructor(
+    private store$: Store<UserState>,
     private router: Router,
   ) { }
 

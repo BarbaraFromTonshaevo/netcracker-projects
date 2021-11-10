@@ -1,0 +1,25 @@
+<div class="popup">
+  <div class="popup__body">
+    <form action="" class="popup__form" (ngSubmit)="onCreate($event)">
+      <button class="popup__close" (click)="closePopup($event)">X</button>
+      <h2 class="popup__heading">Новый инцидент</h2>
+      <div class="popup__info">
+        <label class="popup__label label">Имя*</label>
+        <input class="popup__input input" type="text" name="name" [(ngModel)]="name">
+        <label class="popup__label label">Фамилия*</label>
+        <input class="popup__input input" type="text" name="surname" [(ngModel)]="surname">
+        <label class="popup__label label">Отчество</label>
+        <input class="popup__input input" type="text" name="lastname" [(ngModel)]="lastname">
+        <label class="popup__label label">Логин*</label>
+        <input class="popup__input input" type="text" name="login" [(ngModel)]="login">
+        <label class="popup__label label">Дата рождения*</label>
+        <input class="popup__input input" type="date" name="dateOfBirth" [(ngModel)]="dateOfBirth">
+        <label class="popup__label label">Досжность*</label>
+        <input class="popup__input input" type="text" name="position" [(ngModel)]="position">
+      </div>
+      <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
+      <button class="popup__save btn-purple" name="update">Сохранить</button>
+      <button class="popup__cancel btn-line" name="cancel" (click)="closePopup($event)">Отмена</button>
+    </form>
+  </div>
+</div>

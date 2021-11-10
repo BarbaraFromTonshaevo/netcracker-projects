@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { users } from '../data/users.data'
+import { select, Store } from '@ngrx/store';
+import { UserState } from '../store/user.reducer';
+import { Observable } from 'rxjs';
+import { userListSelector } from '../store/user.selector';
+
+
+
 
 
 @Component({
@@ -10,6 +17,7 @@ import { users } from '../data/users.data'
   styleUrls: ['./user-page.component.less'],
 })
 export class UserPageComponent implements OnInit {
+  users$: Observable<User[]> = this.store$.pipe(select(userListSelector));
   isOpenedIncidentSearch = false;
   usersData: Array<User> = [];
   currentUser: User = {
@@ -32,11 +40,13 @@ export class UserPageComponent implements OnInit {
   }
 
   constructor(
+    private store$: Store<UserState>,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+    // нужно переделать с использованием store
     this.usersData = users;
     const id = +this.route.snapshot.params.id;
     let newUser = this.usersData.find(x => x.id === id);
