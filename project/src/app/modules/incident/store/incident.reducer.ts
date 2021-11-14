@@ -26,6 +26,7 @@ const initialState: IncidentState = {
       startDate: new Date(2021, 0, 1),
       dueDate: new Date(2021, 3, 10),
       status: 'Закрыто',
+
     },
     {
       id: 2,
@@ -34,6 +35,7 @@ const initialState: IncidentState = {
       startDate: new Date(2021, 6, 22),
       dueDate: new Date(2021, 11, 14),
       status: 'Открыто',
+      assignee: null,
     },
   ]
   ,
@@ -52,13 +54,18 @@ export const incidentReducer = (state: IncidentState = initialState, action: Inc
             id: state.idIncrement,
             name:  action.payload.name,
             area:  action.payload.area,
-            
-            // area: area,
-            // дополнить
-
+            dueDate: action.payload.dueDate,
+            startDate: action.payload.startDate,
+            assignee: action.payload.assignee,
+            status: 'Открыто',
           }
         ]
       };
+    case incidentActionsType.delete:
+      return {
+        ...state,
+        incidentList: state.incidentList.filter(item => item.id !== action.payload.id),
+      }
     default:
       return state;
   }

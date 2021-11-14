@@ -1,54 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../model/user';
-// import {users} from '../data/users.data';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { UserState } from '../store/user.reducer';
 import { userListSelector } from '../store/user.selector';
+import { UserDeleteAction } from '../store/user.actions';
 
 
 
 
 @Component({
   selector: 'app-users',
-  template: `
-  <h2 class="heading">Список пользователей</h2>
-  <table class="table">
-    <thead class="table__row-heading">
-      <th class="table__heading">ID</th>
-      <th class="table__heading">ФИО</th>
-      <th class="table__heading">Логин</th>
-      <th class="table__heading">Дата рождения</th>
-      <th class="table__heading">Должность</th>
-      <th class="table__heading">Действия</th>
-    </thead>
-    <tbody *ngIf="users$ | async as users">
-    <!-- <tbody> -->
-      <tr class="table__row" *ngFor="let user of users">
-        <td class="table__data">{{user.id}}</td>
-        <td class="table__data">{{user.fullname.surname}} {{user.fullname.name}} {{user.fullname.lastname}}</td>
-        <td class="table__data">{{user.login}}</td>
-        <td class="table__data">{{user.dateOfBirth | date:"dd.MM.yyyy"}}</td>
-        <td class="table__data">{{user.position}}</td>
-        <td class="table__data">
-          <button class="btn-change" (click)="openUser(('user/' + user.id))">
-            <div class="btn-change__icon"></div>
-            <span class="btn-change__span">Изменить</span>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <button class="btn" (click)="addUser()">Добавить пользователя</button>
-  <app-users-popup *ngIf='isOpenedPopup' (closeClicked)='closeUserPopup($event)'></app-users-popup>
-
-
-  `,
+  templateUrl: './users.component.html',
   styleUrls: ['./users.component.less']
 })
 export class UsersComponent implements OnInit {
-  // users: Array<User> = users;
   users$: Observable<User[]> = this.store$.pipe(select(userListSelector));
 
   isOpenedPopup = false;
@@ -68,6 +35,10 @@ export class UsersComponent implements OnInit {
 
   openUser(route: string){
     this.router.navigate([route]);
+  }
+
+  deleteUser(id: number){
+    this.store$.dispatch(new UserDeleteAction({id}));
   }
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 export const users = [
   {
-    id: 98765,
+    id: 12345,
     fullname: {
       name: 'Александра',
       surname: 'Александрова',
@@ -17,7 +17,7 @@ export const users = [
     ]
   },
   {
-    id: 54321,
+    id: 12346,
     fullname: {
       name: 'Иван',
       surname: 'Иванов',
@@ -26,5 +26,38 @@ export const users = [
     login: 'vanvan',
     dateOfBirth: new Date(1988, 7, 3),
     position: 'Тестировщик',
+  },
+  {
+    id: 12347,
+    fullname: {
+      name: 'Александр',
+      surname: 'Блок',
+      lastname: 'Александрович',
+    },
+    login: 'block',
+    dateOfBirth: new Date(1880, 10, 16),
+    position: 'Технический писатель',
+  },
+  {
+    id: 12348,
+    fullname: {
+      name: 'Теодор',
+      surname: 'Драйзер',
+      lastname: '',
+    },
+    login: 'finansist',
+    dateOfBirth: new Date(1871, 7, 27),
+    position: 'Финансист',
+  },
+  {
+    id: 12349,
+    fullname: {
+      name: 'Ада',
+      surname: 'Лавлейс',
+      lastname: '',
+    },
+    login: 'adalav',
+    dateOfBirth: new Date(1815, 10, 27),
+    position: 'Разработчик',
   },
 ]

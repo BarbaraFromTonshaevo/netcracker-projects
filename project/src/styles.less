@@ -78,6 +78,7 @@ html{
 }
 .btn-change{
   transition: color 0.5s;
+  margin-right: 15px;
 
   &:hover{
     color: #B89EFF;
@@ -89,6 +90,23 @@ html{
     width: 12px;
     height: 12px;
     background-image: url("https://i.ibb.co/GFxcYCK/Vector.png");
+    background-size: 12px;
+  }
+}
+
+.btn-delete{
+  transition: color 0.5s;
+
+  &:hover{
+    color: #B89EFF;
+  }
+
+  &__icon{
+    display: inline-block;
+    margin-right: 2.5px;
+    width: 12px;
+    height: 12px;
+    background-image: url("https://i.ibb.co/tbX1wKc/cancel-hover.png");
     background-size: 12px;
   }
 }
@@ -143,69 +161,78 @@ html{
   left: 0;
   padding: 20px 0px;
   transition: all 0.5s;
-}
-.popup__body {
-  min-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.popup__form {
-  background-color: #fff;
-  width: 450px;
-  position: relative;
-  padding: 25px 30px;
-}
-.popup__close {
-  width: 16px;
-  height: 16px;
-  color: #333;
-  position: absolute;
-  top: 21.77px;
-  right: 21.77px;
-  cursor: pointer;
-  transition: background 0.5s;
-}
-.popup__close:hover {
-  color: #9873FF;
-}
-.popup__heading {
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: 800;
-  color: #333;
-}
-.popup__info {
-  display: flex;
-  flex-direction: column;
-}
-.popup__label {
-  color: #C8C5D1;
-  font-size: 10px;
-}
-.popup__input {
-  border: none;
-  border-bottom: 1px solid #C8C5D1;
-  height: 20px;
-  margin-bottom: 15px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 19px;
-  color: #333;
-}
 
-.popup__error{
-  width: 255px;
-  text-align: center;
-  margin-bottom: 9px;
 
-  margin-right: auto;
-  margin-left: auto;
-  color: red;
-  font-size: 10px;
-  line-height: 14px;
+  &__body {
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__form {
+    background-color: #fff;
+    width: 450px;
+    position: relative;
+    padding: 25px 30px;
+  }
+
+  &__close {
+    width: 16px;
+    height: 16px;
+    color: #333;
+    position: absolute;
+    top: 21.77px;
+    right: 21.77px;
+    cursor: pointer;
+    transition: background 0.5s;
+  }
+
+  &__close:hover {
+    color: #9873FF;
+  }
+
+  &__heading {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #333;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    color: #C8C5D1;
+    font-size: 10px;
+  }
+
+  &__input {
+    border: none;
+    border-bottom: 1px solid #C8C5D1;
+    height: 20px;
+    margin-bottom: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #333;
+  }
+
+  &__error{
+    width: 255px;
+    text-align: center;
+    margin-bottom: 9px;
+
+    margin-right: auto;
+    margin-left: auto;
+    color: red;
+    font-size: 10px;
+    line-height: 14px;
+  }
 }
 
 .border-error{

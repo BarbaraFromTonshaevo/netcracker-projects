@@ -3,7 +3,7 @@
   <label class="page__label label">Название инцидента:</label>
   <input class="page__input input" type="text" name="name" [value]="currentIncident.name">
   <label class="page__label label">Исполнитель:</label>
-  <input class="page__input input" type="text" name="assignee">
+  <app-search-list class="page__input" (select)="onSelectAssignee($event)" [initialAssignee]="currentIncident.assignee" ></app-search-list>
   <label class="page__label label">Область:</label>
   <input class="page__input input" type="text" name="area" [value]="currentIncident.area">
   <label class="page__label label">Дата начала:</label>

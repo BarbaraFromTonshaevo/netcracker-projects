@@ -7,10 +7,6 @@ import { UserState } from '../store/user.reducer';
 import { Observable } from 'rxjs';
 import { userListSelector } from '../store/user.selector';
 
-
-
-
-
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -20,17 +16,7 @@ export class UserPageComponent implements OnInit {
   users$: Observable<User[]> = this.store$.pipe(select(userListSelector));
   isOpenedIncidentSearch = false;
   usersData: Array<User> = [];
-  currentUser: User = {
-    id: 54321,
-    fullname: {
-      name: 'Иван',
-      surname: 'Иванов',
-      lastname: 'Иванович',
-    },
-    login: 'example',
-    dateOfBirth: new Date(2000, 0, 1),
-    position: 'Программист',
-  };
+  currentUser: User;
   newUser: any;
 
   setDate(date: Date){
@@ -46,7 +32,9 @@ export class UserPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // нужно переделать с использованием store
+    this.users$.subscribe((users) => {
+      this.usersData = users;
+    });
     this.usersData = users;
     const id = +this.route.snapshot.params.id;
     let newUser = this.usersData.find(x => x.id === id);

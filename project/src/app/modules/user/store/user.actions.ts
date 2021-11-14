@@ -4,6 +4,7 @@ import { User } from "../model/user";
 
 export enum userActionsType {
   create = '[USER] create user item',
+  delete = '[USER] delete user item',
 }
 
 export class UserCreateAction implements Action {
@@ -18,6 +19,12 @@ export class UserCreateAction implements Action {
   }
 }
 
+export class UserDeleteAction implements Action {
+  readonly type = userActionsType.delete;
+  constructor(public payload: {id: number}) {
+  }
+}
 
-export type UserActions = UserCreateAction;
+
+export type UserActions = UserCreateAction | UserDeleteAction;
 

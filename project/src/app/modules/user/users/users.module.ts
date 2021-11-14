@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
-import { UsersPopupModule } from './users-popup/users-popup.module';
+import { FormsModule } from '@angular/forms';
+import { UsersPopupComponent } from './users-popup/users-popup.component';
 
 
 
 @NgModule({
   declarations: [
-    UsersComponent
+    UsersComponent,
+    UsersPopupComponent
   ],
   imports: [
     CommonModule,
-    UsersPopupModule,
+    FormsModule,
   ],
   exports: [
     UsersComponent

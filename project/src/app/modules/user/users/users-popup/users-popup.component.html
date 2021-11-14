@@ -18,7 +18,7 @@
         <input class="popup__input input" type="text" name="position" [(ngModel)]="position">
       </div>
       <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
-      <button class="popup__save btn-purple" name="update">Сохранить</button>
+      <button class="popup__save btn-purple" name="save">Сохранить</button>
       <button class="popup__cancel btn-line" name="cancel" (click)="closePopup($event)">Отмена</button>
     </form>
   </div>

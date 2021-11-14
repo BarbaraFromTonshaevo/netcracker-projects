@@ -75,6 +75,7 @@ html {
 }
 .btn-change {
   transition: color 0.5s;
+  margin-right: 15px;
 }
 .btn-change:hover {
   color: #B89EFF;
@@ -85,6 +86,20 @@ html {
   width: 12px;
   height: 12px;
   background-image: url("https://i.ibb.co/GFxcYCK/Vector.png");
+  background-size: 12px;
+}
+.btn-delete {
+  transition: color 0.5s;
+}
+.btn-delete:hover {
+  color: #B89EFF;
+}
+.btn-delete__icon {
+  display: inline-block;
+  margin-right: 2.5px;
+  width: 12px;
+  height: 12px;
+  background-image: url("https://i.ibb.co/tbX1wKc/cancel-hover.png");
   background-size: 12px;
 }
 .table {

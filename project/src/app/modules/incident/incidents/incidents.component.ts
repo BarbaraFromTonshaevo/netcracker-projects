@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { Incident } from '../model/incident';
-import { incidents } from '../data/incidents.data'
+import { select, Store } from '@ngrx/store';
+import { IncidentState } from '../store/incident.reducer';
+import { incidentListSelector } from '../store/incident.selector';
+import { IncidentDeleteAction } from '../store/incident.actions';
 
 
 @Component({
@@ -11,10 +15,11 @@ import { incidents } from '../data/incidents.data'
   styleUrls: ['./incidents.component.less']
 })
 export class IncidentsComponent implements OnInit {
-  incidents: Array<Incident> = incidents;
+  incidents$: Observable<Incident[]> = this.store$.pipe(select(incidentListSelector));
   isOpenedPopup = false;
 
   constructor(
+    private store$: Store<IncidentState>,
     private router: Router,
   ) { }
 
@@ -34,6 +39,10 @@ export class IncidentsComponent implements OnInit {
 
   openIncident(route: string){
     this.router.navigate([route]);
+  }
+
+  deleteIncident(id: number){
+    this.store$.dispatch(new IncidentDeleteAction({id}));
   }
 
   ngOnInit(): void {

@@ -1,0 +1,21 @@
+<div class="popup">
+  <div class="popup__body">
+    <form action="" class="popup__form" (ngSubmit)="onCreate($event)">
+      <button class="popup__close" (click)="closePopup($event)">X</button>
+      <h2 class="popup__heading">Новый инцидент</h2>
+      <div class="popup__info">
+        <label class="popup__label label">Название инцидента*</label>
+        <input class="popup__input input" type="text" name="name" [(ngModel)]="name">
+        <label class="popup__label label">Исполнитель</label>
+        <app-search-list size="small" (select)="onSelectAssignee($event)"></app-search-list>
+        <label class="popup__label label">Область*</label>
+        <input class="popup__input input" type="text" name="area" [(ngModel)]="area">
+        <label class="popup__label label">Дедлайн*</label>
+        <input class="popup__input input" type="date" name="duedate" [(ngModel)]="duedate">
+      </div>
+      <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
+      <button class="popup__save btn-purple" name="save">Сохранить</button>
+      <button class="popup__cancel btn-line" name="cancel" (click)="closePopup($event)">Отмена</button>
+    </form>
+  </div>
+</div>

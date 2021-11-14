@@ -1,22 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Incident } from '../model/incident';
-import { incidents } from '../data/incidents.data';
 import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { IncidentState } from '../store/incident.reducer';
+import { Observable } from 'rxjs';
+import { incidentListSelector } from '../store/incident.selector';
+import { User } from '../../user/model/user';
+
 
 @Component({
   selector: 'app-incident-page',
   templateUrl: './incident-page.component.html',
 })
 export class IncidentPageComponent implements OnInit {
+  incidents$: Observable<Incident[]> = this.store$.pipe(select(incidentListSelector));
   incidentsData: Array<Incident> = [];
-  currentIncident: Incident = {
-    id: 12345,
-    name: 'Name of incident',
-    area: 'Area',
-    startDate: new Date(),
-    dueDate: new Date(),
-    status: 'В работе',
-  }
+  currentIncident: Incident;
 
   setDate(date: Date){
     return date.getFullYear() +'-'+
@@ -24,19 +23,22 @@ export class IncidentPageComponent implements OnInit {
     (date.getDay() < 10 ? '0' + date.getDay() : date.getDay());
   }
 
+  onSelectAssignee(user: User){
+    console.log(user);
+  }
+
   constructor(
+    private store$: Store<IncidentState>,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
-    console.log('INCIDENTPAGE');
-    this.incidentsData = incidents;
-    console.log(this.incidentsData);
+    this.incidents$.subscribe((incidents) => {
+      this.incidentsData = incidents;
+    });
     const id = +this.route.snapshot.params.id;
-    console.log(id);
     let incident = this.incidentsData.find(x => x.id === id);
-    console.log(incident);
     if(incident){
       this.currentIncident = incident;
     }

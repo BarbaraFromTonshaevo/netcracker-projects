@@ -23,14 +23,12 @@ export class UsersPopupComponent implements OnInit {
   constructor(private store$: Store<UserState>) { }
 
   closePopup(event: Event){
-    console.log('close');
     event.preventDefault();
     this.cleanForm();
     this.closeClicked.emit();
   }
 
   validation(){
-    console.log('validation....');
     this.isValid = true;
     this.errorMessage = '';
 
@@ -76,18 +74,14 @@ export class UsersPopupComponent implements OnInit {
     event.preventDefault();
     this.validation();
     if(this.isValid){
-      console.log('create in popup');
       this.store$.dispatch(new UserCreateAction({
         name: this.name,
         surname: this.surname,
         lastname: this.lastname,
         login: this.login,
-        dateOfBirth: new Date(),
+        dateOfBirth: new Date(this.dateOfBirth),
         position: this.position,
       }));
-
-      //отчистить форму или убрать попап
-      console.log('close');
       this.cleanForm();
       this.closeClicked.emit();
     }

@@ -10,7 +10,7 @@
     <th class="table__heading">Статус</th>
     <th class="table__heading">Действия</th>
   </thead>
-  <tbody>
+  <tbody *ngIf="incidents$ | async as incidents">
     <tr class="table__row" *ngFor="let incident of incidents">
       <td class="table__data">{{incident.id}}</td>
       <td class="table__data">{{incident.name}}</td>
@@ -22,10 +22,14 @@
       <td class="table__data">{{incident.dueDate | date:"dd.MM.yyyy"}}</td>
       <td class="table__data">{{incident.status}}</td>
       <td class="table__data">
-        <a class="btn-change" (click)="openIncident(('incident/' + incident.id))">
+        <button class="btn-change" (click)="openIncident(('incident/' + incident.id))">
           <div class="btn-change__icon"></div>
           <span class="btn-change__span">Изменить</span>
-        </a>
+        </button>
+        <button class="btn-delete" (click)="deleteIncident(incident.id)">
+          <div class="btn-delete__icon"></div>
+          <span class="btn-delete__span">Удалить</span>
+        </button>
       </td>
     </tr>
   </tbody>

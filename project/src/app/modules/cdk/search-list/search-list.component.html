@@ -1,0 +1,20 @@
+<div class="search-list__wrap" [ngClass]='[innerSize]'>
+  <input type="text"
+  class="search-list__search"
+  id="search-input"
+  [formControl]="searchControl"
+  autocomplete="off">
+  <div class="search-list__scroll" data-simplebar>
+    <ul class="search-list__list">
+      <li class="search-list__item" *ngFor="let user of searchList">
+        <button class="search-list__btn" (click)="selectAssignee($event, user)">
+          {{user.fullname.surname}} {{user.fullname.name}} {{user.fullname.lastname}}
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+

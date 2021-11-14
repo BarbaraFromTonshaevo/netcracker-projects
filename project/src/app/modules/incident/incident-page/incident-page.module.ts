@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IncidentPageComponent } from './incident-page.component';
-
+import { SearchListModule } from '../../cdk/search-list/search-list.module';
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { IncidentPageComponent } from './incident-page.component';
     IncidentPageComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SearchListModule,
   ],
   exports: [
     IncidentPageComponent

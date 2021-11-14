@@ -1,39 +1,78 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { User } from 'src/app/modules/user/model/user';
+import { select, Store } from '@ngrx/store';
+import { IncidentState } from '../../store/incident.reducer';
+import { IncidentCreateAction } from '../../store/incident.actions';
 
 @Component({
   selector: 'app-incident-popup',
-  template: `
-  <div class="popup">
-    <div class="popup__body">
-      <form action="" class="popup__form">
-        <button class="popup__close" (click)="closePopup($event)">X</button>
-        <h2 class="popup__heading">Новый инцидент</h2>
-        <div class="popup__info">
-          <label class="popup__label label">Название инцидента*</label>
-          <input class="popup__input input" type="text" name="name">
-          <label class="popup__label label">Исполнитель</label>
-          <input class="popup__input input" type="text" name="assignee">
-          <label class="popup__label label">Область*</label>
-          <input class="popup__input input" type="text" name="area">
-          <label class="popup__label label">Дедлайн*</label>
-          <input class="popup__input input" type="date" name="duedate">
-        </div>
-        <button class="popup__save btn-purple" name="update">Сохранить</button>
-        <button class="popup__cancel btn-line" name="cancel" (click)="closePopup($event)">Отмена</button>
-      </form>
-    </div>
-  </div>
-  `,
+  templateUrl: './incident-popup.component.html',
 })
 export class IncidentPopupComponent implements OnInit {
   @Output() closeClicked = new EventEmitter();
+  name: string = '';
+  area: string = '';
+  duedate: string = '';
+  assignee: User|null = null;
+  isValid: boolean = true;
+  errorMessage: string;
 
   closePopup($event: Event){
     $event.preventDefault();
-    console.log('close');
     this.closeClicked.emit();
   }
-  constructor() { }
+
+  onSelectAssignee(user: User){
+    this.assignee = user;
+  }
+  validation(){
+    this.isValid = true;
+    this.errorMessage = '';
+
+    if(this.name.trim() === ''){
+      this.errorMessage += ' Не указано имя.';
+      this.isValid = false;
+      document.querySelector('input[name="name"]')?.classList.add('border-error');
+    }
+
+    if(this.area.trim() === ''){
+      this.errorMessage += ' Не указана область.';
+      this.isValid = false;
+      document.querySelector('input[name="area"]')?.classList.add('border-error');
+    }
+
+    if(this.duedate.trim() === ''){
+      this.errorMessage += ' Не указан дедлайн.';
+      this.isValid = false;
+      document.querySelector('input[name="duedate"]')?.classList.add('border-error');
+    }
+  }
+
+  cleanForm(){
+    document.querySelectorAll('input').forEach(item => {
+      item.classList.remove('border-error');
+      item.value = '';
+    });
+  }
+
+  onCreate(event: Event){
+    event.preventDefault();
+    this.validation();
+    if(this.isValid){
+      this.store$.dispatch(new IncidentCreateAction({
+        name: this.name,
+        area: this.area,
+        startDate: new Date(),
+        dueDate: new Date(this.duedate),
+        assignee: this.assignee
+      }));
+      this.cleanForm();
+      this.closeClicked.emit();
+    }
+
+  }
+
+  constructor(private store$: Store<IncidentState>) { }
 
   ngOnInit(): void {
   }
