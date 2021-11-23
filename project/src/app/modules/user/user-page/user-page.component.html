@@ -18,4 +18,5 @@
   </div>
   <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
   <button class="page__save btn">Сохранить изменения</button>
+  <p class="save-message" *ngIf="saveMessage">Пользователь был сохранен</p>
 </form>

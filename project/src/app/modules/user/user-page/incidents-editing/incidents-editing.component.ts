@@ -61,6 +61,7 @@ export class IncidentsEditingComponent implements OnInit {
   }
 
   openRoute(route: string){
+    console.log(route);
     this.router.navigate(['/', route]);
   }
 

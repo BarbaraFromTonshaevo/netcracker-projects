@@ -96,6 +96,7 @@ export class IncidentPageComponent implements OnInit {
 
   isValid: boolean = true;
   errorMessage: string = '';
+  saveMessage: boolean = false;
 
   validation(){
     this.isValid = true;
@@ -172,8 +173,8 @@ export class IncidentPageComponent implements OnInit {
           }))
         }
       }
-
+      this.saveMessage = true;
+      setTimeout(()=>{this.saveMessage = false}, 2000);
     }
   }
-
 }

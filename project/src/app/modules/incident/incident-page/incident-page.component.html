@@ -14,4 +14,5 @@
   <input class="page__input input" type="text" name="status" [(ngModel)]="status">
   <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
   <button class="page__save btn">Сохранить изменения</button>
+  <p class="save-message" *ngIf="saveMessage">Инцидент был сохранен</p>
 </form>

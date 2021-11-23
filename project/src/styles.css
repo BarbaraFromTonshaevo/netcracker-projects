@@ -229,3 +229,10 @@ html {
 .border-error {
   border-color: red;
 }
+.save-message {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  color: #9873FF;
+  font-size: 32px;
+}

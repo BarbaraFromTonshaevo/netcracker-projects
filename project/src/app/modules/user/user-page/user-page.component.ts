@@ -74,6 +74,8 @@ export class UserPageComponent implements OnInit {
 
   isValid: boolean = true;
   errorMessage: string = '';
+  saveMessage: boolean = false;
+
 
   validation(){
     this.isValid = true;
@@ -117,6 +119,7 @@ export class UserPageComponent implements OnInit {
 
     if(this.isValid){
       console.log(this.incidents);
+      // добавить изменения пользователя
       this.userStore$.dispatch(new UserEditAction({
         id: this.currentUser.id,
         fullname: {
@@ -129,7 +132,7 @@ export class UserPageComponent implements OnInit {
         dateOfBirth: new Date(this.dateOfBirth),
         incidents: this.incidents
       }));
-      // пройти по this.incidents
+      // поменять у инцидентов исполнителей
       this.incidents?.forEach(item => {
         this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({
           id: item.id,
@@ -142,10 +145,9 @@ export class UserPageComponent implements OnInit {
             }
           }
         }));
-        // в incidentStore по id поменять содержание
       })
-      // произвести проверку все ли устарелые инциденты удалили текущего исполнителя и добавили ли к новым инцидентам текущего исполнителя
-      //вывести сообщение что изменения сохранены
+      this.saveMessage = true;
+      setTimeout(()=>{this.saveMessage = false}, 2000);
     }
   }
 }

@@ -35,9 +35,19 @@ export class SearchInputComponent implements OnInit {
     this.searchControl.valueChanges.subscribe((value) => {
       this.isActive = true;
       if(value.trim().toLowerCase() !== ''){
+        if(isNaN(value.trim())){
+        // по названию
         this.searchList = this.values.filter(item =>
-            item.name.toLowerCase().includes(value.trim().toLowerCase())
-        );
+          item.name.toLowerCase().includes(value.trim().toLowerCase())
+      );
+        }
+        else{
+          // по id
+          this.searchList = this.values.filter(item =>
+            item.id.toString().includes(value.trim())
+          )
+        }
+
       }
       else{
         this.searchList = [];
