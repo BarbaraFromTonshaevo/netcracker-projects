@@ -11,7 +11,7 @@ export const users = [
     position: 'Старший дизайнер',
     incidents: [
       {
-        id: 12345,
+        id: 54321,
         name: "Testing adaptive",
       }
     ]
@@ -26,6 +26,7 @@ export const users = [
     login: 'vanvan',
     dateOfBirth: new Date(1988, 7, 3),
     position: 'Тестировщик',
+    incidents: null,
   },
   {
     id: 12347,
@@ -37,6 +38,7 @@ export const users = [
     login: 'block',
     dateOfBirth: new Date(1880, 10, 16),
     position: 'Технический писатель',
+    incidents: null
   },
   {
     id: 12348,
@@ -48,6 +50,12 @@ export const users = [
     login: 'finansist',
     dateOfBirth: new Date(1871, 7, 27),
     position: 'Финансист',
+    incidents: [
+      {
+        id: 54324,
+        name: "Анализ стоимости капитала",
+      },
+    ]
   },
   {
     id: 12349,
@@ -59,5 +67,8 @@ export const users = [
     login: 'adalav',
     dateOfBirth: new Date(1815, 10, 27),
     position: 'Разработчик',
+    incidents: null
   },
 ]
+
+

@@ -7,7 +7,8 @@
         <label class="popup__label label">Название инцидента*</label>
         <input class="popup__input input" type="text" name="name" [(ngModel)]="name">
         <label class="popup__label label">Исполнитель</label>
-        <app-search-list size="small" (select)="onSelectAssignee($event)"></app-search-list>
+        <!-- <app-search-list size="small" (select)="onSelectAssignee($event)"></app-search-list> -->
+        <app-search-input size="small" [values]="usersForSearch" (select)="getId($event)"></app-search-input>
         <label class="popup__label label">Область*</label>
         <input class="popup__input input" type="text" name="area" [(ngModel)]="area">
         <label class="popup__label label">Дедлайн*</label>

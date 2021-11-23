@@ -1,16 +1,17 @@
 <h2  class="heading page__heading">Инцидент <span class="page__id">ID: {{currentIncident.id}}</span></h2>
-<form action="" class="page__form">
+<form action="" class="page__form" (ngSubmit)="editIncident($event)">
   <label class="page__label label">Название инцидента:</label>
-  <input class="page__input input" type="text" name="name" [value]="currentIncident.name">
+  <input class="page__input input" type="text" name="name" [(ngModel)]="name">
   <label class="page__label label">Исполнитель:</label>
-  <app-search-list class="page__input" (select)="onSelectAssignee($event)" [initialAssignee]="currentIncident.assignee" ></app-search-list>
+  <app-search-input [values]="usersForSearch" (select)="onSelectAssignee($event)" class="page__input" [initialValue]="initialAssignee"></app-search-input>
   <label class="page__label label">Область:</label>
-  <input class="page__input input" type="text" name="area" [value]="currentIncident.area">
+  <input class="page__input input" type="text" name="area" [(ngModel)]="area">
   <label class="page__label label">Дата начала:</label>
-  <input class="page__input input" type="date" name="duedate" [value]="setDate(currentIncident.startDate)">
+  <input class="page__input input" type="date" name="startdate" [(ngModel)]="startDate">
   <label class="page__label label">Дата дедлайна:</label>
-  <input class="page__input input" type="date" name="duedate" value="2021-03-18">
+  <input class="page__input input" type="date" name="duedate" [(ngModel)]="dueDate">
   <label class="page__label label">Статус:</label>
-  <input class="page__input input" type="text" name="status" [value]="currentIncident.status">
+  <input class="page__input input" type="text" name="status" [(ngModel)]="status">
+  <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
   <button class="page__save btn">Сохранить изменения</button>
 </form>

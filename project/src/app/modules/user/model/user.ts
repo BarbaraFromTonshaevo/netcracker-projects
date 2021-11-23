@@ -8,8 +8,8 @@ export interface User {
   login: string,
   dateOfBirth: Date,
   position: string,
-  incidents?: Array<{
+  incidents: Array<{
     id: number,
     name: string,
-  }>
+  }> | null,
 }

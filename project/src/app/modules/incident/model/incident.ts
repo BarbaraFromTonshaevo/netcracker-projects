@@ -1,12 +1,5 @@
 // import { User } from '../../user/model/user';
-interface Assignee{
-  id: number,
-  fullname: {
-    name: string,
-    surname: string,
-    lastname: string,
-  }
-}
+import { Assignee } from "./assignee";
 export interface Incident {
   id: number;
   name: string;

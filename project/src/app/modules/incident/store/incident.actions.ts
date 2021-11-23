@@ -1,8 +1,12 @@
 import { Action } from "@ngrx/store";
+import { Incident } from "../model/incident";
+import { Assignee } from "../model/assignee";
 
 export enum incidentActionsType {
   create = '[INCIDENT] create incident item',
   delete = '[INCIDENT] delete incident item',
+  edit = '[INCIDENT] edit incident item',
+  changeAssignee = '[INCIDENT] change assignee for incident item',
 }
 
 export class IncidentCreateAction implements Action {
@@ -27,6 +31,16 @@ export class IncidentDeleteAction implements Action {
   constructor(public payload: {id: number}){}
 }
 
+export class IncidentEditAction implements Action {
+  readonly type = incidentActionsType.edit;
+  constructor(public payload: Incident){}
+}
 
-export type IncidentActions = IncidentCreateAction | IncidentDeleteAction;
+export class IncidentChangeAssigneeAction implements Action {
+  readonly type = incidentActionsType.changeAssignee;
+  constructor(public payload: {id: number, assignee: Assignee}){}
+}
+
+
+export type IncidentActions = IncidentCreateAction | IncidentDeleteAction | IncidentEditAction | IncidentChangeAssigneeAction;
 

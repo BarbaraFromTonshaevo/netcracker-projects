@@ -1,7 +1,6 @@
 import { User } from '../model/user';
 import { UserActions, userActionsType } from './user.actions';
-import { userListSelector } from './user.selector';
-
+import { users } from '../data/users';
 
 export const USER_REDUCER_NODE = 'user';
 
@@ -11,76 +10,15 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  userList: [
-    {
-      id: 12345,
-      fullname: {
-        name: 'Александра',
-        surname: 'Александрова',
-        lastname: 'Александровна',
-      },
-      login: 'alex17',
-      dateOfBirth: new Date(1996, 3, 17),
-      position: 'Старший дизайнер',
-      incidents: [
-        {
-          id: 12345,
-          name: "Testing adaptive",
-        }
-      ]
-    },
-    {
-      id: 12346,
-      fullname: {
-        name: 'Иван',
-        surname: 'Иванов',
-        lastname: 'Иванович',
-      },
-      login: 'vanvan',
-      dateOfBirth: new Date(1988, 7, 3),
-      position: 'Тестировщик',
-    },
-    {
-      id: 12347,
-      fullname: {
-        name: 'Александр',
-        surname: 'Блок',
-        lastname: 'Александрович',
-      },
-      login: 'block',
-      dateOfBirth: new Date(1880, 10, 16),
-      position: 'Технический писатель',
-    },
-    {
-      id: 12348,
-      fullname: {
-        name: 'Теодор',
-        surname: 'Драйзер',
-        lastname: '',
-      },
-      login: 'finansist',
-      dateOfBirth: new Date(1871, 7, 27),
-      position: 'Финансист',
-    },
-    {
-      id: 12349,
-      fullname: {
-        name: 'Ада',
-        surname: 'Лавлейс',
-        lastname: '',
-      },
-      login: 'adalav',
-      dateOfBirth: new Date(1815, 10, 27),
-      position: 'Разработчик',
-    },
-  ]
-  ,
-  idIncrement: 3,
+  userList: users,
+  idIncrement: 12350,
 }
 
 export const userReducer = (state: UserState = initialState, action: UserActions) => {
   switch(action.type) {
     case userActionsType.create:
+      let count = 0;
+      count++;
       return {
         ...state,
         idIncrement: state.idIncrement + 1,
@@ -96,6 +34,7 @@ export const userReducer = (state: UserState = initialState, action: UserActions
             login: action.payload.login,
             dateOfBirth: action.payload.dateOfBirth,
             position: action.payload.position,
+            incidents: null
           }
         ]
       };
@@ -103,6 +42,35 @@ export const userReducer = (state: UserState = initialState, action: UserActions
       return {
         ...state,
         userList: state.userList.filter(item => item.id !== action.payload.id),
+      };
+    case userActionsType.addincident:
+      let newIncidents: {id: number, name: string}[] | null = [];
+      state.userList.find(item => item.id === action.payload.id)?.incidents?.forEach(item => {
+        newIncidents?.push(item);
+      });
+      newIncidents.push(action.payload.incident);
+      return {
+        ...state,
+        userList: state.userList.map(user => user.id === action.payload.id ?
+          {
+          ...user,
+          incidents: newIncidents,
+        }: user)
+      }
+    case userActionsType.edit:
+      console.log(action.payload);
+      return {
+        ...state,
+        userList: state.userList.map(item => item.id === action.payload.id? action.payload : item),
+      }
+    case userActionsType.deleteincident:
+      return {
+        ...state,
+        userList: state.userList.map(user => user.id === action.payload.id?
+          {
+            ...user,
+            incidents: user.incidents?.filter(incident => incident.id !== action.payload.incident.id),
+          }: user),
       }
     default:
       return state;

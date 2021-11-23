@@ -1,0 +1,65 @@
+.incidents-editing{
+  width: 60%;
+  display: flex;
+  margin-bottom: 20px;
+
+  &__search{
+    width: 100%;
+    margin-right: 15px;
+  }
+
+  &__btn_add{
+    background-color: #9873FF;
+    color: white;
+    height: 40px;
+    padding: 0 25px;
+    margin-right: 15px;
+    transition: background-color 0.5s;
+
+    &:hover{
+      background-color: #b499ff;
+    }
+
+    &:disabled{
+      background-color: #8e87a3;
+    }
+  }
+
+  &__btn_cancel{
+    color: #9873FF;
+    border: 1px solid #9873FF;
+    height: 40px;
+    padding: 0 25px;
+  }
+
+  &__incidents-{
+    &link{
+      color: #333;
+      margin-right: 15px;
+      &:hover{
+        color: #9873FF;
+      }
+    }
+
+    &id{
+      color: #B89EFF;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    &name{
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    &label{
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    &list{
+      padding-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+}

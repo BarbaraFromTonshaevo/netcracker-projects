@@ -1,0 +1,21 @@
+<ul class="incidents-editing__incidents-list">
+  <li class="incidents-editing__incidents-item" *ngFor="let incident of currentIncidentsArray">
+    <button class="incidents-editing__incidents-link" (click)="openRoute(('incident/'+incident.id))">
+      <span class="incidents-editing__incidents-id">{{incident.id}}</span>
+      <span class="incidents-editing__incidents-name">{{incident.name}}</span>
+    </button>
+    <!-- <button class="btn-delete" (click)="deleteIncident(incident.id)">
+      <div class="btn-delete__icon"></div>
+      <span class="btn-delete__span">Удалить</span>
+    </button> -->
+  </li>
+</ul>
+<div class="incidents-editing" *ngIf="isOpenedIncidentSearch">
+  <app-search-input [values]="incidentsForSearch" (select)="getId($event)" class="incidents-editing__search"></app-search-input>
+  <button class="incidents-editing__btn incidents-editing__btn_add" (click)="addIncident()" [disabled]="isDisabled">Добавить</button>
+  <button class="incidents-editing__btn incidents-editing__btn_cancel" (click)="changeIsOpenedIncidentSearch()">Отмена</button>
+</div>
+<button class="btn-change" *ngIf="!isOpenedIncidentSearch" (click)="changeIsOpenedIncidentSearch()">
+  <div class="btn-change__icon"></div>
+  <span class="btn-change__span">Добавить инцидент</span>
+</button>
