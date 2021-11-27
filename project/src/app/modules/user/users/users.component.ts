@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../model/user';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+
+import {User} from '../model/user';
 import { UserState } from '../store/user.reducer';
 import { userListSelector } from '../store/user.selector';
 import { UserDeleteAction } from '../store/user.actions';
-
-
 
 
 @Component({

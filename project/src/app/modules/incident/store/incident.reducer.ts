@@ -29,6 +29,8 @@ export const incidentReducer = (state: IncidentState = initialState, action: Inc
             dueDate: action.payload.dueDate,
             startDate: action.payload.startDate,
             assignee: action.payload.assignee,
+            priority: action.payload.priority,
+            description: action.payload.description,
             status: 'Открыто',
           }
         ]

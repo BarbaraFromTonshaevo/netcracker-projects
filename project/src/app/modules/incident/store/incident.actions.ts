@@ -23,7 +23,10 @@ export class IncidentCreateAction implements Action {
     } | null;
     area: string;
     startDate: Date;
-    dueDate: Date;}){}
+    dueDate: Date;
+    priority: string,
+    description: string,
+  }){}
 }
 
 export class IncidentDeleteAction implements Action {
@@ -40,6 +43,7 @@ export class IncidentChangeAssigneeAction implements Action {
   readonly type = incidentActionsType.changeAssignee;
   constructor(public payload: {id: number, assignee: Assignee}){}
 }
+
 
 
 export type IncidentActions = IncidentCreateAction | IncidentDeleteAction | IncidentEditAction | IncidentChangeAssigneeAction;

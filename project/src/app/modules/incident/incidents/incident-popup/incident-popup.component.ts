@@ -12,6 +12,8 @@ import { IncidentState } from '../../store/incident.reducer';
 import { IncidentCreateAction } from '../../store/incident.actions';
 import { incidentListSelector } from '../../store/incident.selector';
 
+import { priorityArray } from '../../model/priority';
+
 @Component({
   selector: 'app-incident-popup',
   templateUrl: './incident-popup.component.html',
@@ -21,8 +23,9 @@ export class IncidentPopupComponent implements OnInit {
   users$: Observable<User[]> = this.usersStore$.pipe(select(userListSelector));
 
   incidentsData: Incident[] = [];
-
+  priorities: string[] = priorityArray;
   @Output() closeClicked = new EventEmitter();
+
 
   name: string = '';
   area: string = '';
@@ -30,8 +33,14 @@ export class IncidentPopupComponent implements OnInit {
   assignee: User|null = null;
   isValid: boolean = true;
   errorMessage: string;
+  priority: string = this.priorities[0];
+  description: string = '';
 
   usersForSearch: {id: number, name: string}[] = [];
+
+  changePriority(priorityValue: string){
+    this.priority = priorityValue;
+  }
 
   getId(id: number){
     this.users$.subscribe((users) => {
@@ -70,6 +79,15 @@ export class IncidentPopupComponent implements OnInit {
       this.isValid = false;
       document.querySelector('input[name="duedate"]')?.classList.add('border-error');
     }
+    else{
+      if(new Date(this.duedate) < new Date()){
+        this.errorMessage += ' Дата дедлайна меньше текущей даты.';
+        this.isValid = false;
+        document.querySelector('input[name="duedate"]')?.classList.add('border-error');
+      }
+    }
+
+
   }
 
   cleanForm(){
@@ -89,7 +107,9 @@ export class IncidentPopupComponent implements OnInit {
         area: this.area,
         startDate: new Date(),
         dueDate: new Date(this.duedate),
-        assignee: this.assignee
+        assignee: this.assignee,
+        priority: this.priority,
+        description: this.description,
       }));
       //добавить изменения для исполнителя в UserStore
       if(this.assignee !== null){

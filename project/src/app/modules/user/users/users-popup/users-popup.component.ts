@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { User } from '../../model/user';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { UserState } from '../../store/user.reducer';
 import { UserCreateAction } from '../../store/user.actions';
 
@@ -37,11 +37,25 @@ export class UsersPopupComponent implements OnInit {
       this.isValid = false;
       document.querySelector('input[name="name"]')?.classList.add('border-error');
     }
+    else{
+      if(!/^([а-яА-ЯёЁa-zA-Z\s]*)$/.test(this.name.trim())){
+        this.errorMessage += ' Неверно указано имя.';
+        this.isValid = false;
+        document.querySelector('input[name="name"]')?.classList.add('border-error');
+      }
+    }
 
     if(this.surname.trim() === ''){
       this.errorMessage += ' Не указана фамилия.';
       this.isValid = false;
       document.querySelector('input[name="surname"]')?.classList.add('border-error');
+    }
+    else{
+      if(!/^([а-яА-ЯёЁa-zA-Z\s]*)$/.test(this.name.trim())){
+        this.errorMessage += ' Неверно указана фамилия.';
+        this.isValid = false;
+        document.querySelector('input[name="surname"]')?.classList.add('border-error');
+      }
     }
 
     if(this.position.trim() === ''){

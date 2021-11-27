@@ -34,6 +34,8 @@ export class IncidentPageComponent implements OnInit {
   status: string = '';
   assignee: Assignee|null;
   initialAssignee: {id: number, name: string};
+  priority: string = '';
+  description: string = '';
 
 
   constructor(
@@ -58,6 +60,9 @@ export class IncidentPageComponent implements OnInit {
       this.dueDate = this.setDate(this.currentIncident.dueDate);
       this.startDate = this.setDate(this.currentIncident.startDate);
       this.status = this.currentIncident.status;
+      this.description = this.currentIncident.description;
+      this.priority = this.currentIncident.priority;
+
       if(this.currentIncident.assignee !== null){
         this.initialAssignee = Object.create({
           id: this.currentIncident.assignee?.id,
@@ -102,28 +107,35 @@ export class IncidentPageComponent implements OnInit {
     this.isValid = true;
     this.errorMessage = '';
 
-    if(this.name.trim() === ''){
-      this.errorMessage += ' Не указано название инцидента.';
-      this.isValid = false;
-      document.querySelector('input[name="name"]')?.classList.add('border-error');
-    }
+    // if(this.name.trim() === ''){
+    //   this.errorMessage += ' Не указано название инцидента.';
+    //   this.isValid = false;
+    //   document.querySelector('input[name="name"]')?.classList.add('border-error');
+    // }
 
-    if(this.area.trim() === ''){
-      this.errorMessage += ' Не указана область.';
-      this.isValid = false;
-      document.querySelector('input[name="area"]')?.classList.add('border-error');
-    }
+    // if(this.area.trim() === ''){
+    //   this.errorMessage += ' Не указана область.';
+    //   this.isValid = false;
+    //   document.querySelector('input[name="area"]')?.classList.add('border-error');
+    // }
 
-    if(this.startDate.trim() === ''){
-      this.errorMessage += ' Не указана дата начала.';
-      this.isValid = false;
-      document.querySelector('input[name="startdate"]')?.classList.add('border-error');
-    }
+    // if(this.startDate.trim() === ''){
+    //   this.errorMessage += ' Не указана дата начала.';
+    //   this.isValid = false;
+    //   document.querySelector('input[name="startdate"]')?.classList.add('border-error');
+    // }
 
     if(this.dueDate.trim() === ''){
       this.errorMessage += ' Не указана дедлайн.';
       this.isValid = false;
       document.querySelector('input[name="dueDate"]')?.classList.add('border-error');
+    }
+    else{
+      if(new Date(this.dueDate) < new Date()){
+        this.errorMessage += ' Дата дедлайна меньше текущей даты.';
+        this.isValid = false;
+        document.querySelector('input[name="duedate"]')?.classList.add('border-error');
+      }
     }
 
     if(this.status.trim() === ''){
@@ -131,6 +143,7 @@ export class IncidentPageComponent implements OnInit {
       this.isValid = false;
       document.querySelector('input[name="status"]')?.classList.add('border-error');
     }
+
   }
 
   editIncident(event: Event){
@@ -147,6 +160,8 @@ export class IncidentPageComponent implements OnInit {
         startDate: new Date(this.startDate),
         dueDate: new Date(this.dueDate),
         status: this.status,
+        priority: this.priority,
+        description: this.description,
       }));
       console.log(this.currentIncident.assignee);
       //удалить старое и добавить новое в userStore

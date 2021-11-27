@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IncidentPopupComponent } from './incident-popup.component';
 import { FormsModule } from '@angular/forms';
 import { SearchInputModule } from 'src/app/modules/cdk/search-input/search-input.module';
+import { SelectModule } from 'src/app/modules/cdk/select/select.module';
 
 
 
@@ -13,7 +14,8 @@ import { SearchInputModule } from 'src/app/modules/cdk/search-input/search-input
   imports: [
     CommonModule,
     FormsModule,
-    SearchInputModule
+    SearchInputModule,
+    SelectModule,
   ],
   exports: [
     IncidentPopupComponent

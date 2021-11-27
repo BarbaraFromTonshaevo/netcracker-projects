@@ -46,5 +46,6 @@ export class UserDeleteIncidentAction implements Action {
   }
 }
 
+
 export type UserActions = UserCreateAction | UserDeleteAction | UserAddIncidentAction | UserEditAction | UserDeleteIncidentAction;
 

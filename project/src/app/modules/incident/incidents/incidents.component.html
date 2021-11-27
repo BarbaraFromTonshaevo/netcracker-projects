@@ -8,6 +8,7 @@
     <th class="table__heading">Дата начала</th>
     <th class="table__heading">Дата дедлайна</th>
     <th class="table__heading">Статус</th>
+    <th class="table__heading">Приоритет</th>
     <th class="table__heading">Действия</th>
   </thead>
   <tbody *ngIf="incidents$ | async as incidents">
@@ -21,6 +22,7 @@
       <td class="table__data">{{incident.startDate | date:"dd.MM.yyyy"}}</td>
       <td class="table__data">{{incident.dueDate | date:"dd.MM.yyyy"}}</td>
       <td class="table__data">{{incident.status}}</td>
+      <td class="table__data">{{incident.priority}}</td>
       <td class="table__data">
         <button class="btn-change" (click)="openIncident(('incident/' + incident.id))">
           <div class="btn-change__icon"></div>

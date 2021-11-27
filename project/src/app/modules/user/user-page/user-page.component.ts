@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { UserState } from '../store/user.reducer';
 import { Observable } from 'rxjs';
-import { userListSelector } from '../store/user.selector';
-import { IncidentState } from '../../incident/store/incident.reducer';
+
+import { User } from '../model/user';
+import { UserState } from '../store/user.reducer';
 import { UserEditAction } from '../store/user.actions';
-import { NgForm } from '@angular/forms';
+import { userListSelector } from '../store/user.selector';
+
+import { IncidentState } from '../../incident/store/incident.reducer';
 import { IncidentChangeAssigneeAction } from '../../incident/store/incident.actions';
+
 
 @Component({
   selector: 'app-user-page',
