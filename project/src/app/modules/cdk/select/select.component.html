@@ -1,0 +1,9 @@
+<div class="popup__select select" [ngClass]="condition">
+  <div class="select__header" (click)="onHeaderSelect()">
+    <span class="select__current">{{headerValue}}</span>
+    <div class="select__icon"></div>
+  </div>
+  <div class="select__body">
+    <div class="select__item" *ngFor="let selectItem of selectList" (click)="onSelect(selectItem)">{{selectItem}}</div>
+  </div>
+</div>

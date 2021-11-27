@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../model/user';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+
+import {User} from '../model/user';
 import { UserState } from '../store/user.reducer';
 import { userListSelector } from '../store/user.selector';
 import { UserDeleteAction } from '../store/user.actions';
-
-
+import { UserSyncStorageService } from '../service/user-sync-storage.service';
 
 
 @Component({
@@ -22,6 +22,7 @@ export class UsersComponent implements OnInit {
   constructor(
     private store$: Store<UserState>,
     private router: Router,
+    private userSyncStorage: UserSyncStorageService,
   ) { }
 
   addUser(){
@@ -42,6 +43,7 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userSyncStorage.init();
   }
 
 }

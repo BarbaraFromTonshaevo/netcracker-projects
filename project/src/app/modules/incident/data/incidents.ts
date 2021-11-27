@@ -1,4 +1,6 @@
-export const incidents = [
+import { Incident } from "../model/incident";
+
+export const incidents: Incident[] = [
   {
     id: 54321,
     name: "Testing adaptive",
@@ -14,6 +16,8 @@ export const incidents = [
     startDate: new Date(2021, 0, 1),
     dueDate: new Date(2021, 3, 10),
     status: 'Закрыто',
+    priority: "Minor",
+    description: '',
   },
   {
     id: 54322,
@@ -21,8 +25,10 @@ export const incidents = [
     area: "Design",
     startDate: new Date(2021, 6, 22),
     dueDate: new Date(2021, 11, 14),
-    status: 'Открыто',
+    status: "Необходима доп информация",
     assignee: null,
+    priority: "Minor",
+    description: '',
   },
   {
     id: 54323,
@@ -32,6 +38,8 @@ export const incidents = [
     dueDate: new Date(2021, 8, 4),
     status: 'Закрыто',
     assignee: null,
+    priority: "Blocker",
+    description: '',
   },
   {
     id: 54324,
@@ -39,7 +47,7 @@ export const incidents = [
     area: "Economy",
     startDate: new Date(2021, 10, 8),
     dueDate: new Date(2021, 11, 4),
-    status: 'Разработка',
+    status: "Исправлено",
     assignee: {
       id: 12348,
       fullname: {
@@ -47,7 +55,9 @@ export const incidents = [
         surname: 'Драйзер',
         lastname: '',
       },
-    }
+    },
+    priority: "Critical",
+    description: '',
   },
   {
     id: 54325,
@@ -55,8 +65,10 @@ export const incidents = [
     area: "Frontend development",
     startDate: new Date(2021, 10, 2),
     dueDate: new Date(2022, 1, 22),
-    status: 'Открыто',
+    status: "Информация предоставлена",
     assignee: null,
+    priority: "Major",
+    description: '',
   },
   {
     id: 54326,
@@ -64,7 +76,9 @@ export const incidents = [
     area: "Software development",
     startDate: new Date(2021, 10, 2),
     dueDate: new Date(2022, 1, 22),
-    status: 'Открыто',
+    status: "Проверено",
     assignee: null,
+    priority: "Normal",
+    description: '',
   },
 ]

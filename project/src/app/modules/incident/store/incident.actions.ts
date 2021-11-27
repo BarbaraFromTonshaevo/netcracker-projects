@@ -1,12 +1,14 @@
 import { Action } from "@ngrx/store";
 import { Incident } from "../model/incident";
 import { Assignee } from "../model/assignee";
+import { IncidentState } from "./incident.reducer";
 
 export enum incidentActionsType {
   create = '[INCIDENT] create incident item',
   delete = '[INCIDENT] delete incident item',
   edit = '[INCIDENT] edit incident item',
   changeAssignee = '[INCIDENT] change assignee for incident item',
+  load = '[INCIDENT] load incident state',
 }
 
 export class IncidentCreateAction implements Action {
@@ -23,7 +25,10 @@ export class IncidentCreateAction implements Action {
     } | null;
     area: string;
     startDate: Date;
-    dueDate: Date;}){}
+    dueDate: Date;
+    priority: string,
+    description: string,
+  }){}
 }
 
 export class IncidentDeleteAction implements Action {
@@ -41,6 +46,12 @@ export class IncidentChangeAssigneeAction implements Action {
   constructor(public payload: {id: number, assignee: Assignee}){}
 }
 
+export class IncidentLoadStateAction implements Action {
+  readonly type = incidentActionsType.load;
+  constructor(public payload: { state: IncidentState}) {
+  }
+}
 
-export type IncidentActions = IncidentCreateAction | IncidentDeleteAction | IncidentEditAction | IncidentChangeAssigneeAction;
+
+export type IncidentActions = IncidentCreateAction | IncidentDeleteAction | IncidentEditAction | IncidentChangeAssigneeAction | IncidentLoadStateAction;
 

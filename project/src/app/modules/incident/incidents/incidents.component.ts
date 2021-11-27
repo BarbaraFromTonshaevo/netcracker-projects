@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { IncidentState } from '../store/incident.reducer';
 import { incidentListSelector } from '../store/incident.selector';
 import { IncidentDeleteAction } from '../store/incident.actions';
+import { IncidentSyncStorageService } from '../service/incident-sync-storage.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class IncidentsComponent implements OnInit {
   constructor(
     private store$: Store<IncidentState>,
     private router: Router,
+    private incidentSyncStorage: IncidentSyncStorageService,
   ) { }
 
   addIncident(){
@@ -46,6 +48,7 @@ export class IncidentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.incidentSyncStorage.init();
   }
 
 }

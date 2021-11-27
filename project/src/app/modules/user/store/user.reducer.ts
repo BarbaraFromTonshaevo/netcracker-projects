@@ -72,6 +72,10 @@ export const userReducer = (state: UserState = initialState, action: UserActions
             incidents: user.incidents?.filter(incident => incident.id !== action.payload.incident.id),
           }: user),
       }
+    case userActionsType.load:
+      return {
+        ...action.payload.state,
+      }
     default:
       return state;
   }

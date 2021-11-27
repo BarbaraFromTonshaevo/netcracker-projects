@@ -9,6 +9,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { UserModule } from './modules/user/user.module';
+import { SelectModule } from './modules/cdk/select/select.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { UserModule } from './modules/user/user.module';
     IncidentModule,
     ProcessModule,
     UserModule,
+    SelectModule,
     StoreModule.forRoot({}, {
       runtimeChecks: {
         strictStateImmutability: true,

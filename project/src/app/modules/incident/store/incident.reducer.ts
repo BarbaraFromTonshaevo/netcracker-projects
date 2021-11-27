@@ -29,6 +29,8 @@ export const incidentReducer = (state: IncidentState = initialState, action: Inc
             dueDate: action.payload.dueDate,
             startDate: action.payload.startDate,
             assignee: action.payload.assignee,
+            priority: action.payload.priority,
+            description: action.payload.description,
             status: 'Открыто',
           }
         ]
@@ -47,6 +49,10 @@ export const incidentReducer = (state: IncidentState = initialState, action: Inc
       return {
         ...state,
         incidentList: state.incidentList.map(item => item.id === action.payload.id ? {...item, assignee: action.payload.assignee} : item)
+      }
+    case incidentActionsType.load:
+      return {
+        ...action.payload.state,
       }
     default:
       return state;

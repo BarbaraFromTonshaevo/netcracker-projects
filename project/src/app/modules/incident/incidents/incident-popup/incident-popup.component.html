@@ -7,12 +7,15 @@
         <label class="popup__label label">Название инцидента*</label>
         <input class="popup__input input" type="text" name="name" [(ngModel)]="name">
         <label class="popup__label label">Исполнитель</label>
-        <!-- <app-search-list size="small" (select)="onSelectAssignee($event)"></app-search-list> -->
         <app-search-input size="small" [values]="usersForSearch" (select)="getId($event)"></app-search-input>
         <label class="popup__label label">Область*</label>
         <input class="popup__input input" type="text" name="area" [(ngModel)]="area">
         <label class="popup__label label">Дедлайн*</label>
         <input class="popup__input input" type="date" name="duedate" [(ngModel)]="duedate">
+        <label class="popup__label label">Приоритет*</label>
+        <app-select [selectList]="priorities" [initialValue]="priorities[0]" (selectItem)="changePriority($event)" style="margin-bottom: 10px;"></app-select>
+        <label class="popup__label label">Описание</label>
+        <textarea class="popup__input textarea" type="text" name="description" [(ngModel)]="description"></textarea>
       </div>
       <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
       <button class="popup__save btn-purple" name="save">Сохранить</button>

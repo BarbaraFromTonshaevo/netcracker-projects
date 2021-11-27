@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { UserState } from '../store/user.reducer';
 import { Observable } from 'rxjs';
-import { userListSelector } from '../store/user.selector';
-import { IncidentState } from '../../incident/store/incident.reducer';
+
+import { User } from '../model/user';
+import { UserState } from '../store/user.reducer';
 import { UserEditAction } from '../store/user.actions';
-import { NgForm } from '@angular/forms';
+import { userListSelector } from '../store/user.selector';
+import { UserSyncStorageService } from '../service/user-sync-storage.service';
+
+import { IncidentState } from '../../incident/store/incident.reducer';
 import { IncidentChangeAssigneeAction } from '../../incident/store/incident.actions';
+
 
 @Component({
   selector: 'app-user-page',
@@ -41,9 +44,11 @@ export class UserPageComponent implements OnInit {
     private incidentStore$: Store<IncidentState>,
     private route: ActivatedRoute,
     private router: Router,
+    private userSyncStorage: UserSyncStorageService,
   ) { }
 
   ngOnInit(): void {
+    this.userSyncStorage.init();
     this.users$.subscribe((users) => {
       this.usersData = users;
     });

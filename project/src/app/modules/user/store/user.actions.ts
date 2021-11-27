@@ -1,5 +1,6 @@
 import { Action } from "@ngrx/store";
 import { User } from "../model/user";
+import { UserState } from "./user.reducer";
 // import { UserState } from "./user.reducer";
 
 export enum userActionsType {
@@ -8,6 +9,7 @@ export enum userActionsType {
   edit = '[USER] edit user item',
   addincident = '[USER] add incident in user item',
   deleteincident = '[USER] delete incident in user item',
+  load = '[USER] load user state',
 }
 
 export class UserCreateAction implements Action {
@@ -46,5 +48,12 @@ export class UserDeleteIncidentAction implements Action {
   }
 }
 
-export type UserActions = UserCreateAction | UserDeleteAction | UserAddIncidentAction | UserEditAction | UserDeleteIncidentAction;
+export class UserLoadStateAction implements Action {
+  readonly type = userActionsType.load;
+  constructor(public payload: { state: UserState}) {
+  }
+}
+
+
+export type UserActions = UserCreateAction | UserDeleteAction | UserAddIncidentAction | UserEditAction | UserDeleteIncidentAction | UserLoadStateAction;
 
