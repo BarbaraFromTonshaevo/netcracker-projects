@@ -207,12 +207,12 @@ html{
   &__label {
     color: #C8C5D1;
     font-size: 10px;
+    margin-bottom: 5px;
   }
 
   &__input {
     border: none;
     border-bottom: 1px solid #C8C5D1;
-    height: 20px;
     margin-bottom: 15px;
     padding-top: 4px;
     padding-bottom: 4px;
@@ -220,6 +220,15 @@ html{
     font-size: 14px;
     line-height: 19px;
     color: #333;
+
+    &.input{
+      height: 20px;
+    }
+
+    &.textarea{
+      height: 80px;
+      border: 1px solid #C8C5D1;
+    }
   }
 
   &__error{
@@ -254,13 +263,28 @@ html{
 
   &__input{
     width: 60%;
-    border: none;
-    border-bottom: 1px solid #C8C5D1;
-    height: 40px;
-
     margin-bottom: 20px;
     font-size: 20px;
     color: #333;
+    background-color: #f7f7f7;
+    border: none;
+    border-bottom: 1px solid #C8C5D1;
+
+    &-search{
+      border: none;
+    }
+    &:disabled{
+      border: none;
+      background-color: #fff;
+    }
+
+    &.input{
+      height: 40px;
+    }
+
+    &.textarea{
+      height: 80px;
+    }
   }
 }
 
