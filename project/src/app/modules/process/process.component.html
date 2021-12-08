@@ -1,1 +1,29 @@
-<p>process works!</p>
+<h2 class="heading process__heading">Процесс</h2>
+<ul class="process__list">
+  <li class="process__item" *ngFor="let process of processes, let i = index">
+    <div class="process__main-status">{{process.status}}</div>
+    <ul class="process__status-list">
+      <li class="process__status-item" *ngFor="let status of process.toStatus">
+        <span class="process__status-value">{{status.substring(0, 20)}}</span>
+        <button class="process__status-delete" (click)="deleteStatus(i, status)"></button>
+      </li>
+    </ul>
+    <div *ngIf="!conditions[i].isDisabledEdition">
+      <button class="process__add-status btn" *ngIf="!conditions[i].isOpenedEdition" (click)="openEdit(i)">Добавить транзакцию</button>
+      <div *ngIf="conditions[i].isOpenedEdition">
+        <app-select class="process__select"
+        [selectList]="conditions[i].search"
+        [initialValue]="conditions[i].search[0]"
+        design="white"
+        [cutLength]="20"
+        (selectItem)="addSelectedItem($event, i)">
+        </app-select>
+        <div class="process__btn-wrap">
+          <button class="process__btn-add" (click)="addStatus(i)">Добавить</button>
+          <button class="process__btn-cancel" (click)="closeEdit(i)">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+

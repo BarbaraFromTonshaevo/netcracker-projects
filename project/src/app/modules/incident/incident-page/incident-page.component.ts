@@ -13,6 +13,8 @@ import { UserState } from '../../user/store/user.reducer';
 import { userListSelector } from '../../user/store/user.selector';
 import { IncidentEditAction } from '../store/incident.actions';
 import { UserAddIncidentAction, UserDeleteIncidentAction } from '../../user/store/user.actions';
+import { ProcessState, Status } from '../../process/store/process.reducer';
+import { processListSelector } from '../../process/store/process.selector';
 
 
 @Component({
@@ -21,11 +23,13 @@ import { UserAddIncidentAction, UserDeleteIncidentAction } from '../../user/stor
 })
 export class IncidentPageComponent implements OnInit {
   incidents$: Observable<Incident[]> = this.incidentStore$.pipe(select(incidentListSelector));
+  process$: Observable<Status[]> = this.processStore$.pipe(select(processListSelector));
   users$: Observable<User[]> = this.userStore$.pipe(select(userListSelector));
 
   incidentsData: Array<Incident> = [];
   currentIncident: Incident;
   usersForSearch: {id: number, name: string}[] = [];
+  selectData: string[] = [];
 
   name: string = '';
   area: string = '';
@@ -41,6 +45,7 @@ export class IncidentPageComponent implements OnInit {
   constructor(
     private incidentStore$: Store<IncidentState>,
     private userStore$: Store<UserState>,
+    private processStore$: Store<ProcessState>,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -62,6 +67,14 @@ export class IncidentPageComponent implements OnInit {
       this.status = this.currentIncident.status;
       this.description = this.currentIncident.description;
       this.priority = this.currentIncident.priority;
+
+      this.process$.subscribe((process)=>{
+        process.find(item => item.status === this.currentIncident.status)?.toStatus.forEach((status)=>{
+          this.selectData.push(status);
+        })
+      })
+      this.selectData.push(this.currentIncident.status);
+      // console.log(this.selectData);
 
       if(this.currentIncident.assignee !== null){
         this.initialAssignee = Object.create({
@@ -88,6 +101,10 @@ export class IncidentPageComponent implements OnInit {
     return date.getFullYear() +'-'+
     ((date.getMonth() + 1) < 10 ? '0'+(date.getMonth()+1): date.getMonth()+1)+'-'+
     (date.getDay() < 10 ? '0' + date.getDay() : date.getDay());
+  }
+
+  onSelectStatus(status: string){
+    this.status = status;
   }
 
   onSelectAssignee(id: number){

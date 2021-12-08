@@ -246,6 +246,10 @@ html {
 .page__input.textarea {
   height: 80px;
 }
+.page__select {
+  width: 60%;
+  margin-bottom: 15px;
+}
 .border-error {
   border-color: red;
 }

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
 
 import { Incident } from '../model/incident';
-import { select, Store } from '@ngrx/store';
 import { IncidentState } from '../store/incident.reducer';
 import { incidentListSelector } from '../store/incident.selector';
 import { IncidentDeleteAction } from '../store/incident.actions';

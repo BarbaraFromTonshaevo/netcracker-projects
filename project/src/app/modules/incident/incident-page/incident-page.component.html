@@ -15,10 +15,10 @@
   <label class="page__label label">Исполнитель:</label>
   <app-search-input [values]="usersForSearch" (select)="onSelectAssignee($event)" class="page__input page__input-search" [initialValue]="initialAssignee"></app-search-input>
   <label class="page__label label">Статус:</label>
-  <input class="page__input input" type="text" name="status" [(ngModel)]="status">
+  <app-select [selectList]="selectData" [initialValue]="status" (selectItem)="onSelectStatus($event)" class="page__select"></app-select>
   <label class="page__label label">Описание:</label>
   <textarea class="page__input textarea" type="text" name="description" [(ngModel)]="description"></textarea>
-  
+
   <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
   <button class="page__save btn">Сохранить изменения</button>
   <p class="save-message" *ngIf="saveMessage">Инцидент был сохранен</p>
