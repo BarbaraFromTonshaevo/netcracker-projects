@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { UserModule } from './modules/user/user.module';
 import { SelectModule } from './modules/cdk/select/select.module';
+import { EffectsModule } from '@ngrx/effects';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { SelectModule } from './modules/cdk/select/select.module';
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent]

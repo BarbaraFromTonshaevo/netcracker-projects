@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import {User} from '../model/user';
 import { UserState } from '../store/user.reducer';
 import { userListSelector } from '../store/user.selector';
-import { UserDeleteAction } from '../store/user.actions';
+import { UserDeleteAction, UserLoadAction } from '../store/user.actions';
 
 
 @Component({
@@ -41,6 +41,7 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store$.dispatch(new UserLoadAction);
   }
 
 }

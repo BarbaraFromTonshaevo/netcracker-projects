@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { Incident } from '../model/incident';
 import { IncidentState } from '../store/incident.reducer';
 import { incidentListSelector } from '../store/incident.selector';
-import { IncidentDeleteAction } from '../store/incident.actions';
+import { IncidentDeleteAction, IncidentLoadAction } from '../store/incident.actions';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class IncidentsComponent implements OnInit {
   constructor(
     private store$: Store<IncidentState>,
     private router: Router,
-  ) { }
+  ){  }
 
   addIncident(){
     console.log('open popup');
@@ -46,6 +46,7 @@ export class IncidentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store$.dispatch(new IncidentLoadAction);
   }
 
 }

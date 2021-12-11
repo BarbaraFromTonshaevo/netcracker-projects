@@ -8,6 +8,7 @@ export enum userActionsType {
   edit = '[USER] edit user item',
   addincident = '[USER] add incident in user item',
   deleteincident = '[USER] delete incident in user item',
+  load = '[USER] load user items',
 }
 
 export class UserCreateAction implements Action {
@@ -46,6 +47,9 @@ export class UserDeleteIncidentAction implements Action {
   }
 }
 
+export class UserLoadAction implements Action {
+  readonly type = userActionsType.load;
+}
 
-export type UserActions = UserCreateAction | UserDeleteAction | UserAddIncidentAction | UserEditAction | UserDeleteIncidentAction;
+export type UserActions = UserCreateAction | UserDeleteAction | UserAddIncidentAction | UserEditAction | UserDeleteIncidentAction | UserLoadAction;
 

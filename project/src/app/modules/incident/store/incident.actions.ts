@@ -7,6 +7,7 @@ export enum incidentActionsType {
   delete = '[INCIDENT] delete incident item',
   edit = '[INCIDENT] edit incident item',
   changeAssignee = '[INCIDENT] change assignee for incident item',
+  load = '[INCIDENT] load incident items',
 }
 
 export class IncidentCreateAction implements Action {
@@ -39,6 +40,11 @@ export class IncidentEditAction implements Action {
   constructor(public payload: Incident){}
 }
 
+export class IncidentLoadAction implements Action {
+  readonly type = incidentActionsType.load;
+  // constructor(public payload: Incident){}
+}
+
 export class IncidentChangeAssigneeAction implements Action {
   readonly type = incidentActionsType.changeAssignee;
   constructor(public payload: {id: number, assignee: Assignee}){}
@@ -46,5 +52,5 @@ export class IncidentChangeAssigneeAction implements Action {
 
 
 
-export type IncidentActions = IncidentCreateAction | IncidentDeleteAction | IncidentEditAction | IncidentChangeAssigneeAction;
+export type IncidentActions = IncidentCreateAction | IncidentDeleteAction | IncidentEditAction | IncidentChangeAssigneeAction | IncidentLoadAction;
 

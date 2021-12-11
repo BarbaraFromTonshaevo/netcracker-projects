@@ -71,6 +71,14 @@ export const userReducer = (state: UserState = initialState, action: UserActions
             incidents: user.incidents?.filter(incident => incident.id !== action.payload.incident.id),
           }: user),
       }
+    case userActionsType.load:
+      let localUserData = localStorage.getItem('user');
+      let userData = localUserData? JSON.parse(localUserData) : null;
+      return {
+        ...state,
+        userList: userData? userData.userList : state.userList,
+        idIncrement: userData? userData.idIncrement : state.idIncrement,
+      }
     default:
       return state;
   }
