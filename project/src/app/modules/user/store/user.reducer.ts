@@ -72,6 +72,7 @@ export const userReducer = (state: UserState = initialState, action: UserActions
           }: user),
       }
     case userActionsType.load:
+      console.log('load user...');
       let localUserData = localStorage.getItem('user');
       let userData = localUserData? JSON.parse(localUserData) : null;
       return {

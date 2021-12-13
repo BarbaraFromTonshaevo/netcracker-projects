@@ -51,7 +51,7 @@ export const incidentReducer = (state: IncidentState = initialState, action: Inc
         incidentList: state.incidentList.map(item => item.id === action.payload.id ? {...item, assignee: action.payload.assignee} : item)
       }
     case incidentActionsType.load:
-      console.log('load...');
+      console.log('load incident...');
       let localIncidentData = localStorage.getItem('incident');
       let incidentData = localIncidentData? JSON.parse(localIncidentData) : null;
       return {

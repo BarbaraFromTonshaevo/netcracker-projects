@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { UserModule } from './modules/user/user.module';
 import { SelectModule } from './modules/cdk/select/select.module';
 import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './modules/user/store/user.effects';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { EffectsModule } from '@ngrx/effects';
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([UserEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]
