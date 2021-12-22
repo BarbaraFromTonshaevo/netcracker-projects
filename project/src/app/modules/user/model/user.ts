@@ -13,3 +13,11 @@ export interface User {
     name: string,
   }> | null,
 }
+
+export interface UserInfo {
+  name: string,
+  surname: string,
+  lastname: string,
+  login: string,
+  position: string,
+  dateOfBirth: Date }

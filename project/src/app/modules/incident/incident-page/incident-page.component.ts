@@ -69,12 +69,16 @@ export class IncidentPageComponent implements OnInit {
       this.priority = this.currentIncident.priority;
 
       this.process$.subscribe((process)=>{
+        console.log('incident-page');
+        console.log(this.currentIncident.status);
         process.find(item => item.status === this.currentIncident.status)?.toStatus.forEach((status)=>{
+          console.log('there 2');
+          console.log(status);
           this.selectData.push(status);
         })
       })
       this.selectData.push(this.currentIncident.status);
-      // console.log(this.selectData);
+      console.log(this.selectData);
 
       if(this.currentIncident.assignee !== null){
         this.initialAssignee = Object.create({

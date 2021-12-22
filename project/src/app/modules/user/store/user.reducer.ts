@@ -71,15 +71,21 @@ export const userReducer = (state: UserState = initialState, action: UserActions
             incidents: user.incidents?.filter(incident => incident.id !== action.payload.incident.id),
           }: user),
       }
-    case userActionsType.load:
-      console.log('load user...');
-      let localUserData = localStorage.getItem('user');
-      let userData = localUserData? JSON.parse(localUserData) : null;
+    case userActionsType.loadedSuccess:
+      console.log('load user success...');
       return {
         ...state,
-        userList: userData? userData.userList : state.userList,
-        idIncrement: userData? userData.idIncrement : state.idIncrement,
+        userList: action.payload.userList,
+        idIncrement: action.payload.idIncrement,
       }
+    case userActionsType.loadedError:
+      console.log('load user error...');
+      // можно переделать state в тпкч оставить нетронутым, initial value.
+      return {
+        ...state,
+        // userList: [],
+        // idIncrement: 0,
+      };
     default:
       return state;
   }

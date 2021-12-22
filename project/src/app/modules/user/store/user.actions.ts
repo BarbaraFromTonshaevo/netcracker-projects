@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { User } from "../model/user";
+import { User, UserInfo } from "../model/user";
 // import { UserState } from "./user.reducer";
 
 export enum userActionsType {
@@ -8,18 +8,15 @@ export enum userActionsType {
   edit = '[USER] edit user item',
   addincident = '[USER] add incident in user item',
   deleteincident = '[USER] delete incident in user item',
+
   load = '[USER] load user items',
+  loadedSuccess = '[USER] user loaded success',
+  loadedError = '[USER] user loaded error',
 }
 
 export class UserCreateAction implements Action {
   readonly type = userActionsType.create;
-  constructor(public payload: {
-    name: string,
-    surname: string,
-    lastname: string,
-    login: string,
-    position: string,
-    dateOfBirth: Date }) {
+  constructor(public payload: UserInfo) {
   }
 }
 
@@ -47,9 +44,24 @@ export class UserDeleteIncidentAction implements Action {
   }
 }
 
+//Loading
+
 export class UserLoadAction implements Action {
   readonly type = userActionsType.load;
 }
 
-export type UserActions = UserCreateAction | UserDeleteAction | UserAddIncidentAction | UserEditAction | UserDeleteIncidentAction | UserLoadAction;
+export class UserLoadedSuccess implements Action {
+  readonly type = userActionsType.loadedSuccess;
+  constructor(public payload: { userList: User[], idIncrement: number }) {
+    console.log('success');
+  };
+}
+
+
+export class UserLoadedError implements Action {
+  readonly type = userActionsType.loadedError;
+}
+
+export type UserActions = UserCreateAction | UserDeleteAction | UserAddIncidentAction | UserEditAction | UserDeleteIncidentAction
+ | UserLoadAction | UserLoadedSuccess | UserLoadedError;
 

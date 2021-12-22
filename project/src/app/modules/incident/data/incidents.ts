@@ -25,7 +25,7 @@ export const incidents: Incident[] = [
     area: "Design",
     startDate: new Date(2021, 6, 22),
     dueDate: new Date(2021, 11, 14),
-    status: "Необходима доп информация",
+    status: "Необходима доп. информация",
     assignee: null,
     priority: "Minor",
     description: '',

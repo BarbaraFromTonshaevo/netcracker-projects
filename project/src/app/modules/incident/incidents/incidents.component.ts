@@ -46,7 +46,7 @@ export class IncidentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(new IncidentLoadAction);
+    // this.store$.dispatch(new IncidentLoadAction);
   }
 
 }
