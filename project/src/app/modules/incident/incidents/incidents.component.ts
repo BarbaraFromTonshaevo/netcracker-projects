@@ -24,12 +24,10 @@ export class IncidentsComponent implements OnInit {
   ){  }
 
   addIncident(){
-    console.log('open popup');
     this.isOpenedPopup = true;
   }
 
   closeIncidentPopup($event: any){
-    console.log('closeIncidentPopup');
     this.isOpenedPopup = false;
   }
 
@@ -46,7 +44,7 @@ export class IncidentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.store$.dispatch(new IncidentLoadAction);
+    this.store$.dispatch(new IncidentLoadAction);
   }
 
 }

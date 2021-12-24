@@ -1,6 +1,7 @@
 import { Incident } from '../model/incident';
 import { IncidentActions, incidentActionsType } from './incident.actions';
 import { incidents } from '../data/incidents';
+import { act } from '@ngrx/effects';
 
 export const INCIDENT_REDUCER_NODE = 'incident';
 
@@ -50,14 +51,16 @@ export const incidentReducer = (state: IncidentState = initialState, action: Inc
         ...state,
         incidentList: state.incidentList.map(item => item.id === action.payload.id ? {...item, assignee: action.payload.assignee} : item)
       }
-    case incidentActionsType.load:
-      console.log('load incident...');
-      let localIncidentData = localStorage.getItem('incident');
-      let incidentData = localIncidentData? JSON.parse(localIncidentData) : null;
+    case incidentActionsType.loadedSuccess:
       return {
         ...state,
-        incidentList: incidentData? incidentData.incidentList : state.incidentList,
-        idIncrement: incidentData? incidentData.idIncrement: state.idIncrement,
+        incidentList: action.payload.incidentList,
+        idIncrement: action.payload.idIncrement,
+      }
+    case incidentActionsType.loadedError:
+      localStorage.setItem('incident', JSON.stringify(state));
+      return {
+        ...state,
       }
     default:
       return state;

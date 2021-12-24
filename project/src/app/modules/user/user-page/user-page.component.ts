@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { User } from '../model/user';
 import { UserState } from '../store/user.reducer';
-import { UserEditAction } from '../store/user.actions';
+import { UserEditAction, UserLoadAction } from '../store/user.actions';
 import { userListSelector } from '../store/user.selector';
 
 import { IncidentState } from '../../incident/store/incident.reducer';
@@ -33,6 +33,8 @@ export class UserPageComponent implements OnInit {
 
 
   setDate(date: Date){
+    date = new Date(date);
+
     return date.getFullYear() +'-'+
     ((date.getMonth() + 1) < 10 ? '0'+(date.getMonth()+1): date.getMonth()+1)+'-'+
     (date.getDay() < 10 ? '0' + date.getDay() : date.getDay());
@@ -46,6 +48,7 @@ export class UserPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userStore$.dispatch(new UserLoadAction);
     this.users$.subscribe((users) => {
       this.usersData = users;
     });
@@ -63,7 +66,6 @@ export class UserPageComponent implements OnInit {
       this.position = this.currentUser.position;
       this.dateOfBirth = this.setDate(this.currentUser.dateOfBirth);
       this.incidents = this.currentUser.incidents;
-
     }
     else{
       this.router.navigate(['not-found']);

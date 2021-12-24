@@ -13,8 +13,11 @@ export class UserService {
   constructor(private store$: Store<UserState>) { };
 
   getUsers(){
-    console.log('get User service');
-    return JSON.parse(String(localStorage.getItem(USER_LOCALSTORAGE_KEY)));
+    let userData = localStorage.getItem(USER_LOCALSTORAGE_KEY);
+    if(userData){
+      return JSON.parse(String(userData));
+    }
+    throw new Error('The given key does not exist in localstorage');
   }
 
   addUser(user: UserInfo){

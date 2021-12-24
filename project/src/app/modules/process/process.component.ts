@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { statuses } from './model/status';
-import { processAddAction, processDeleteAction } from './store/process.actions';
+import { ProcessAddAction, ProcessDeleteAction, ProcessLoadAction } from './store/process.actions';
 import { ProcessState, Status } from './store/process.reducer';
 import { processListSelector } from './store/process.selector';
 
@@ -31,6 +31,7 @@ export class ProcessComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.store$.dispatch(new ProcessLoadAction);
     this.processes$.subscribe(currProcess => {
       this.processes = currProcess;
       currProcess.forEach(processItem => {
@@ -59,7 +60,7 @@ export class ProcessComponent implements OnInit {
 
   addStatus(index: number){
     // добавить в процесс
-    this.store$.dispatch(new processAddAction({id: index, value: this.conditions[index].select}));
+    this.store$.dispatch(new ProcessAddAction({id: index, value: this.conditions[index].select}));
     // убрать из списка поиска
     this.conditions[index].search = this.conditions[index].search.filter(item => item !== this.conditions[index].select);
     // отчистить селект
@@ -74,7 +75,7 @@ export class ProcessComponent implements OnInit {
 
   deleteStatus(index: number, status: string){
     // this.processes[index].toStatus = this.processes[index].toStatus.filter(item => item !== status);
-    this.store$.dispatch(new processDeleteAction({id: index, value: status}))
+    this.store$.dispatch(new ProcessDeleteAction({id: index, value: status}))
     this.conditions[index].search.push(status);
     this.conditions[index].isDisabledEdition = false;
   }

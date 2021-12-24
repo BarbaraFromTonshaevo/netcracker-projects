@@ -36,6 +36,19 @@ export const processReducer = (state:ProcessState = initialState, action: Proces
           toStatus: newToStatus,
         }: item),
       };
+    case processActionsType.loadedSuccess:
+      console.log('success');
+      return {
+        ...state,
+        processList: action.payload.processList,
+      }
+    case processActionsType.loadError:
+      localStorage.setItem('process', JSON.stringify(state));
+      console.log('error');
+      // вставить стэйт в локалсторидж
+      return {
+        ...state,
+      }
     default:
       return state;
   }

@@ -1,27 +1,26 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, Effect, ofType } from "@ngrx/effects";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../service/user.service";
 import { userActionsType, UserLoadedSuccess} from "./user.actions";
-import { map, mergeMap, catchError, tap } from 'rxjs/operators';
-import { User } from "../model/user";
+import { map, tap } from 'rxjs/operators';
+import { dispatch } from "rxjs/internal/observable/pairs";
 
 @Injectable()
 export class UserEffects {
 
   loadUser$ = createEffect(()=>this.actions$.pipe(
     ofType(userActionsType.load),
-    map((action)=>{
+    map(()=>{
       console.log('effect load');
-      new UserLoadedSuccess(this.userService.getUsers());
+      return new UserLoadedSuccess(this.userService.getUsers());
     })
-  ),{dispatch: false});
+  ));
 
-  // loadUser$ = this.actions$.pipe(
-  //   ofType(userActionsType.load),
-  //   map((action)=>{
-  //     console.log('effect load');
-  //     new UserLoadedSuccess(this.userService.getUsers());
-  //   }));
+  // addUser$ = this.actions$.pipe(
+  //   ofType(userActionsType.create),
+  //   tap(action => )
+
+  // )
 
   constructor (private actions$: Actions,
     private userService: UserService){

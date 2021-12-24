@@ -72,19 +72,15 @@ export const userReducer = (state: UserState = initialState, action: UserActions
           }: user),
       }
     case userActionsType.loadedSuccess:
-      console.log('load user success...');
       return {
         ...state,
         userList: action.payload.userList,
         idIncrement: action.payload.idIncrement,
       }
     case userActionsType.loadedError:
-      console.log('load user error...');
-      // можно переделать state в тпкч оставить нетронутым, initial value.
+      localStorage.setItem('user', JSON.stringify(state));
       return {
         ...state,
-        // userList: [],
-        // idIncrement: 0,
       };
     default:
       return state;

@@ -57,7 +57,6 @@ export class UserLoadedSuccess implements Action {
   };
 }
 
-
 export class UserLoadedError implements Action {
   readonly type = userActionsType.loadedError;
 }

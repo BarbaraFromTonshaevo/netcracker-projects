@@ -11,10 +11,11 @@ import { incidentListSelector } from '../store/incident.selector';
 import { User } from '../../user/model/user';
 import { UserState } from '../../user/store/user.reducer';
 import { userListSelector } from '../../user/store/user.selector';
-import { IncidentEditAction } from '../store/incident.actions';
-import { UserAddIncidentAction, UserDeleteIncidentAction } from '../../user/store/user.actions';
+import { IncidentEditAction, IncidentLoadAction } from '../store/incident.actions';
+import { UserAddIncidentAction, UserDeleteIncidentAction, UserLoadAction } from '../../user/store/user.actions';
 import { ProcessState, Status } from '../../process/store/process.reducer';
 import { processListSelector } from '../../process/store/process.selector';
+import { IncidentService } from '../service/incident.service';
 
 
 @Component({
@@ -43,14 +44,19 @@ export class IncidentPageComponent implements OnInit {
 
 
   constructor(
-    private incidentStore$: Store<IncidentState>,
     private userStore$: Store<UserState>,
     private processStore$: Store<ProcessState>,
+    private incidentStore$: Store<IncidentState>,
+
     private route: ActivatedRoute,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
+    // this.processStore$.dispatch(new ProcessLoadAction);
+    this.userStore$.dispatch(new UserLoadAction);
+    this.incidentStore$.dispatch(new IncidentLoadAction);
+
     this.incidents$.subscribe((incidents) => {
       this.incidentsData = incidents;
     });
@@ -69,16 +75,11 @@ export class IncidentPageComponent implements OnInit {
       this.priority = this.currentIncident.priority;
 
       this.process$.subscribe((process)=>{
-        console.log('incident-page');
-        console.log(this.currentIncident.status);
         process.find(item => item.status === this.currentIncident.status)?.toStatus.forEach((status)=>{
-          console.log('there 2');
-          console.log(status);
           this.selectData.push(status);
         })
       })
       this.selectData.push(this.currentIncident.status);
-      console.log(this.selectData);
 
       if(this.currentIncident.assignee !== null){
         this.initialAssignee = Object.create({
@@ -102,6 +103,7 @@ export class IncidentPageComponent implements OnInit {
   }
 
   setDate(date: Date){
+    date = new Date(date);
     return date.getFullYear() +'-'+
     ((date.getMonth() + 1) < 10 ? '0'+(date.getMonth()+1): date.getMonth()+1)+'-'+
     (date.getDay() < 10 ? '0' + date.getDay() : date.getDay());
@@ -170,7 +172,6 @@ export class IncidentPageComponent implements OnInit {
   editIncident(event: Event){
     event.preventDefault();
     this.validation();
-    console.log('UPDATE...');
 
     if(this.isValid){
       this.incidentStore$.dispatch(new IncidentEditAction({
@@ -184,7 +185,6 @@ export class IncidentPageComponent implements OnInit {
         priority: this.priority,
         description: this.description,
       }));
-      console.log(this.currentIncident.assignee);
       //удалить старое и добавить новое в userStore
       if(this.currentIncident.id !== this.assignee?.id){
         // если изменили исполнителя

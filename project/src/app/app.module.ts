@@ -12,6 +12,8 @@ import { UserModule } from './modules/user/user.module';
 import { SelectModule } from './modules/cdk/select/select.module';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './modules/user/store/user.effects';
+import { IncidentEffects } from './modules/incident/store/incident.effects';
+import { ProcessEffects } from './modules/process/store/process.effects';
 
 
 @NgModule({
@@ -32,7 +34,7 @@ import { UserEffects } from './modules/user/store/user.effects';
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([UserEffects, IncidentEffects, ProcessEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]
