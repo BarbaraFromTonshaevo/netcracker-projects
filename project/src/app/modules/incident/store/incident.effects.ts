@@ -2,9 +2,8 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { IncidentService } from "../service/incident.service";
 import { incidentActionsType, IncidentLoadedError, IncidentLoadedSuccess } from "./incident.actions";
-import { catchError, map} from 'rxjs/operators';
+import { catchError, map, tap} from 'rxjs/operators';
 import { of } from "rxjs";
-import { ProcessLoadedError } from "../../process/store/process.actions";
 
 @Injectable()
 export class IncidentEffects {
@@ -20,4 +19,11 @@ export class IncidentEffects {
     }),
     catchError(()=> of(new IncidentLoadedError()))
   ))
+
+  addIncident$ = createEffect(()=>this.actions$.pipe(
+    ofType(incidentActionsType.create),
+    tap((action: any)=>{
+      this.incidentService.addIncident(action.payload);
+    })
+  ),{dispatch: false});
 }

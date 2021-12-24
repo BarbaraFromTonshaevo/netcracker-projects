@@ -21,18 +21,20 @@ export class UserService {
   }
 
   addUser(user: UserInfo){
-
-    let newUser: User = {
-      id: 12345,//вставить новое
+    let userData: {userList: User[], idIncrement: number} = JSON.parse(String(localStorage.getItem(USER_LOCALSTORAGE_KEY)));
+    userData.userList.push({
+      id: userData.idIncrement,
       fullname: {
         name: user.name,
         surname: user.surname,
         lastname: user.lastname,
       },
       login: user.login,
-      dateOfBirth: new Date(user.dateOfBirth),
       position: user.position,
+      dateOfBirth: user.dateOfBirth,
       incidents: null,
-    }
+    });
+    userData.idIncrement++;
+    localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(userData));
   }
 }

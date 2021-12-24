@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Status } from '../store/process.reducer';
+import { PROCESS_REDUCER_NODE, Status } from '../store/process.reducer';
 
 export const PROCESS_LOCALSTORAGE_KEY = 'process';
 
@@ -21,11 +21,13 @@ export class ProcessService {
   }
 
   addProcess(id: number, value: string){
-    let processData: Status[] = JSON.parse(String(localStorage.getItem(PROCESS_LOCALSTORAGE_KEY)));
-    console.log(processData);
-    processData.find(item => item.id === id)?.toStatus.push(value);
-    console.log(processData);
-    // add in localStorage
-    localStorage.setItem('process', JSON.stringify(processData));
+    let processData: Status[] = JSON.parse(String(localStorage.getItem(PROCESS_LOCALSTORAGE_KEY))).processList;
+    let newItem = processData.map(item => item.id === id?
+      {
+        ...item,
+        toStatus: [...item.toStatus, value]
+      }:
+      item);
+    localStorage.setItem(PROCESS_REDUCER_NODE, JSON.stringify({processList: newItem}));
   }
 }

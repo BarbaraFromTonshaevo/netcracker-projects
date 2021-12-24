@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Incident } from "../model/incident";
+import { Incident, IncidentInfo } from "../model/incident";
 import { Assignee } from "../model/assignee";
 
 export enum incidentActionsType {
@@ -15,22 +15,7 @@ export enum incidentActionsType {
 
 export class IncidentCreateAction implements Action {
   readonly type = incidentActionsType.create;
-  constructor(public payload: {
-    name: string,
-    assignee: {
-      id: number,
-      fullname: {
-        name: string,
-        surname: string,
-        lastname: string,
-      }
-    } | null;
-    area: string;
-    startDate: Date;
-    dueDate: Date;
-    priority: string,
-    description: string,
-  }){}
+  constructor(public payload: IncidentInfo){}
 }
 
 export class IncidentDeleteAction implements Action {

@@ -27,19 +27,9 @@ export class ProcessEffects {
 
   addProcess$ = createEffect(()=>this.actions$.pipe(
     ofType(processActionsType.add),
-    tap((action)=>{
-      // console.log(action);
+    tap((action: any)=>{
+      console.log(action);
       this.processService.addProcess(action.payload.id, action.payload.value)
     })
   ),{dispatch: false});
-
-
-  // addProcess$ = createEffect(()=>this.actions$.pipe(
-  //   ofType(processActionsType.add),
-  //   tap(()=>{
-  //     console.log('tap');
-  //   })
-  // ))
-
-
 }
