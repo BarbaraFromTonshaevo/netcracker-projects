@@ -7,6 +7,9 @@ import { Incident } from '../model/incident';
 import { IncidentState } from '../store/incident.reducer';
 import { incidentListSelector } from '../store/incident.selector';
 import { IncidentDeleteAction, IncidentLoadAction } from '../store/incident.actions';
+import { UserState } from '../../user/store/user.reducer';
+import { isNgTemplate } from '@angular/compiler';
+import { UserDeleteIncidentAction, UserLoadAction } from '../../user/store/user.actions';
 
 
 @Component({
@@ -15,12 +18,14 @@ import { IncidentDeleteAction, IncidentLoadAction } from '../store/incident.acti
   styleUrls: ['./incidents.component.less']
 })
 export class IncidentsComponent implements OnInit {
-  incidents$: Observable<Incident[]> = this.store$.pipe(select(incidentListSelector));
+  // incidents$: Observable<Incident[]> = this.incidentStore$.pipe(select(incidentListSelector));
+  incidents: Incident[] = [];
   isOpenedPopup = false;
 
   constructor(
-    private store$: Store<IncidentState>,
     private router: Router,
+    private incidentStore$: Store<IncidentState>,
+    private userStore$: Store<UserState>,
   ){  }
 
   addIncident(){
@@ -40,11 +45,26 @@ export class IncidentsComponent implements OnInit {
   }
 
   deleteIncident(id: number){
-    this.store$.dispatch(new IncidentDeleteAction({id}));
+    // удаление из assignee
+    let currIncident = this.incidents.find(item => item.id === id);
+    if(currIncident?.assignee){
+      this.userStore$.dispatch(new UserDeleteIncidentAction({
+        id: currIncident.assignee.id,
+        incident: {
+          id: currIncident.id,
+          name: currIncident.name,
+        }
+      }))
+    }
+    this.incidentStore$.dispatch(new IncidentDeleteAction(id));
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(new IncidentLoadAction);
+    this.userStore$.dispatch(new UserLoadAction);
+    this.incidentStore$.dispatch(new IncidentLoadAction);
+    this.incidentStore$.pipe(select(incidentListSelector)).subscribe(incidents=>{
+      this.incidents = incidents;
+    })
   }
 
 }

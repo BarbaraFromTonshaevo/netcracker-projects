@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, Effect, ofType } from "@ngrx/effects";
+import { act, Actions, createEffect, Effect, ofType } from "@ngrx/effects";
 import { ProcessService } from "../service/process.service";
 import { processActionsType, ProcessLoadedSuccess, ProcessLoadedError } from "./process.actions";
 import { map, catchError, tap } from 'rxjs/operators';
@@ -28,8 +28,14 @@ export class ProcessEffects {
   addProcess$ = createEffect(()=>this.actions$.pipe(
     ofType(processActionsType.add),
     tap((action: any)=>{
-      console.log(action);
-      this.processService.addProcess(action.payload.id, action.payload.value)
+      this.processService.addProcess(action.payload.id, action.payload.value);
     })
   ),{dispatch: false});
+
+  deleteProcess$ = createEffect(()=>this.actions$.pipe(
+    ofType(processActionsType.delete),
+    tap((action: any)=>{
+      this.processService.deleteProcess(action.payload.id, action.payload.value);
+    })
+  ),{dispatch: false})
 }

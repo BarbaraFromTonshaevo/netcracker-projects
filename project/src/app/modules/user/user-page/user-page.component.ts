@@ -29,7 +29,7 @@ export class UserPageComponent implements OnInit {
   login: string;
   position: string;
   dateOfBirth: string;
-  incidents: {id: number, name: string}[]|null;
+  incidents: {id: number, name: string}[];
 
 
   setDate(date: Date){
@@ -72,7 +72,7 @@ export class UserPageComponent implements OnInit {
     }
   }
 
-  updateIncidents(newIncidentsArray: {id: number, name: string}[]|null){
+  updateIncidents(newIncidentsArray: {id: number, name: string}[]){
     this.incidents = newIncidentsArray;
   }
 

@@ -34,16 +34,17 @@ export const userReducer = (state: UserState = initialState, action: UserActions
             login: action.payload.login,
             dateOfBirth: action.payload.dateOfBirth,
             position: action.payload.position,
-            incidents: null
+            incidents: []
           }
         ]
       };
     case userActionsType.delete:
       return {
         ...state,
-        userList: state.userList.filter(item => item.id !== action.payload.id),
+        userList: state.userList.filter(item => item.id !== action.payload),
       };
     case userActionsType.addincident:
+      console.log(action.payload.incident);
       let newIncidents: {id: number, name: string}[] | null = [];
       state.userList.find(item => item.id === action.payload.id)?.incidents?.forEach(item => {
         newIncidents?.push(item);
@@ -63,6 +64,7 @@ export const userReducer = (state: UserState = initialState, action: UserActions
         userList: state.userList.map(item => item.id === action.payload.id? action.payload : item),
       }
     case userActionsType.deleteincident:
+      console.log(action.payload.incident);
       return {
         ...state,
         userList: state.userList.map(user => user.id === action.payload.id?

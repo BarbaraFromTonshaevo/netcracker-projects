@@ -22,12 +22,22 @@ export class ProcessService {
 
   addProcess(id: number, value: string){
     let processData: Status[] = JSON.parse(String(localStorage.getItem(PROCESS_LOCALSTORAGE_KEY))).processList;
-    let newItem = processData.map(item => item.id === id?
+    processData = processData.map(item => item.id === id?
       {
         ...item,
         toStatus: [...item.toStatus, value]
       }:
       item);
-    localStorage.setItem(PROCESS_REDUCER_NODE, JSON.stringify({processList: newItem}));
+    localStorage.setItem(PROCESS_REDUCER_NODE, JSON.stringify({processList: processData}));
+  }
+
+  deleteProcess(id: number, value: string){
+    let processData: Status[] = JSON.parse(String(localStorage.getItem(PROCESS_LOCALSTORAGE_KEY))).processList;
+    processData = processData.map(item => item.id === id?
+      {
+        ...item,
+        toStatus: item.toStatus.filter(item => item !== value)
+      }:item);
+    localStorage.setItem(PROCESS_REDUCER_NODE,JSON.stringify({processList: processData}));
   }
 }

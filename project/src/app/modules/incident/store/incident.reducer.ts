@@ -39,7 +39,7 @@ export const incidentReducer = (state: IncidentState = initialState, action: Inc
     case incidentActionsType.delete:
       return {
         ...state,
-        incidentList: state.incidentList.filter(item => item.id !== action.payload.id),
+        incidentList: state.incidentList.filter(item => item.id !== action.payload),
       }
     case incidentActionsType.edit:
       return {

@@ -190,6 +190,7 @@ export class IncidentPageComponent implements OnInit {
         // если изменили исполнителя
         // то удаляем старый
         if(this.currentIncident.assignee !== null){
+          console.log('сча будет делет');
           this.userStore$.dispatch(new UserDeleteIncidentAction({
             id: this.currentIncident.assignee.id,
             incident: {
@@ -200,6 +201,7 @@ export class IncidentPageComponent implements OnInit {
         }
         // добавляем новый
         if(this.assignee !== null){
+          console.log('сча будет адд');
           this.userStore$.dispatch(new UserAddIncidentAction({
             id: this.assignee.id,
             incident: {

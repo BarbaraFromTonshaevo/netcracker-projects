@@ -11,7 +11,7 @@ export interface User {
   incidents: Array<{
     id: number,
     name: string,
-  }> | null,
+  }>,
 }
 
 export interface UserInfo {

@@ -22,7 +22,7 @@ export class UserCreateAction implements Action {
 
 export class UserDeleteAction implements Action {
   readonly type = userActionsType.delete;
-  constructor(public payload: {id: number}) {
+  constructor(public payload: number) {
   }
 }
 
@@ -53,7 +53,6 @@ export class UserLoadAction implements Action {
 export class UserLoadedSuccess implements Action {
   readonly type = userActionsType.loadedSuccess;
   constructor(public payload: { userList: User[], idIncrement: number }) {
-    console.log('success');
   };
 }
 

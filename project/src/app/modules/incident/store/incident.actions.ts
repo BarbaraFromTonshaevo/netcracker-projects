@@ -20,7 +20,7 @@ export class IncidentCreateAction implements Action {
 
 export class IncidentDeleteAction implements Action {
   readonly type = incidentActionsType.delete;
-  constructor(public payload: {id: number}){}
+  constructor(public payload:  number){}
 }
 
 export class IncidentEditAction implements Action {
@@ -30,8 +30,9 @@ export class IncidentEditAction implements Action {
 
 export class IncidentChangeAssigneeAction implements Action {
   readonly type = incidentActionsType.changeAssignee;
-  constructor(public payload: {id: number, assignee: Assignee}){}
+  constructor(public payload: {id: number, assignee: Assignee|null}){}
 }
+
 
 export class IncidentLoadAction implements Action {
   readonly type = incidentActionsType.load;

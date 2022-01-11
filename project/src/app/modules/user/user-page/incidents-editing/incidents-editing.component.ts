@@ -19,7 +19,7 @@ interface IncidentObject{
 })
 export class IncidentsEditingComponent implements OnInit {
   allIncidents$: Observable<Incident[]> = this.store$.pipe(select(incidentListSelector));
-  @Output() newIncidentsArray = new EventEmitter<Array<IncidentObject>|null>();//передача массив инцидентов
+  @Output() newIncidentsArray = new EventEmitter<Array<IncidentObject>>();//передача массив инцидентов
   incidentsForSearch: IncidentObject[] = [];//другие инциденты, по которым можно производить поиск
   @Input() incidents: IncidentObject[]|null;//инциденты пользователя
   currentIncidentsArray: IncidentObject[] = [];//инциденты пользователя с изменениями

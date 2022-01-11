@@ -11,7 +11,7 @@
     <th class="table__heading">Приоритет</th>
     <th class="table__heading">Действия</th>
   </thead>
-  <tbody *ngIf="incidents$ | async as incidents">
+  <tbody>
     <tr class="table__row" *ngFor="let incident of incidents">
       <td class="table__data">{{incident.id}}</td>
       <td class="table__data">{{incident.name}}</td>

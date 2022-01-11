@@ -12,12 +12,12 @@ export enum processActionsType {
 
 export class ProcessDeleteAction implements Action {
   readonly type = processActionsType.delete;
-  constructor(public payload: {id: number, value: string}){}
+  constructor(public payload: {id: number, value: string}){
+  }
 }
 export class ProcessAddAction implements Action {
   readonly type = processActionsType.add;
   constructor(public payload: {id: number, value: string}){
-    console.log('PROCESS ADD');
   }
 }
 export class ProcessLoadAction implements Action {

@@ -1,4 +1,6 @@
-export const users = [
+import { User } from "../model/user";
+
+export const users: User[] = [
   {
     id: 12345,
     fullname: {
@@ -26,7 +28,7 @@ export const users = [
     login: 'vanvan',
     dateOfBirth: new Date(1988, 7, 3),
     position: 'Тестировщик',
-    incidents: null,
+    incidents: [],
   },
   {
     id: 12347,
@@ -38,7 +40,7 @@ export const users = [
     login: 'block',
     dateOfBirth: new Date(1880, 10, 16),
     position: 'Технический писатель',
-    incidents: null
+    incidents: []
   },
   {
     id: 12348,
@@ -67,7 +69,7 @@ export const users = [
     login: 'adalav',
     dateOfBirth: new Date(1815, 10, 27),
     position: 'Разработчик',
-    incidents: null
+    incidents: []
   },
 ]
 

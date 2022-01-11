@@ -8,7 +8,7 @@
     <th class="table__heading">Должность</th>
     <th class="table__heading">Действия</th>
   </thead>
-  <tbody *ngIf="users$ | async as users">
+  <tbody>
     <tr class="table__row" *ngFor="let user of users">
       <td class="table__data">{{user.id}}</td>
       <td class="table__data">{{user.fullname.surname}} {{user.fullname.name}} {{user.fullname.lastname}}</td>

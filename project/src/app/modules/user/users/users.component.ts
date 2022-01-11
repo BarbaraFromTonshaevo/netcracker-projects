@@ -8,6 +8,8 @@ import {User} from '../model/user';
 import { UserState } from '../store/user.reducer';
 import { userListSelector } from '../store/user.selector';
 import { UserDeleteAction, UserLoadAction } from '../store/user.actions';
+import { IncidentState } from '../../incident/store/incident.reducer';
+import { IncidentChangeAssigneeAction } from '../../incident/store/incident.actions';
 
 // @UntilDestroy()
 // @Component({})
@@ -23,12 +25,13 @@ import { UserDeleteAction, UserLoadAction } from '../store/user.actions';
   styleUrls: ['./users.component.less']
 })
 export class UsersComponent implements OnInit {
-  users$: Observable<User[]> = this.store$.pipe(select(userListSelector));
-
+  // users$: Observable<User[]> = this.userStore$.pipe(select(userListSelector));
+  users: User[] = [];
   isOpenedPopup = false;
   constructor(
-    private store$: Store<UserState>,
     private router: Router,
+    private userStore$: Store<UserState>,
+    private incidentStore$: Store<IncidentState>
   ) { }
 
   addUser(){
@@ -36,7 +39,6 @@ export class UsersComponent implements OnInit {
   }
 
   closeUserPopup($event: any){
-    console.log('closeIncidentPopup');
     this.isOpenedPopup = false;
   }
 
@@ -45,11 +47,18 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number){
-    this.store$.dispatch(new UserDeleteAction({id}));
+    this.users.find(item=>item.id === id)?.incidents?.forEach(incident => {
+      console.log(`Delete assignee ${id} from incident ${incident.id}  ${incident.name}`);
+      this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({id: incident.id, assignee: null}));
+    })
+    this.userStore$.dispatch(new UserDeleteAction(id));
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(new UserLoadAction);
+    this.userStore$.dispatch(new UserLoadAction);
+    this.userStore$.pipe(select(userListSelector)).subscribe(users=>{
+      this.users = users;
+    })
   }
 
 }
