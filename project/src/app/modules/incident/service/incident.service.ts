@@ -1,63 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Assignee } from '../model/assignee';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { map, tap } from 'rxjs/operators';
 import { Incident, IncidentInfo } from '../model/incident';
-
-export const INCIDENT_LOCALSTORAGE_KEY = 'incident';
+import { Assignee } from '../model/assignee';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IncidentService {
 
-  constructor() { }
-
-  getIncidents(){
-    let incidentData = localStorage.getItem(INCIDENT_LOCALSTORAGE_KEY);
-    if(incidentData){
-      return JSON.parse(String(incidentData));
-    }
-    throw new Error('The given key does not exist in localstorage');
+  public getIncidents(){
+    return this.http.get(`${environment.api}/incidents`);
   }
 
-  addIncident(incident: IncidentInfo){
-    let incidentData: {incidentList: Incident[], idIncrement: number} = JSON.parse(String(localStorage.getItem(INCIDENT_LOCALSTORAGE_KEY)));
-    incidentData.incidentList.push({
-      id: incidentData.idIncrement,
-      assignee: incident.assignee,
-      name: incident.name,
-      area: incident.area,
-      startDate: incident.startDate,
-      dueDate: incident.dueDate,
-      priority: incident.priority,
-      description: incident.description,
-      status: 'Открыто',
-    });
-    incidentData.idIncrement++;
-    localStorage.setItem(INCIDENT_LOCALSTORAGE_KEY, JSON.stringify(incidentData));
+  public getIncident(id: string){
+    return this.http.get(`${environment.api}/incidents/${id}`);
   }
 
-  deleteIncident(id: number){
-    let incidentData: {incidentList: Incident[], idIncrement: number} = JSON.parse(String(localStorage.getItem(INCIDENT_LOCALSTORAGE_KEY)));
-    incidentData.incidentList = incidentData.incidentList.filter(item => item.id !== id);
-    localStorage.setItem(INCIDENT_LOCALSTORAGE_KEY, JSON.stringify(incidentData));
+  public postIncident(incident: IncidentInfo){
+    return this.http.post(`${environment.api}/incidents`, JSON.stringify(incident), {headers:  { "Accept": "application/json", "Content-Type": "application/json" }});
   }
 
-  editIncident(incident: Incident){
-    let incidentData: {incidentList: Incident[], idIncrement: number} = JSON.parse(String(localStorage.getItem(INCIDENT_LOCALSTORAGE_KEY)));
-    incidentData.incidentList = incidentData.incidentList.map(item => item.id === incident.id? incident: item);
-    localStorage.setItem(INCIDENT_LOCALSTORAGE_KEY, JSON.stringify(incidentData));
+  public deleteIncident(id: string){
+    return this.http.delete(`${environment.api}/incidents/${id}`);
   }
 
-  changeAssignee(id: number, assignee: Assignee|null){
-    console.log('change assignee service');
-    let incidentData: {incidentList: Incident[], idIncrement: number} = JSON.parse(String(localStorage.getItem(INCIDENT_LOCALSTORAGE_KEY)));
-    incidentData.incidentList = incidentData.incidentList.map(item => item.id === id?
-      {
-        ...item,
-        assignee: assignee
-      }: item);
-    localStorage.setItem(INCIDENT_LOCALSTORAGE_KEY, JSON.stringify(incidentData));
+  public editIncident(incident: Incident){
+    return this.http.put(`${environment.api}/incidents`, JSON.stringify(incident), {headers:  { "Accept": "application/json", "Content-Type": "application/json" }});
   }
 
+  public changeAssignee(objectInfo: {id: string, assignee: Assignee}){
+    return this.http.patch(`${environment.api}/incidents`, JSON.stringify(objectInfo), {headers:  { "Accept": "application/json", "Content-Type": "application/json" }});
+  }
 
+  constructor(private http: HttpClient) { }
 }

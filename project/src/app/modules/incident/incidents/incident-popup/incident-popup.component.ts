@@ -13,6 +13,7 @@ import { IncidentCreateAction } from '../../store/incident.actions';
 import { incidentListSelector } from '../../store/incident.selector';
 
 import { priorityArray } from '../../model/priority';
+import { Assignee } from '../../model/assignee';
 
 @Component({
   selector: 'app-incident-popup',
@@ -20,7 +21,7 @@ import { priorityArray } from '../../model/priority';
 })
 export class IncidentPopupComponent implements OnInit {
   incidents$: Observable<Incident[]> = this.incidentsStore$.pipe(select(incidentListSelector));
-  users$: Observable<User[]> = this.usersStore$.pipe(select(userListSelector));
+  // users$: Observable<User[]> = this.usersStore$.pipe(select(userListSelector));
 
   incidentsData: Incident[] = [];
   priorities: string[] = priorityArray;
@@ -30,7 +31,7 @@ export class IncidentPopupComponent implements OnInit {
   name: string = '';
   area: string = '';
   duedate: string = '';
-  assignee: User|null = null;
+  assignee: Assignee|null = null;
   isValid: boolean = true;
   errorMessage: string;
   priority: string = this.priorities[0];
@@ -42,11 +43,11 @@ export class IncidentPopupComponent implements OnInit {
     this.priority = priorityValue;
   }
 
-  getId(id: number){
-    this.users$.subscribe((users) => {
-      let assignee = users.find(item => item.id === id);
-      this.assignee = assignee? assignee : null;
-    })
+  getId(id: string){
+    // this.users$.subscribe((users) => {
+    //   let assignee = users.find(item => item.id === id);
+    //   this.assignee = assignee? assignee : null;
+    // })
   }
 
   closePopup($event: Event){
@@ -55,7 +56,7 @@ export class IncidentPopupComponent implements OnInit {
   }
 
   onSelectAssignee(user: User){
-    this.assignee = user;
+    this.assignee = {_id: user._id, fullname: user.fullname};
   }
 
   validation(){
@@ -110,18 +111,19 @@ export class IncidentPopupComponent implements OnInit {
         assignee: this.assignee,
         priority: this.priority,
         description: this.description,
+        status: 'Открыто'
       }));
       //добавить изменения для исполнителя в UserStore
-      if(this.assignee !== null){
-        console.log( Math.max.apply(null, this.incidentsData.map(item => item.id)));
-        this.usersStore$.dispatch(new UserAddIncidentAction({
-          id: this.assignee.id,
-          incident: {
-            id: Math.max.apply(null, this.incidentsData.map(item => item.id)),//новосозданное
-            name: this.name,
-          }
-        }))
-      }
+      // if(this.assignee !== null){
+      //   console.log( Math.max.apply(null, this.incidentsData.map(item => item.id)));
+      //   this.usersStore$.dispatch(new UserAddIncidentAction({
+      //     id: this.assignee.id,
+      //     incident: {
+      //       id: Math.max.apply(null, this.incidentsData.map(item => item.id)),//новосозданное
+      //       name: this.name,
+      //     }
+      //   }))
+      // }
       //отчистить
       this.cleanForm();
       this.closeClicked.emit();
@@ -130,21 +132,21 @@ export class IncidentPopupComponent implements OnInit {
 
   constructor(
     private incidentsStore$: Store<IncidentState>,
-    private usersStore$: Store<UserState>
+    // private usersStore$: Store<UserState>
     ) { }
 
   ngOnInit(): void {
     this.incidents$.subscribe((incidents) => {
       this.incidentsData = incidents;
     });
-    this.users$.subscribe((users)=>{
-      this.usersForSearch = users.map(item => {
-        return {
-          id: item.id,
-          name: `${item.fullname.surname} ${item.fullname.name} ${item.fullname.lastname}`,
-        }
-      })
-    })
+    // this.users$.subscribe((users)=>{
+    //   this.usersForSearch = users.map(item => {
+    //     return {
+    //       id: item.id,
+    //       name: `${item.fullname.surname} ${item.fullname.name} ${item.fullname.lastname}`,
+    //     }
+    //   })
+    // })
   }
 
 }

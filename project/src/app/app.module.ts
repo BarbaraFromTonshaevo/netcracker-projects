@@ -11,9 +11,10 @@ import { StoreModule } from '@ngrx/store';
 import { UserModule } from './modules/user/user.module';
 import { SelectModule } from './modules/cdk/select/select.module';
 import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './modules/user/store/user.effects';
+// import { UserEffects } from './modules/user/store/user.effects';
 import { IncidentEffects } from './modules/incident/store/incident.effects';
-import { ProcessEffects } from './modules/process/store/process.effects';
+import { HttpClientModule } from '@angular/common/http';
+// import { ProcessEffects } from './modules/process/store/process.effects';
 
 
 @NgModule({
@@ -24,8 +25,9 @@ import { ProcessEffects } from './modules/process/store/process.effects';
     BrowserModule,
     AppRoutingModule,
     IncidentModule,
-    ProcessModule,
-    UserModule,
+    HttpClientModule,
+    // ProcessModule,
+    // UserModule,
     SelectModule,
     StoreModule.forRoot({}, {
       runtimeChecks: {
@@ -34,7 +36,9 @@ import { ProcessEffects } from './modules/process/store/process.effects';
       }
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([UserEffects, IncidentEffects, ProcessEffects]),
+    // EffectsModule.forRoot([UserEffects, IncidentEffects, ProcessEffects]),
+    EffectsModule.forRoot([IncidentEffects]),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

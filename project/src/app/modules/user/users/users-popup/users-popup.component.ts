@@ -95,6 +95,7 @@ export class UsersPopupComponent implements OnInit {
         login: this.login,
         dateOfBirth: new Date(this.dateOfBirth),
         position: this.position,
+        incidents: []
       }));
       this.cleanForm();
       this.closeClicked.emit();

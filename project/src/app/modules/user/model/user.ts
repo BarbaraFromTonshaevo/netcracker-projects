@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  _id: string;
   fullname: {
     name: string,
     surname: string,
@@ -9,7 +9,7 @@ export interface User {
   dateOfBirth: Date,
   position: string,
   incidents: Array<{
-    id: number,
+    _id: string,
     name: string,
   }>,
 }
@@ -20,4 +20,8 @@ export interface UserInfo {
   lastname: string,
   login: string,
   position: string,
-  dateOfBirth: Date }
+  dateOfBirth: Date,
+  incidents:  Array<{
+    _id: number,
+    name: string,
+  }>}

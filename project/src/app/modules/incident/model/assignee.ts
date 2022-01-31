@@ -1,5 +1,5 @@
 export interface Assignee{
-  id: number,
+  _id: string,
   fullname: {
     name: string,
     surname: string,

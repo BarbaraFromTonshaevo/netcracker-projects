@@ -29,7 +29,7 @@ export class IncidentPageComponent implements OnInit {
 
   incidentsData: Array<Incident> = [];
   currentIncident: Incident;
-  usersForSearch: {id: number, name: string}[] = [];
+  usersForSearch: {_id: string, name: string}[] = [];
   selectData: string[] = [];
 
   name: string = '';
@@ -38,7 +38,7 @@ export class IncidentPageComponent implements OnInit {
   dueDate: string = '';
   status: string = '';
   assignee: Assignee|null;
-  initialAssignee: {id: number, name: string};
+  initialAssignee: {_id: string, name: string};
   priority: string = '';
   description: string = '';
 
@@ -60,8 +60,8 @@ export class IncidentPageComponent implements OnInit {
     this.incidents$.subscribe((incidents) => {
       this.incidentsData = incidents;
     });
-    const id = +this.route.snapshot.params.id;
-    let incident = this.incidentsData.find(x => x.id === id);
+    const id = this.route.snapshot.params.id;
+    let incident = this.incidentsData.find(x => x._id === id);
     if(incident){
       this.currentIncident = incident;
 
@@ -83,7 +83,7 @@ export class IncidentPageComponent implements OnInit {
 
       if(this.currentIncident.assignee !== null){
         this.initialAssignee = Object.create({
-          id: this.currentIncident.assignee?.id,
+          id: this.currentIncident.assignee?._id,
           name: `${this.currentIncident.assignee?.fullname.surname} ${this.currentIncident.assignee?.fullname.name} ${this.currentIncident.assignee?.fullname.lastname}`,
         })
       }
@@ -95,7 +95,7 @@ export class IncidentPageComponent implements OnInit {
       // в будущем можно вставить проверку на пороф пригодность
       this.usersForSearch = users.map(item => {
         return {
-          id: item.id,
+          _id: item._id,
           name: `${item.fullname.surname} ${item.fullname.name} ${item.fullname.lastname}`,
         }
       })
@@ -113,9 +113,9 @@ export class IncidentPageComponent implements OnInit {
     this.status = status;
   }
 
-  onSelectAssignee(id: number){
+  onSelectAssignee(id: string){
     this.users$.subscribe((users)=>{
-      let user = users.find(item => item.id === id);
+      let user = users.find(item => item._id === id);
       if(user){
         this.assignee = user;
       }
@@ -175,9 +175,9 @@ export class IncidentPageComponent implements OnInit {
 
     if(this.isValid){
       this.incidentStore$.dispatch(new IncidentEditAction({
-        id: this.currentIncident.id,
+        _id: this.currentIncident._id,
         name: this.name,
-        assignee: this.assignee? {id: this.assignee.id, fullname: this.assignee.fullname} : null,
+        assignee: this.assignee? {_id: this.assignee._id, fullname: this.assignee.fullname} : null,
         area: this.area,
         startDate: new Date(this.startDate),
         dueDate: new Date(this.dueDate),
@@ -186,15 +186,15 @@ export class IncidentPageComponent implements OnInit {
         description: this.description,
       }));
       //удалить старое и добавить новое в userStore
-      if(this.currentIncident.id !== this.assignee?.id){
+      if(this.currentIncident._id !== this.assignee?._id){
         // если изменили исполнителя
         // то удаляем старый
         if(this.currentIncident.assignee !== null){
           console.log('сча будет делет');
           this.userStore$.dispatch(new UserDeleteIncidentAction({
-            id: this.currentIncident.assignee.id,
+            _id: this.currentIncident.assignee._id,
             incident: {
-              id: this.currentIncident.id,
+              _id: this.currentIncident._id,
               name: this.currentIncident.name,
             }
           }));
@@ -203,9 +203,9 @@ export class IncidentPageComponent implements OnInit {
         if(this.assignee !== null){
           console.log('сча будет адд');
           this.userStore$.dispatch(new UserAddIncidentAction({
-            id: this.assignee.id,
+            _id: this.assignee._id,
             incident: {
-              id: this.currentIncident.id,
+              _id: this.currentIncident._id,
               name: this.name,
             }
           }))

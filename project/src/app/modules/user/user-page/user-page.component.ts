@@ -29,7 +29,7 @@ export class UserPageComponent implements OnInit {
   login: string;
   position: string;
   dateOfBirth: string;
-  incidents: {id: number, name: string}[];
+  incidents: {_id: string, name: string}[];
 
 
   setDate(date: Date){
@@ -54,8 +54,8 @@ export class UserPageComponent implements OnInit {
     });
     this.usersData;
 
-    const id = +this.route.snapshot.params.id;
-    let newUser = this.usersData.find(x => x.id === id);
+    const id = this.route.snapshot.params.id;
+    let newUser = this.usersData.find(x => x._id === id);
     if(newUser){
       this.currentUser = newUser;
 
@@ -72,7 +72,7 @@ export class UserPageComponent implements OnInit {
     }
   }
 
-  updateIncidents(newIncidentsArray: {id: number, name: string}[]){
+  updateIncidents(newIncidentsArray: {_id: string, name: string}[]){
     this.incidents = newIncidentsArray;
   }
 
@@ -125,7 +125,7 @@ export class UserPageComponent implements OnInit {
       console.log(this.incidents);
       // добавить изменения пользователя
       this.userStore$.dispatch(new UserEditAction({
-        id: this.currentUser.id,
+        _id: this.currentUser._id,
         fullname: {
           name: this.name,
           surname: this.surname,
@@ -139,9 +139,9 @@ export class UserPageComponent implements OnInit {
       // поменять у инцидентов исполнителей
       this.incidents?.forEach(item => {
         this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({
-          id: item.id,
+          id: item._id,
           assignee: {
-            id: this.currentUser.id,
+            _id: this.currentUser._id,
             fullname: {
               name: this.name,
               surname: this.surname,

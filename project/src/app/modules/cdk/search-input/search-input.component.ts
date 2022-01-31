@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 type listSize = 'defult' | 'small';
 
 interface SearchObject{
-  id: number,
+  id: string,
   name: string,
 }
 
@@ -14,7 +14,7 @@ interface SearchObject{
   styleUrls: ['./search-input.component.less']
 })
 export class SearchInputComponent implements OnInit {
-  @Output() select = new EventEmitter<number>();//возвращает id выбранного элемента
+  @Output() select = new EventEmitter<string>();//возвращает id выбранного элемента
 
   @Input() initialValue: SearchObject;//начальное значение
   @Input() values: SearchObject[];//переданный список, по которому необходимо провести поиск

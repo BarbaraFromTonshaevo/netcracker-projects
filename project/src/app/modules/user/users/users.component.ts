@@ -46,10 +46,10 @@ export class UsersComponent implements OnInit {
     this.router.navigate([route]);
   }
 
-  deleteUser(id: number){
-    this.users.find(item=>item.id === id)?.incidents?.forEach(incident => {
-      console.log(`Delete assignee ${id} from incident ${incident.id}  ${incident.name}`);
-      this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({id: incident.id, assignee: null}));
+  deleteUser(id: string){
+    this.users.find(item=>item._id === id)?.incidents?.forEach(incident => {
+      console.log(`Delete assignee ${id} from incident ${incident._id}  ${incident.name}`);
+      this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({id: incident._id, assignee: null}));
     })
     this.userStore$.dispatch(new UserDeleteAction(id));
   }

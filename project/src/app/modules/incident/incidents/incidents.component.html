@@ -13,10 +13,10 @@
   </thead>
   <tbody>
     <tr class="table__row" *ngFor="let incident of incidents">
-      <td class="table__data">{{incident.id}}</td>
+      <td class="table__data">{{incident._id}}</td>
       <td class="table__data">{{incident.name}}</td>
       <td class="table__data">
-        <button class="btn-assignee" (click)="openAssignee(('user/'+incident.assignee?.id))">{{incident.assignee?.fullname | appFio }}</button>
+        <button class="btn-assignee" (click)="openAssignee(('user/'+incident.assignee?._id))">{{incident.assignee?.fullname | appFio }}</button>
       </td>
       <td class="table__data">{{incident.area}}</td>
       <td class="table__data">{{incident.startDate | date:"dd.MM.yyyy"}}</td>
@@ -24,11 +24,11 @@
       <td class="table__data">{{incident.status}}</td>
       <td class="table__data">{{incident.priority}}</td>
       <td class="table__data">
-        <button class="btn-change" (click)="openIncident(('incident/' + incident.id))">
+        <button class="btn-change" (click)="openIncident(('incident/' + incident._id))">
           <div class="btn-change__icon"></div>
           <span class="btn-change__span">Изменить</span>
         </button>
-        <button class="btn-delete" (click)="deleteIncident(incident.id)">
+        <button class="btn-delete" (click)="deleteIncident(incident._id)">
           <div class="btn-delete__icon"></div>
           <span class="btn-delete__span">Удалить</span>
         </button>

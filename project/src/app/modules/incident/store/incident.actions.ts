@@ -20,7 +20,7 @@ export class IncidentCreateAction implements Action {
 
 export class IncidentDeleteAction implements Action {
   readonly type = incidentActionsType.delete;
-  constructor(public payload:  number){}
+  constructor(public payload:  string){}
 }
 
 export class IncidentEditAction implements Action {
@@ -30,21 +30,29 @@ export class IncidentEditAction implements Action {
 
 export class IncidentChangeAssigneeAction implements Action {
   readonly type = incidentActionsType.changeAssignee;
-  constructor(public payload: {id: number, assignee: Assignee|null}){}
+  constructor(public payload: {id: string, assignee: Assignee|null}){}
 }
 
 
 export class IncidentLoadAction implements Action {
   readonly type = incidentActionsType.load;
+  constructor(){
+    console.log('Load');
+  }
 }
 
 export class IncidentLoadedSuccess implements Action {
   readonly type = incidentActionsType.loadedSuccess;
-  constructor(public payload: {incidentList: Incident[], idIncrement: number}){}
+  constructor(public payload: Incident[]){
+    console.log('Success');
+  }
 }
 
 export class IncidentLoadedError implements Action {
   readonly type = incidentActionsType.loadedError;
+  constructor(){
+    console.log('Error');
+  }
 }
 
 export type IncidentActions = IncidentCreateAction | IncidentDeleteAction | IncidentEditAction | IncidentChangeAssigneeAction |

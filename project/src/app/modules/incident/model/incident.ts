@@ -1,6 +1,6 @@
 import { Assignee } from "./assignee";
 export interface Incident {
-  id: number;
+  _id: string;
   name: string;
   assignee: Assignee | null;
   area: string;
@@ -19,4 +19,5 @@ export interface IncidentInfo{
   dueDate: Date;
   priority: string,
   description: string,
+  status: string,
 }

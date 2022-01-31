@@ -12,18 +12,18 @@ export const routes: Routes = [
     path: '',
     component: IncidentsComponent,
   },
-  {
-    path: 'process',
-    component: ProcessComponent,
-  },
-  {
-    path: 'users',
-    component: UsersComponent,
-  },
-  {
-    path: 'user/:id',
-    component: UserPageComponent,
-  },
+  // {
+  //   path: 'process',
+  //   component: ProcessComponent,
+  // },
+  // {
+  //   path: 'users',
+  //   component: UsersComponent,
+  // },
+  // {
+  //   path: 'user/:id',
+  //   component: UserPageComponent,
+  // },
   {
     path: 'incident/:id',
     component: IncidentPageComponent,

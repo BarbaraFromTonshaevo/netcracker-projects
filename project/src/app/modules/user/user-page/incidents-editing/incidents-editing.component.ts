@@ -8,7 +8,7 @@ import { incidentListSelector } from 'src/app/modules/incident/store/incident.se
 import { isExpressionFactoryMetadata } from '@angular/compiler/src/render3/r3_factory';
 
 interface IncidentObject{
-  id: number,
+  id: string,
   name: string
 }
 
@@ -25,13 +25,13 @@ export class IncidentsEditingComponent implements OnInit {
   currentIncidentsArray: IncidentObject[] = [];//инциденты пользователя с изменениями
   isOpenedIncidentSearch = false;
   isDisabled = false;//блокировка кнопки добавить
-  selectedIncident: {id: number, name: string};
+  selectedIncident: {id: string, name: string};
 
-  getId(id: number){
+  getId(id: string){
     this.selectedIncident = this.incidentsForSearch.find(item => item.id === id)!;
   }
 
-  deleteIncident(id: number){
+  deleteIncident(id: string){
     let incident = this.currentIncidentsArray.find(item => item.id === id);
     if(incident){
       this.incidentsForSearch.push(incident);
@@ -75,7 +75,9 @@ export class IncidentsEditingComponent implements OnInit {
   ngOnInit(): void {
     this.allIncidents$.subscribe((allIncidents)=>{
       //  в дальнейшем можно добавить проверку на статус и область
-      this.incidentsForSearch = allIncidents.filter(item => item.assignee === null);
+      this.incidentsForSearch = allIncidents.filter(item => item.assignee === null).map(item => {
+        return {id: item._id ,name: item.name};
+      });
     });
 
     this.incidents?.forEach(item =>{

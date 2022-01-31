@@ -10,6 +10,7 @@ import { IncidentDeleteAction, IncidentLoadAction } from '../store/incident.acti
 import { UserState } from '../../user/store/user.reducer';
 import { isNgTemplate } from '@angular/compiler';
 import { UserDeleteIncidentAction, UserLoadAction } from '../../user/store/user.actions';
+import { IncidentService } from '../service/incident.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { UserDeleteIncidentAction, UserLoadAction } from '../../user/store/user.
   styleUrls: ['./incidents.component.less']
 })
 export class IncidentsComponent implements OnInit {
-  // incidents$: Observable<Incident[]> = this.incidentStore$.pipe(select(incidentListSelector));
+  incidents$: Observable<Incident[]> = this.incidentStore$.pipe(select(incidentListSelector));
   incidents: Incident[] = [];
   isOpenedPopup = false;
 
@@ -26,6 +27,7 @@ export class IncidentsComponent implements OnInit {
     private router: Router,
     private incidentStore$: Store<IncidentState>,
     private userStore$: Store<UserState>,
+    private incidentService: IncidentService,
   ){  }
 
   addIncident(){
@@ -44,27 +46,27 @@ export class IncidentsComponent implements OnInit {
     this.router.navigate([route]);
   }
 
-  deleteIncident(id: number){
+  deleteIncident(id: string){
     // удаление из assignee
-    let currIncident = this.incidents.find(item => item.id === id);
-    if(currIncident?.assignee){
-      this.userStore$.dispatch(new UserDeleteIncidentAction({
-        id: currIncident.assignee.id,
-        incident: {
-          id: currIncident.id,
-          name: currIncident.name,
-        }
-      }))
-    }
+    // let currIncident = this.incidents.find(item => item.id === id);
+    // if(currIncident?.assignee){
+    //   this.userStore$.dispatch(new UserDeleteIncidentAction({
+    //     id: currIncident.assignee.id,
+    //     incident: {
+    //       id: currIncident.id,
+    //       name: currIncident.name,
+    //     }
+    //   }))
+    // }
     this.incidentStore$.dispatch(new IncidentDeleteAction(id));
   }
 
   ngOnInit(): void {
-    this.userStore$.dispatch(new UserLoadAction);
+    // this.userStore$.dispatch(new UserLoadAction);
     this.incidentStore$.dispatch(new IncidentLoadAction);
-    this.incidentStore$.pipe(select(incidentListSelector)).subscribe(incidents=>{
+    this.incidentStore$.pipe(select(incidentListSelector)).subscribe(incidents => {
       this.incidents = incidents;
-    })
+    });
   }
 
 }
