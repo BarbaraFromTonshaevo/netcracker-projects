@@ -58,26 +58,26 @@ export class ProcessComponent implements OnInit {
     this.conditions[index].select = status;
   }
 
-  addStatus(index: number){
+  addStatus(statusItem: Status){
     // добавить в процесс
-    this.store$.dispatch(new ProcessAddAction({id: index, value: this.conditions[index].select}));
+    this.store$.dispatch(new ProcessAddAction({status: statusItem, value: this.conditions[statusItem.position].select}));
     // убрать из списка поиска
-    this.conditions[index].search = this.conditions[index].search.filter(item => item !== this.conditions[index].select);
+    this.conditions[statusItem.position].search = this.conditions[statusItem.position].search.filter(item => item !== this.conditions[statusItem.position].select);
     // отчистить селект
-    this.conditions[index].select = '';
+    this.conditions[statusItem.position].select = '';
     // проверить существование добавлений.
-    if(this.conditions[index].search.length === 0){
-      this.conditions[index].isDisabledEdition = true;
+    if(this.conditions[statusItem.position].search.length === 0){
+      this.conditions[statusItem.position].isDisabledEdition = true;
     }
     // переключить
-    this.conditions[index].isOpenedEdition = false;
+    this.conditions[statusItem.position].isOpenedEdition = false;
   }
 
-  deleteStatus(index: number, status: string){
+  deleteStatus(statusItem: Status, status: string){
     // this.processes[index].toStatus = this.processes[index].toStatus.filter(item => item !== status);
-    this.store$.dispatch(new ProcessDeleteAction({id: index, value: status}))
-    this.conditions[index].search.push(status);
-    this.conditions[index].isDisabledEdition = false;
+    this.store$.dispatch(new ProcessDeleteAction({status: statusItem, value: status}))
+    this.conditions[statusItem.position].search.push(status);
+    this.conditions[statusItem.position].isDisabledEdition = false;
   }
 
 }

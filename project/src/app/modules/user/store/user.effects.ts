@@ -1,58 +1,69 @@
-// import { Injectable } from "@angular/core";
-// import { Actions, createEffect, ofType } from "@ngrx/effects";
-// import { UserService } from "../service/user.service";
-// import { userActionsType, UserLoadedError, UserLoadedSuccess} from "./user.actions";
-// import { catchError, map, tap } from 'rxjs/operators';
-// import { of } from "rxjs";
+import { Injectable } from "@angular/core";
+import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { UserService } from "../service/user.service";
+import { userActionsType, UserAddIncidentErrorAction, UserAddIncidentSuccessAction, UserCreateErrorAction, UserCreateSuccessAction, UserDeleteErrorAction, UserDeleteIncidentErrorAction, UserDeleteIncidentSuccessAction, UserDeleteSuccessAction, UserEditErrorAction, UserEditSuccessAction, UserLoadedErrorAction, UserLoadedSuccessAction} from "./user.actions";
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
+import { of } from "rxjs";
+import { User } from "../model/user";
 
-// @Injectable()
-// export class UserEffects {
+@Injectable()
+export class UserEffects {
+  constructor (private actions$: Actions,
+    private userService: UserService){
+  }
 
-//   loadUser$ = createEffect(()=>this.actions$.pipe(
-//     ofType(userActionsType.load),
-//     map(()=>{
-//       return new UserLoadedSuccess(this.userService.getUsers());
-//     }),
-//     catchError(()=> of(new UserLoadedError()))
-//   ));
+  loadUsers$ = createEffect(() => this.actions$.pipe(
+    ofType(userActionsType.load),
+    switchMap((_) =>
+      this.userService.getUsers()
+    ),
+    switchMap((res: User[])=>  [new UserLoadedSuccessAction(res)]),
+    catchError(()=> of(new UserLoadedErrorAction()))
+  ));
 
-  // addUser$ = createEffect(()=>this.actions$.pipe(
-  //   ofType(userActionsType.create),
-  //   tap((action: any)=>{
-  //     this.userService.addUser(action.payload);
-  //   })
-  // ),{dispatch: false});
+  addUser$ = createEffect(() => this.actions$.pipe(
+    ofType(userActionsType.create),
+    switchMap((action: any) =>
+      this.userService.postUser(action.payload)
+    ),
+    switchMap((res: User)=>  [new UserCreateSuccessAction(res)]),
+    catchError(()=> of(new UserCreateErrorAction()))
+  ));
 
-  // deleteUser$ = createEffect(()=>this.actions$.pipe(
-  //   ofType(userActionsType.delete),
-  //   tap((action: any)=>{
-  //     this.userService.deleteUser(action.payload);
-  //   })
-  // ),{dispatch: false});
+  deleteUser$ = createEffect(() => this.actions$.pipe(
+    ofType(userActionsType.delete),
+    switchMap((action: any) =>
+      this.userService.deleteUser(action.payload)
+    ),
+    switchMap((res: User)=>  [new UserDeleteSuccessAction(res._id)]),
+    catchError(()=> of(new UserDeleteErrorAction()))
+  ));
 
-  // editUser$ = createEffect(()=>this.actions$.pipe(
-  //   ofType(userActionsType.edit),
-  //   tap((action: any)=>{
-  //     this.userService.editUser(action.payload);
-  //   })
-  // ),{dispatch: false});
+  editUser$ = createEffect(() => this.actions$.pipe(
+    ofType(userActionsType.edit),
+    switchMap((action: any) =>
+      this.userService.editUser(action.payload)
+    ),
+    switchMap((res: User)=>  [new UserEditSuccessAction(res)]),
+    catchError(()=> of(new UserEditErrorAction()))
+  ));
 
-  // addIncident$ = createEffect(()=>this.actions$.pipe(
-  //   ofType(userActionsType.addincident),
-  //   tap((action: any)=>{
-  //     this.userService.addIncident(action.payload.id, action.payload.incident);
-  //   })
-  // ),{dispatch: false});
+  addIncident$ = createEffect(() => this.actions$.pipe(
+    ofType(userActionsType.addincident),
+    switchMap((action: any) =>
+      this.userService.addIncident(action.payload._id, action.payload.incident)
+    ),
+    switchMap((res: User)=>  [new UserAddIncidentSuccessAction(res)]),
+    catchError(()=> of(new UserAddIncidentErrorAction()))
+  ));
 
-  // deleteIncident$ = createEffect(()=>this.actions$.pipe(
-  //   ofType(userActionsType.deleteincident),
-  //   tap((action: any)=>{
-  //     this.userService.deleteIncident(action.payload.id, action.payload.incident);
-  //   })
-  // ),{dispatch: false});
-
-//   constructor (private actions$: Actions,
-//     private userService: UserService){
-//   }
-// }
+  deleteIncident$ = createEffect(() => this.actions$.pipe(
+    ofType(userActionsType.deleteincident),
+    switchMap((action: any) =>
+      this.userService.deleteIncident(action.payload._id, action.payload.incident)
+    ),
+    switchMap((res: User)=>  [new UserDeleteIncidentSuccessAction(res)]),
+    catchError(()=> of(new UserDeleteIncidentErrorAction()))
+  ));
+}
 

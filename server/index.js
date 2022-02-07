@@ -146,7 +146,7 @@ app.put("/api/users", jsonParser, function(req, res){
     collection.findOneAndUpdate({_id: id}, { $set: {
         fullname: req.body.fullname, 
         incidents: req.body.incidents, 
-        dateOfBirth: req.body.dateOfBirth, 
+        dateOfBirth: new Date(req.body.dateOfBirth), 
         login: req.body.login,
         position: req.body.position
         }},
@@ -158,21 +158,44 @@ app.put("/api/users", jsonParser, function(req, res){
     });
 });
 
-app.patch("/api/users", jsonParser, function(req, res){// изменить инцидент
+app.patch("/api/users/assignee/add", jsonParser, function(req, res){
         
+        if(!req.body) return res.sendStatus(400);
+        const id = new objectId(req.body._id);
+        const collection = dbClient.collection("users");
+        collection.findOne({_id: id}, function(err1, user){
+            if(err1) throw err1;
+            let newIncidents = [...user.incidents, req.body.incident];
+            collection.findOneAndUpdate({_id: id}, { $set: {incidents: newIncidents}},
+                 {returnDocument: "after" },function(err2, result){
+                        
+                if(err2) return console.log(err2);    
+                const user = result.value;
+                res.send(user);
+            });
+        });
+    });
+
+app.patch("/api/users/assignee/delete", jsonParser, function(req, res){
+    
     if(!req.body) return res.sendStatus(400);
     const id = new objectId(req.body._id);
-       
+        
     const collection = dbClient.collection("users");
-    collection.findOneAndUpdate({_id: id}, { $set: {incidents: req.body.incidents}},
-         {returnDocument: "after" },function(err, result){
-               
-        if(err) return console.log(err);     
-        const user = result.value;
-        res.send(user);
+    collection.findOne({_id: id},
+            {returnDocument: "after" },function(err1, user){
+                
+        if(err1) return console.log(err1);
+        let newIncidents = [...user.incidents];
+        newIncidents = newIncidents.filter((item) => item._id !== req.body.incident._id);
+        collection.findOneAndUpdate({_id: id}, { $set: {incidents: newIncidents}},
+            {returnDocument: "after" },function(err2, result){
+           if(err2) return console.log(err2);    
+           const user = result.value;
+           res.send(user);
+       });
     });
 });
-
 
 // //PROCESS
 app.get("/api/process", function(req, res){
@@ -204,55 +227,3 @@ process.on("SIGINT", () => {
     dbClient.close();
     process.exit();
 });
-
-
-
-
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const mongoose = require('mongoose');
-// const cors = require('cors');
-// const url = 'mongodb://localhost:27017/netcracker';
-
-// const app = express();
-// const port = 3000;
-
-// app.use(cors());
-// app.use(bodyParser.json());
-// // app.use(bodyParser.urlencoded({ extended : false}));
-
-// mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
-// mongoose.connection.on('connected', () => {
-//     console.log('Мы успешно подключились к БД');
-// });
-// mongoose.connection.on('error', (err) => {
-//     console.log('Мы не подключились к БД: ' + err);
-// });
-
-
-// app.get('/', (req, res) => {
-//     res.send('Главная страница');
-// })
-
-// app.get('/api/incidents', (req, res) => {
-//     // res.send('Инциденты');
-//     console.log(req);
-//     // const collection = req.app.locals.collection;
-//     // collection.find({}).toArray(function(err, incidents){
-         
-//     //     if(err) return console.log(err);
-//     //     res.send(incidents);
-//     // });
-// });
-
-// app.get('/api/process', (req, res) => {
-//     res.send('Процесс');
-// });
-
-// app.get('/api/users', (req, res) => {
-//     res.send('Процесс');
-// });
-
-// app.listen(port, () => {
-//     console.log("Сервер был запущен по порту: " + port);
-// });

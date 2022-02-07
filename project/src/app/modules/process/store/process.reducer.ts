@@ -19,37 +19,33 @@ const initialState: ProcessState = {
 
 export const processReducer = (state:ProcessState = initialState, action: ProcessActions) => {
   switch(action.type) {
-    case processActionsType.delete:
-      return {
-        ...state,
-        // processList: state.processList.map(item => item.id === action.payload.id?{...item, toStatus: item.toStatus.filter(status => status !== action.payload.value)}: item),
-      };
-    case processActionsType.add:
-      // let newToStatus: string[] = [];
-      // state.processList.find(item => item.id === action.payload.id)?.toStatus.forEach(status => {
-      //   newToStatus.push(status);
-      // });
-      // newToStatus.push(action.payload.value);
-      return {
-        ...state,
-        // processList: state.processList.map(item => item.id === action.payload.id? {
-        //   ...item,
-        //   toStatus: newToStatus,
-        // }: item),
-      };
     case processActionsType.loadedSuccess:
-      // console.log('success');
       return {
         ...state,
-        // processList: action.payload.processList,
+        processList: action.payload,
       }
     case processActionsType.loadError:
-      // localStorage.setItem('process', JSON.stringify(state));
-      // console.log('error');
-      // вставить стэйт в локалсторидж
       return {
         ...state,
       }
+    case processActionsType.deleteSuccess:
+      return {
+        ...state,
+        processList: state.processList.map((item) => item._id === action.payload._id? action.payload : item)
+      };
+    case processActionsType.deleteError:
+      return {
+        ...state,
+      };
+    case processActionsType.addSuccess:
+      return {
+        ...state,
+        processList: state.processList.map((item) => item._id === action.payload._id? action.payload : item)
+      };
+    case processActionsType.addError:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

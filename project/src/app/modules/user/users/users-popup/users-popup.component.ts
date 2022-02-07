@@ -89,9 +89,11 @@ export class UsersPopupComponent implements OnInit {
     this.validation();
     if(this.isValid){
       this.store$.dispatch(new UserCreateAction({
-        name: this.name,
-        surname: this.surname,
-        lastname: this.lastname,
+        fullname: {
+          name: this.name,
+          surname: this.surname,
+          lastname: this.lastname,
+        },
         login: this.login,
         dateOfBirth: new Date(this.dateOfBirth),
         position: this.position,

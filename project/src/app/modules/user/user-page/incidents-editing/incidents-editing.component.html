@@ -1,7 +1,7 @@
 <ul class="incidents-editing__incidents-list">
   <li class="incidents-editing__incidents-item" *ngFor="let incident of currentIncidentsArray">
-    <button class="incidents-editing__incidents-link" (click)="openRoute(('incident/'+incident.id))">
-      <span class="incidents-editing__incidents-id">{{incident.id}}</span>
+    <button class="incidents-editing__incidents-link" (click)="openRoute(('incident/'+incident._id))">
+      <span class="incidents-editing__incidents-id">{{incident._id}}</span>
       <span class="incidents-editing__incidents-name">{{incident.name}}</span>
     </button>
   </li>

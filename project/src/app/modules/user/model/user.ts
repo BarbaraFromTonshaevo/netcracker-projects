@@ -15,9 +15,11 @@ export interface User {
 }
 
 export interface UserInfo {
-  name: string,
-  surname: string,
-  lastname: string,
+  fullname: {
+    name: string,
+    surname: string,
+    lastname: string,
+  },
   login: string,
   position: string,
   dateOfBirth: Date,

@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 type listSize = 'defult' | 'small';
 
 interface SearchObject{
-  id: string,
+  _id: string,
   name: string,
 }
 
@@ -44,7 +44,7 @@ export class SearchInputComponent implements OnInit {
         else{
           // по id
           this.searchList = this.values.filter(item =>
-            item.id.toString().includes(value.trim())
+            item._id.toString().includes(value.trim())
           )
         }
 
@@ -57,7 +57,7 @@ export class SearchInputComponent implements OnInit {
 
   selectAssignee(event: Event, item: SearchObject){
     event.preventDefault();
-    this.select.emit(item.id);
+    this.select.emit(item._id);
     this.searchControl.setValue(item.name);
     this.isActive = false;
   }

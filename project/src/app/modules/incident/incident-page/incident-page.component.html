@@ -1,4 +1,4 @@
-<!-- <h2  class="heading page__heading">Инцидент <span class="page__id">ID: {{currentIncident.id}}</span></h2>
+<h2  class="heading page__heading">Инцидент <span class="page__id">ID: {{currentIncident._id}}</span></h2>
 <form action="" class="page__form" (ngSubmit)="editIncident($event)">
   <label class="page__label label">Название инцидента:</label>
   <input class="page__input input" type="text" name="name" [(ngModel)]="name" disabled>
@@ -22,4 +22,4 @@
   <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
   <button class="page__save btn">Сохранить изменения</button>
   <p class="save-message" *ngIf="saveMessage">Инцидент был сохранен</p>
-</form> -->
+</form>

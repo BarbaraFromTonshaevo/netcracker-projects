@@ -37,7 +37,7 @@ export class IncidentPopupComponent implements OnInit {
   priority: string = this.priorities[0];
   description: string = '';
 
-  usersForSearch: {id: number, name: string}[] = [];
+  usersForSearch: {_id: string, name: string}[] = [];
 
   changePriority(priorityValue: string){
     this.priority = priorityValue;

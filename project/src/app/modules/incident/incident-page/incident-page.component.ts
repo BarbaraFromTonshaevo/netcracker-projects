@@ -15,7 +15,7 @@ import { IncidentEditAction, IncidentLoadAction } from '../store/incident.action
 import { UserAddIncidentAction, UserDeleteIncidentAction, UserLoadAction } from '../../user/store/user.actions';
 import { ProcessState, Status } from '../../process/store/process.reducer';
 import { processListSelector } from '../../process/store/process.selector';
-import { IncidentService } from '../service/incident.service';
+import { ProcessLoadAction } from '../../process/store/process.actions';
 
 
 @Component({
@@ -53,7 +53,7 @@ export class IncidentPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.processStore$.dispatch(new ProcessLoadAction);
+    this.processStore$.dispatch(new ProcessLoadAction);
     this.userStore$.dispatch(new UserLoadAction);
     this.incidentStore$.dispatch(new IncidentLoadAction);
 
@@ -190,7 +190,6 @@ export class IncidentPageComponent implements OnInit {
         // если изменили исполнителя
         // то удаляем старый
         if(this.currentIncident.assignee !== null){
-          console.log('сча будет делет');
           this.userStore$.dispatch(new UserDeleteIncidentAction({
             _id: this.currentIncident.assignee._id,
             incident: {
@@ -201,7 +200,6 @@ export class IncidentPageComponent implements OnInit {
         }
         // добавляем новый
         if(this.assignee !== null){
-          console.log('сча будет адд');
           this.userStore$.dispatch(new UserAddIncidentAction({
             _id: this.assignee._id,
             incident: {

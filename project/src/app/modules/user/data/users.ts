@@ -2,7 +2,6 @@
 
 // export const users: User[] = [
 //   {
-//     id: 12345,
 //     fullname: {
 //       name: 'Александра',
 //       surname: 'Александрова',
@@ -11,15 +10,9 @@
 //     login: 'alex17',
 //     dateOfBirth: new Date(1996, 3, 17),
 //     position: 'Старший дизайнер',
-//     incidents: [
-//       {
-//         id: 54321,
-//         name: "Testing adaptive",
-//       }
-//     ]
+//     incidents: []
 //   },
 //   {
-//     id: 12346,
 //     fullname: {
 //       name: 'Иван',
 //       surname: 'Иванов',
@@ -31,7 +24,6 @@
 //     incidents: [],
 //   },
 //   {
-//     id: 12347,
 //     fullname: {
 //       name: 'Александр',
 //       surname: 'Блок',
@@ -43,7 +35,6 @@
 //     incidents: []
 //   },
 //   {
-//     id: 12348,
 //     fullname: {
 //       name: 'Теодор',
 //       surname: 'Драйзер',
@@ -52,15 +43,9 @@
 //     login: 'finansist',
 //     dateOfBirth: new Date(1871, 7, 27),
 //     position: 'Финансист',
-//     incidents: [
-//       {
-//         id: 54324,
-//         name: "Анализ стоимости капитала",
-//       },
-//     ]
+//     incidents: []
 //   },
 //   {
-//     id: 12349,
 //     fullname: {
 //       name: 'Ада',
 //       surname: 'Лавлейс',

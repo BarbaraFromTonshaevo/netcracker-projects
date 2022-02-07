@@ -6,9 +6,10 @@ import { Observable } from 'rxjs';
 import { Incident } from '../../../incident/model/incident';
 import { incidentListSelector } from 'src/app/modules/incident/store/incident.selector';
 import { isExpressionFactoryMetadata } from '@angular/compiler/src/render3/r3_factory';
+import { IncidentLoadAction } from 'src/app/modules/incident/store/incident.actions';
 
 interface IncidentObject{
-  id: string,
+  _id: string,
   name: string
 }
 
@@ -18,25 +19,24 @@ interface IncidentObject{
   styleUrls: ['./incidents-editing.component.less']
 })
 export class IncidentsEditingComponent implements OnInit {
-  allIncidents$: Observable<Incident[]> = this.store$.pipe(select(incidentListSelector));
   @Output() newIncidentsArray = new EventEmitter<Array<IncidentObject>>();//передача массив инцидентов
   incidentsForSearch: IncidentObject[] = [];//другие инциденты, по которым можно производить поиск
   @Input() incidents: IncidentObject[]|null;//инциденты пользователя
   currentIncidentsArray: IncidentObject[] = [];//инциденты пользователя с изменениями
   isOpenedIncidentSearch = false;
   isDisabled = false;//блокировка кнопки добавить
-  selectedIncident: {id: string, name: string};
+  selectedIncident: {_id: string, name: string};
 
   getId(id: string){
-    this.selectedIncident = this.incidentsForSearch.find(item => item.id === id)!;
+    this.selectedIncident = this.incidentsForSearch.find(item => item._id === id)!;
   }
 
   deleteIncident(id: string){
-    let incident = this.currentIncidentsArray.find(item => item.id === id);
+    let incident = this.currentIncidentsArray.find(item => item._id === id);
     if(incident){
       this.incidentsForSearch.push(incident);
     }
-    this.currentIncidentsArray = this.currentIncidentsArray.filter(item => item.id !== id);
+    this.currentIncidentsArray = this.currentIncidentsArray.filter(item => item._id !== id);
     this.newIncidentsArray.emit(this.currentIncidentsArray);
     //обновить список поиска
     this.incidentsForSearch.length === 0? this.isDisabled = true: this.isDisabled = false;
@@ -48,7 +48,7 @@ export class IncidentsEditingComponent implements OnInit {
       this.selectedIncident
     );
     this.incidentsForSearch = this.incidentsForSearch.filter(item =>{
-      item.id !== this.selectedIncident.id;
+      item._id !== this.selectedIncident._id;
     });
     this.isOpenedIncidentSearch = !this.isOpenedIncidentSearch;
     this.incidentsForSearch.length === 0? this.isDisabled = true: this.isDisabled = false;
@@ -67,16 +67,16 @@ export class IncidentsEditingComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private store$: Store<IncidentState>,
+    private incidentStore$: Store<IncidentState>,
   ) { }
 
 
 
   ngOnInit(): void {
-    this.allIncidents$.subscribe((allIncidents)=>{
-      //  в дальнейшем можно добавить проверку на статус и область
-      this.incidentsForSearch = allIncidents.filter(item => item.assignee === null).map(item => {
-        return {id: item._id ,name: item.name};
+    this.incidentStore$.dispatch(new IncidentLoadAction);
+    this.incidentStore$.pipe(select(incidentListSelector)).subscribe(incidents=>{
+      this.incidentsForSearch = incidents.filter(item => item.assignee === null).map(item => {
+        return {_id: item._id ,name: item.name};
       });
     });
 

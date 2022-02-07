@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-// import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import {User} from '../model/user';
 import { UserState } from '../store/user.reducer';
@@ -11,13 +10,6 @@ import { UserDeleteAction, UserLoadAction } from '../store/user.actions';
 import { IncidentState } from '../../incident/store/incident.reducer';
 import { IncidentChangeAssigneeAction } from '../../incident/store/incident.actions';
 
-// @UntilDestroy()
-// @Component({})
-// export class InboxComponent {
-//   ngOnInit() {
-//     interval(1000).pipe(untilDestroyed(this)).subscribe();
-//   }
-// }
 
 @Component({
   selector: 'app-users',
@@ -49,7 +41,7 @@ export class UsersComponent implements OnInit {
   deleteUser(id: string){
     this.users.find(item=>item._id === id)?.incidents?.forEach(incident => {
       console.log(`Delete assignee ${id} from incident ${incident._id}  ${incident.name}`);
-      this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({id: incident._id, assignee: null}));
+      this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({_id: incident._id, assignee: null}));
     })
     this.userStore$.dispatch(new UserDeleteAction(id));
   }

@@ -138,8 +138,9 @@ export class UserPageComponent implements OnInit {
       }));
       // поменять у инцидентов исполнителей
       this.incidents?.forEach(item => {
+
         this.incidentStore$.dispatch(new IncidentChangeAssigneeAction({
-          id: item._id,
+          _id: item._id,
           assignee: {
             _id: this.currentUser._id,
             fullname: {
