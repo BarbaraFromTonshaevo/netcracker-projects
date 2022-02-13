@@ -14,14 +14,16 @@ import { incidentListSelector } from '../../store/incident.selector';
 
 import { priorityArray } from '../../model/priority';
 import { Assignee } from '../../model/assignee';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-incident-popup',
   templateUrl: './incident-popup.component.html',
 })
 export class IncidentPopupComponent implements OnInit {
   incidents$: Observable<Incident[]> = this.incidentsStore$.pipe(select(incidentListSelector));
-  // users$: Observable<User[]> = this.usersStore$.pipe(select(userListSelector));
+  users$: Observable<User[]> = this.usersStore$.pipe(select(userListSelector));
 
   incidentsData: Incident[] = [];
   priorities: string[] = priorityArray;
@@ -44,10 +46,10 @@ export class IncidentPopupComponent implements OnInit {
   }
 
   getId(id: string){
-    // this.users$.subscribe((users) => {
-    //   let assignee = users.find(item => item.id === id);
-    //   this.assignee = assignee? assignee : null;
-    // })
+    this.users$.subscribe((users) => {
+      let assignee = users.find(item => item._id === id);
+      this.assignee = assignee? assignee : null;
+    })
   }
 
   closePopup($event: Event){
@@ -113,17 +115,6 @@ export class IncidentPopupComponent implements OnInit {
         description: this.description,
         status: 'Открыто'
       }));
-      //добавить изменения для исполнителя в UserStore
-      // if(this.assignee !== null){
-      //   console.log( Math.max.apply(null, this.incidentsData.map(item => item.id)));
-      //   this.usersStore$.dispatch(new UserAddIncidentAction({
-      //     id: this.assignee.id,
-      //     incident: {
-      //       id: Math.max.apply(null, this.incidentsData.map(item => item.id)),//новосозданное
-      //       name: this.name,
-      //     }
-      //   }))
-      // }
       //отчистить
       this.cleanForm();
       this.closeClicked.emit();
@@ -132,21 +123,21 @@ export class IncidentPopupComponent implements OnInit {
 
   constructor(
     private incidentsStore$: Store<IncidentState>,
-    // private usersStore$: Store<UserState>
+    private usersStore$: Store<UserState>
     ) { }
 
   ngOnInit(): void {
     this.incidents$.subscribe((incidents) => {
       this.incidentsData = incidents;
     });
-    // this.users$.subscribe((users)=>{
-    //   this.usersForSearch = users.map(item => {
-    //     return {
-    //       id: item.id,
-    //       name: `${item.fullname.surname} ${item.fullname.name} ${item.fullname.lastname}`,
-    //     }
-    //   })
-    // })
+    this.users$.subscribe((users)=>{
+      this.usersForSearch = users.map(item => {
+        return {
+          _id: item._id,
+          name: `${item.fullname.surname} ${item.fullname.name} ${item.fullname.lastname}`,
+        }
+      })
+    })
   }
 
 }

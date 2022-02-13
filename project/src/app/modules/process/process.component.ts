@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { statuses } from './model/status';
 import { ProcessAddAction, ProcessDeleteAction, ProcessLoadAction } from './store/process.actions';
@@ -13,7 +14,7 @@ interface Condition{
   isDisabledEdition: boolean,
   isOpenedEdition: boolean,
 }
-
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-process',
   templateUrl: './process.component.html',

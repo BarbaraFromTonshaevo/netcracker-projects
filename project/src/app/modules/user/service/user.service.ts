@@ -30,7 +30,7 @@ export class UserService {
      {headers:  { "Accept": "application/json", "Content-Type": "application/json" }});
   }
 
-  public addIncident(_id: string, incident: {_id: string, name: string}): Observable<User>{
+  public addIncident(_id: string|undefined, incident: {_id: string, name: string}): Observable<User>{
     return this.http.patch<User>(`${environment.api}/users/assignee/add`, JSON.stringify({_id, incident}),
      {headers:  { "Accept": "application/json", "Content-Type": "application/json" }});
   }

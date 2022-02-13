@@ -5,6 +5,7 @@ import { incidentActionsType, IncidentChangeAssigneeErrorAction, IncidentChangeA
 import { catchError, map, tap, switchMap} from 'rxjs/operators';
 import { of } from "rxjs";
 import { Incident, IncidentInfo } from "../model/incident";
+import { UserAddIncidentAction } from "../../user/store/user.actions";
 
 @Injectable()
 export class IncidentEffects {
@@ -26,7 +27,7 @@ export class IncidentEffects {
     switchMap((action: any) =>
       this.incidentService.postIncident(action.payload)
     ),
-    switchMap((res: Incident)=>  [new IncidentCreateSuccessAction(res)]),
+    switchMap((res: Incident)=>  [new IncidentCreateSuccessAction(res), new UserAddIncidentAction({_id: res.assignee?._id, incident: {_id: res._id, name: res.name}})]),
     catchError(()=> of(new IncidentCreateErrorAction()))
   ));
 

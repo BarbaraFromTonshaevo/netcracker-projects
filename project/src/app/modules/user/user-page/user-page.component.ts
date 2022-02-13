@@ -11,7 +11,9 @@ import { userListSelector } from '../store/user.selector';
 import { IncidentState } from '../../incident/store/incident.reducer';
 import { IncidentChangeAssigneeAction } from '../../incident/store/incident.actions';
 
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',

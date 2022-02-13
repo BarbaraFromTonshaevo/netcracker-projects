@@ -102,7 +102,7 @@ export class UserEditErrorAction implements Action {
 
 export class UserAddIncidentAction implements Action {
   readonly type = userActionsType.addincident;
-  constructor(public payload: {_id: string, incident: {_id: string, name: string}}) {
+  constructor(public payload: {_id: string|undefined, incident: {_id: string, name: string}}) {
   }
 }
 

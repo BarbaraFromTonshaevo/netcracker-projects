@@ -12,7 +12,9 @@ import { isNgTemplate } from '@angular/compiler';
 import { UserDeleteIncidentAction, UserLoadAction } from '../../user/store/user.actions';
 import { IncidentService } from '../service/incident.service';
 
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-incidents',
   templateUrl: 'incidents.component.html',
@@ -48,21 +50,21 @@ export class IncidentsComponent implements OnInit {
 
   deleteIncident(id: string){
     // удаление из assignee
-    // let currIncident = this.incidents.find(item => item.id === id);
-    // if(currIncident?.assignee){
-    //   this.userStore$.dispatch(new UserDeleteIncidentAction({
-    //     id: currIncident.assignee.id,
-    //     incident: {
-    //       id: currIncident.id,
-    //       name: currIncident.name,
-    //     }
-    //   }))
-    // }
+    let currIncident = this.incidents.find(item => item._id === id);
+    if(currIncident?.assignee){
+      this.userStore$.dispatch(new UserDeleteIncidentAction({
+        _id: currIncident.assignee._id,
+        incident: {
+          _id: currIncident._id,
+          name: currIncident.name,
+        }
+      }))
+    }
     this.incidentStore$.dispatch(new IncidentDeleteAction(id));
   }
 
   ngOnInit(): void {
-    // this.userStore$.dispatch(new UserLoadAction);
+    this.userStore$.dispatch(new UserLoadAction);
     this.incidentStore$.dispatch(new IncidentLoadAction);
     this.incidentStore$.pipe(select(incidentListSelector)).subscribe(incidents => {
       this.incidents = incidents;

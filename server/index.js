@@ -37,6 +37,7 @@ app.get("/api/incidents/:id", function(req, res){
     collection.findOne({_id: id}, function(err, incident){
                
         if(err) throw err;
+        console.log(incident)
         res.send(incident);
     });
 });
@@ -72,7 +73,7 @@ app.put("/api/incidents", jsonParser, function(req, res){
     collection.findOneAndUpdate({_id: id}, { $set: {dueDate: req.body.dueDate, assignee: req.body.assignee, status: req.body.status, description: req.body.description}},
          {returnDocument: "after" },function(err, result){
                
-        if(err) return console.log(err);     
+        if(err) throw err;     
         const incident = result.value;
         res.send(incident);
     });
@@ -87,7 +88,7 @@ app.patch("/api/incidents", jsonParser, function(req, res){
     collection.findOneAndUpdate({_id: id}, { $set: {assignee: req.body.assignee}},
          {returnDocument: "after" },function(err, result){
                
-        if(err) return console.log(err);     
+        if(err) throw err;     
         const incident = result.value;
         res.send(incident);
     });
@@ -152,7 +153,7 @@ app.put("/api/users", jsonParser, function(req, res){
         }},
          {returnDocument: "after" },function(err, result){
                
-        if(err) return console.log(err);     
+        if(err) throw err;     
         const user = result.value;
         res.send(user);
     });
@@ -161,6 +162,7 @@ app.put("/api/users", jsonParser, function(req, res){
 app.patch("/api/users/assignee/add", jsonParser, function(req, res){
         
         if(!req.body) return res.sendStatus(400);
+        if(req.body._id === undefined) return res.sendStatus(400);
         const id = new objectId(req.body._id);
         const collection = dbClient.collection("users");
         collection.findOne({_id: id}, function(err1, user){
@@ -169,7 +171,7 @@ app.patch("/api/users/assignee/add", jsonParser, function(req, res){
             collection.findOneAndUpdate({_id: id}, { $set: {incidents: newIncidents}},
                  {returnDocument: "after" },function(err2, result){
                         
-                if(err2) return console.log(err2);    
+                if(err2) throw err2;    
                 const user = result.value;
                 res.send(user);
             });
@@ -185,12 +187,12 @@ app.patch("/api/users/assignee/delete", jsonParser, function(req, res){
     collection.findOne({_id: id},
             {returnDocument: "after" },function(err1, user){
                 
-        if(err1) return console.log(err1);
+        if(err1) throw err1;
         let newIncidents = [...user.incidents];
         newIncidents = newIncidents.filter((item) => item._id !== req.body.incident._id);
         collection.findOneAndUpdate({_id: id}, { $set: {incidents: newIncidents}},
             {returnDocument: "after" },function(err2, result){
-           if(err2) return console.log(err2);    
+           if(err2) throw err2;    
            const user = result.value;
            res.send(user);
        });
@@ -216,7 +218,7 @@ app.patch("/api/process", jsonParser, function(req, res){// изменить и�
     collection.findOneAndUpdate({_id: id}, { $set: {toStatus: req.body.toStatus}},
          {returnDocument: "after" },function(err, result){
                
-        if(err) return console.log(err);     
+        if(err) throw err;     
         const process = result.value;
         res.send(process);
     });

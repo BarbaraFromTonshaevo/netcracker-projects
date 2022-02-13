@@ -7,17 +7,20 @@ import { Assignee } from '../model/assignee';
 import { Incident } from '../model/incident';
 import { IncidentState } from '../store/incident.reducer';
 import { incidentListSelector } from '../store/incident.selector';
+import { IncidentEditAction, IncidentLoadAction } from '../store/incident.actions';
 
 import { User } from '../../user/model/user';
 import { UserState } from '../../user/store/user.reducer';
 import { userListSelector } from '../../user/store/user.selector';
-import { IncidentEditAction, IncidentLoadAction } from '../store/incident.actions';
 import { UserAddIncidentAction, UserDeleteIncidentAction, UserLoadAction } from '../../user/store/user.actions';
+
 import { ProcessState, Status } from '../../process/store/process.reducer';
 import { processListSelector } from '../../process/store/process.selector';
 import { ProcessLoadAction } from '../../process/store/process.actions';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { IncidentService } from '../service/incident.service';
 
-
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-incident-page',
   templateUrl: './incident-page.component.html',
@@ -47,6 +50,7 @@ export class IncidentPageComponent implements OnInit {
     private userStore$: Store<UserState>,
     private processStore$: Store<ProcessState>,
     private incidentStore$: Store<IncidentState>,
+    private incidentService: IncidentService,
 
     private route: ActivatedRoute,
     private router: Router,
@@ -58,39 +62,74 @@ export class IncidentPageComponent implements OnInit {
     this.incidentStore$.dispatch(new IncidentLoadAction);
 
     this.incidents$.subscribe((incidents) => {
+      // console.log('SUBSCRIBE');
       this.incidentsData = incidents;
-    });
-    const id = this.route.snapshot.params.id;
-    let incident = this.incidentsData.find(x => x._id === id);
-    if(incident){
-      this.currentIncident = incident;
+      const id = this.route.snapshot.params.id;
 
-      this.name = this.currentIncident.name;
-      this.assignee = this.currentIncident.assignee;
-      this.area = this.currentIncident.area;
-      this.dueDate = this.setDate(this.currentIncident.dueDate);
-      this.startDate = this.setDate(this.currentIncident.startDate);
-      this.status = this.currentIncident.status;
-      this.description = this.currentIncident.description;
-      this.priority = this.currentIncident.priority;
+      let incident = this.incidentsData.find(x => x._id === id);
+      if(incident){
+        this.currentIncident = incident;
 
-      this.process$.subscribe((process)=>{
-        process.find(item => item.status === this.currentIncident.status)?.toStatus.forEach((status)=>{
-          this.selectData.push(status);
+        this.name = this.currentIncident.name;
+        this.assignee = this.currentIncident.assignee;
+        this.area = this.currentIncident.area;
+        this.dueDate = this.setDate(this.currentIncident.dueDate);
+        this.startDate = this.setDate(this.currentIncident.startDate);
+        this.status = this.currentIncident.status;
+        this.description = this.currentIncident.description;
+        this.priority = this.currentIncident.priority;
+
+        this.process$.subscribe((process)=>{
+          process.find(item => item.status === this.currentIncident.status)?.toStatus.forEach((status)=>{
+            this.selectData.push(status);
+          })
         })
-      })
-      this.selectData.push(this.currentIncident.status);
+        this.selectData.push(this.currentIncident.status);
 
-      if(this.currentIncident.assignee !== null){
-        this.initialAssignee = Object.create({
-          id: this.currentIncident.assignee?._id,
-          name: `${this.currentIncident.assignee?.fullname.surname} ${this.currentIncident.assignee?.fullname.name} ${this.currentIncident.assignee?.fullname.lastname}`,
-        })
+        if(this.currentIncident.assignee !== null){
+          this.initialAssignee = Object.create({
+            id: this.currentIncident.assignee?._id,
+            name: `${this.currentIncident.assignee?.fullname.surname} ${this.currentIncident.assignee?.fullname.name} ${this.currentIncident.assignee?.fullname.lastname}`,
+          })
+        }
       }
-    }
-    else{
-      this.router.navigate(['not-found']);
-    }
+      else{
+        this.router.navigate(['not-found']);
+      }
+    });
+
+    // const id = this.route.snapshot.params.id;
+    // this.incidentService.getIncident(id).subscribe(incident => {
+    //   if(incident){
+    //     this.currentIncident = incident;
+
+    //     this.name = this.currentIncident.name;
+    //     this.assignee = this.currentIncident.assignee;
+    //     this.area = this.currentIncident.area;
+    //     this.dueDate = this.setDate(this.currentIncident.dueDate);
+    //     this.startDate = this.setDate(this.currentIncident.startDate);
+    //     this.status = this.currentIncident.status;
+    //     this.description = this.currentIncident.description;
+    //     this.priority = this.currentIncident.priority;
+
+    //     this.process$.subscribe((process)=>{
+    //       process.find(item => item.status === this.currentIncident.status)?.toStatus.forEach((status)=>{
+    //         this.selectData.push(status);
+    //       })
+    //     })
+    //     this.selectData.push(this.currentIncident.status);
+
+    //     if(this.currentIncident.assignee !== null){
+    //       this.initialAssignee = Object.create({
+    //         id: this.currentIncident.assignee?._id,
+    //         name: `${this.currentIncident.assignee?.fullname.surname} ${this.currentIncident.assignee?.fullname.name} ${this.currentIncident.assignee?.fullname.lastname}`,
+    //       })
+    //     }
+    //   }
+    //   else{
+    //     this.router.navigate(['not-found']);
+    //   }
+    // });
     this.users$.subscribe((users)=>{
       // в будущем можно вставить проверку на пороф пригодность
       this.usersForSearch = users.map(item => {

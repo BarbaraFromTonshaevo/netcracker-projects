@@ -7,6 +7,10 @@ export enum incidentActionsType {
   loadedError = '[INCIDENT] incident loaded error',
   loadedSuccess = '[INCIDENT] incident loaded success',
 
+  // loadOne = '[INCIDENT] load one incident item',
+  // loadedOneError = '[INCIDENT] one incident loaded error',
+  // loadedOneSuccess = '[INCIDENT] one incident loaded success',
+
   create = '[INCIDENT] create incident item',
   createError = '[INCIDENT] create incident item error',
   createSuccess = '[INCIDENT] create incident item success',
@@ -25,6 +29,8 @@ export enum incidentActionsType {
 
 }
 
+// Load
+
 export class IncidentLoadAction implements Action {
   readonly type = incidentActionsType.load;
 }
@@ -37,6 +43,24 @@ export class IncidentLoadedSuccessAction implements Action {
 export class IncidentLoadedErrorAction implements Action {
   readonly type = incidentActionsType.loadedError;
 }
+
+// // load one
+
+// export class IncidentLoadOneAction implements Action {
+//   readonly type = incidentActionsType.loadOne;
+//   constructor(public payload: Incident[]){}
+// }
+
+// export class IncidentLoadedOneSuccessAction implements Action {
+//   readonly type = incidentActionsType.loadedOneSuccess;
+//   constructor(public payload: Incident[]){}
+// }
+
+// export class IncidentLoadedOneErrorAction implements Action {
+//   readonly type = incidentActionsType.loadedOneError;
+// }
+
+// create
 
 export class IncidentCreateAction implements Action {
   readonly type = incidentActionsType.create;
@@ -52,6 +76,7 @@ export class IncidentCreateErrorAction implements Action {
   readonly type = incidentActionsType.createError;
 }
 
+// Delete
 
 export class IncidentDeleteAction implements Action {
   readonly type = incidentActionsType.delete;
@@ -66,6 +91,8 @@ export class IncidentDeleteSuccessAction implements Action {
 export class IncidentDeleteErrorAction implements Action {
   readonly type = incidentActionsType.deleteError;
 }
+
+// Edit
 
 export class IncidentEditAction implements Action {
   readonly type = incidentActionsType.edit;

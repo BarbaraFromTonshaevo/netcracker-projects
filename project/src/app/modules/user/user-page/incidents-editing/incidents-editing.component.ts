@@ -5,14 +5,15 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Incident } from '../../../incident/model/incident';
 import { incidentListSelector } from 'src/app/modules/incident/store/incident.selector';
-import { isExpressionFactoryMetadata } from '@angular/compiler/src/render3/r3_factory';
 import { IncidentLoadAction } from 'src/app/modules/incident/store/incident.actions';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 interface IncidentObject{
   _id: string,
   name: string
 }
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-incidents-editing',
   templateUrl: './incidents-editing.component.html',
