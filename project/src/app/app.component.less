@@ -33,3 +33,21 @@
   padding-top: 130px;
   padding-bottom: 130px;
 }
+
+@media(max-width: 450px){
+  .header{
+    padding: 10px;
+
+    &__link{
+      font-size: 12px;
+    }
+
+    &__item:not(:last-child){
+      margin-right: 10px;
+    }
+  }
+
+  .main{
+    padding-top: 80px;
+  }
+}

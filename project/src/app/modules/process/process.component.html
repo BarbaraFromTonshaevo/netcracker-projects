@@ -11,10 +11,12 @@
     <div *ngIf="!conditions[i].isDisabledEdition">
       <button class="process__add-status btn" *ngIf="!conditions[i].isOpenedEdition" (click)="openEdit(i)">Добавить транзакцию</button>
       <div *ngIf="conditions[i].isOpenedEdition">
-        <app-select class="process__select"
+        <app-select
+        class="process__select"
         [selectList]="conditions[i].search"
         [initialValue]="conditions[i].search[0]"
         design="white"
+        size="large"
         [cutLength]="20"
         (selectItem)="addSelectedItem($event, i)">
         </app-select>

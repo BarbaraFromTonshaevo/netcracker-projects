@@ -20,6 +20,7 @@ import { ProcessModule } from './modules/process/process.module';
 import { ProcessEffects } from './modules/process/store/process.effects';
 
 import { environment } from '../environments/environment';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     IncidentModule,
     HttpClientModule,
+    ReactiveFormsModule,
     ProcessModule,
     UserModule,
     SelectModule,
@@ -41,7 +43,6 @@ import { environment } from '../environments/environment';
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([UserEffects, IncidentEffects, ProcessEffects]),
-
   ],
   providers: [],
   bootstrap: [AppComponent]

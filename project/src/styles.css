@@ -104,8 +104,11 @@ html {
 }
 .table {
   width: 100%;
-  margin-bottom: 40px;
   border-collapse: collapse;
+}
+.table__wrap {
+  margin-bottom: 40px;
+  overflow-x: scroll;
 }
 .table__heading {
   cursor: pointer;
@@ -185,8 +188,7 @@ html {
   margin-bottom: 5px;
 }
 .popup__input {
-  border: none;
-  border-bottom: 1px solid #C8C5D1;
+  border: 1px solid #C8C5D1;
   margin-bottom: 15px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -196,11 +198,13 @@ html {
   color: #333;
 }
 .popup__input.input {
-  height: 20px;
+  height: 35px;
+  padding: 0px 12px;
 }
 .popup__input.textarea {
   height: 80px;
   border: 1px solid #C8C5D1;
+  padding: 10px 12px;
 }
 .popup__error {
   width: 255px;
@@ -224,24 +228,34 @@ html {
 .page__id {
   color: #666666;
 }
+.page__label {
+  margin-bottom: 5px;
+}
 .page__input {
   width: 60%;
   margin-bottom: 20px;
   font-size: 20px;
   color: #333;
   background-color: #f7f7f7;
-  border: none;
-  border-bottom: 1px solid #C8C5D1;
+  border: 1px solid #C8C5D1;
 }
 .page__input-search {
   border: none;
+  width: 60%;
+  margin-bottom: 20px;
 }
 .page__input:disabled {
   border: none;
   background-color: #fff;
+  padding: 0;
 }
 .page__input.input {
   height: 40px;
+  padding: 0px 12px;
+}
+.page__input.input:disabled {
+  margin-top: 0;
+  padding: 0;
 }
 .page__input.textarea {
   height: 80px;
@@ -249,6 +263,25 @@ html {
 .page__select {
   width: 60%;
   margin-bottom: 15px;
+}
+@media (max-width: 1000px) {
+  .page__input {
+    width: 100%;
+  }
+  .page__input-search {
+    width: 100%;
+  }
+  .page__select {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .page__label {
+    font-size: 14px;
+  }
+  .page__input {
+    font-size: 12px;
+  }
 }
 .border-error {
   border-color: red;

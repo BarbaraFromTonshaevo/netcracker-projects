@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-type listSize = 'defult' | 'small';
+type listSize = 'default' | 'small' | 'large';
+type listColor = 'default' | 'white' | 'grey';
 
 interface SearchObject{
   _id: string,
@@ -62,13 +63,18 @@ export class SearchInputComponent implements OnInit {
     this.isActive = false;
   }
 
-  @Input() size: listSize = 'defult';
-  innerSize: listSize = 'defult';
+  @Input() size: listSize = 'default';
+  innerSize: listSize = 'default';
+  @Input() color: listColor = 'default';
+  innerColor: listSize = 'default';
 
   ngOnChanges(changes: SimpleChanges): void{
-    const {size} = changes;
+    const {size, color} = changes;
     if(size && size.currentValue){
       this.innerSize = size.currentValue;
+    }
+    if(color && color.currentValue){
+      this.innerColor = color.currentValue;
     }
   }
 }

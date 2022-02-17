@@ -28,3 +28,17 @@
   padding-top: 130px;
   padding-bottom: 130px;
 }
+@media (max-width: 450px) {
+  .header {
+    padding: 10px;
+  }
+  .header__link {
+    font-size: 12px;
+  }
+  .header__item:not(:last-child) {
+    margin-right: 10px;
+  }
+  .main {
+    padding-top: 80px;
+  }
+}

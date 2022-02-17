@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, SimpleChanges } from '@angular/core';
 type selectCondition = 'open'|'close';
-type selectDesign = 'default' | 'white';
+type selectDesign = 'default' | 'white' | 'grey';
+type selectSize = 'default' | 'small' | 'large';
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -10,11 +11,13 @@ export class SelectComponent implements OnInit {
   @Input() selectList: Array<string> = [];
   @Input() initialValue: string;
   @Input() design: selectDesign = 'default';
+  @Input() size: selectSize = 'default';
   @Input() cutLength: number;
   @Output() selectItem = new EventEmitter<string>();
   headerValue: string;
   condition: selectCondition = 'close';
   innerDesign: selectDesign = 'default';
+  innerSize: selectSize = 'default';
 
   onHeaderSelect(){
     if(this.condition === 'close'){
@@ -48,9 +51,12 @@ export class SelectComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void{
-    const {condition, design} = changes;
+    const {condition, design, size} = changes;
     if(design && design.currentValue){
       this.innerDesign = design.currentValue;
+    }
+    if(size && size.currentValue){
+      this.innerSize = size.currentValue;
     }
   }
 

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { User } from 'src/app/modules/user/model/user';
 import { UserState } from 'src/app/modules/user/store/user.reducer';
-import { UserAddIncidentAction } from 'src/app/modules/user/store/user.actions';
 import { userListSelector } from 'src/app/modules/user/store/user.selector';
 
 import { Incident } from '../../model/incident';
@@ -28,7 +27,6 @@ export class IncidentPopupComponent implements OnInit {
   incidentsData: Incident[] = [];
   priorities: string[] = priorityArray;
   @Output() closeClicked = new EventEmitter();
-
 
   name: string = '';
   area: string = '';

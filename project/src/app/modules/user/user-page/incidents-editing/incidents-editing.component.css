@@ -51,3 +51,32 @@
   padding-top: 15px;
   margin-bottom: 15px;
 }
+.btn-change {
+  margin-bottom: 15px;
+}
+@media (max-width: 1000px) {
+  .incidents-editing {
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .incidents-editing {
+    display: block;
+  }
+  .incidents-editing__incidents-id {
+    font-size: 12px;
+  }
+  .incidents-editing__incidents-name {
+    font-size: 12px;
+  }
+  .incidents-editing__search {
+    display: block;
+    margin-bottom: 15px;
+  }
+  .incidents-editing__btn_add {
+    display: inline-block;
+  }
+  .incidents-editing__btn_cancel {
+    display: inline-block;
+  }
+}

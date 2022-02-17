@@ -13,9 +13,9 @@
   <input class="page__input input" type="date" name="duedate" [(ngModel)]="dueDate">
 
   <label class="page__label label">Исполнитель:</label>
-  <app-search-input [values]="usersForSearch" (select)="onSelectAssignee($event)" class="page__input page__input-search" [initialValue]="initialAssignee"></app-search-input>
+  <app-search-input [values]="usersForSearch" color="grey" size="large" (select)="onSelectAssignee($event)" class="page__input-search" [initialValue]="initialAssignee"></app-search-input>
   <label class="page__label label">Статус:</label>
-  <app-select [selectList]="selectData" [initialValue]="status" (selectItem)="onSelectStatus($event)" class="page__select"></app-select>
+  <app-select [selectList]="selectData" [initialValue]="status" design="grey" size="large" (selectItem)="onSelectStatus($event)" class="page__select"></app-select>
   <label class="page__label label">Описание:</label>
   <textarea class="page__input textarea" type="text" name="description" [(ngModel)]="description"></textarea>
 

@@ -1,3 +1,6 @@
+*{
+  box-sizing: border-box;
+}
 .select{
   width: 100%;
   position: relative;
@@ -8,6 +11,7 @@
   display: flex;
   border: 1px solid #c8c5d1 ;
   cursor: pointer;
+  color: #333;
 }
 .select__current{
   font-size: 12px;
@@ -51,6 +55,7 @@
   font-size: 12px;
   line-height: 24px;
   padding: 8px;
+  color: #333;
 }
 .select__item:hover{
   background-color: #E7E5EB;
@@ -59,9 +64,27 @@
   height: 37px;
 }
 .white.select{
-  height: 50px;
   background-color: #fff;
 }
-.white.select .select__current{
-  font-size: 18px;
+.grey.select{
+  background-color: #f7f7f7;
 }
+
+
+.large.select{
+  height: 50px;
+}
+.large .select__current{
+  font-size: 18px;
+  padding-left: 15px;
+}
+
+@media (max-width: 580px) {
+  .large.select{
+    height: 40px;
+  }
+  .large .select__current{
+    font-size: 12px;
+  }
+}
+

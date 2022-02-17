@@ -1,15 +1,21 @@
+*{
+  box-sizing: border-box;
+}
+
 //search-list
 .search-list{
   &__wrap{
     position: relative;
     width: 100%;
+    background-color: transparent;
   }
 
   &__search{
     width: 100%;
-    border: none;
     color: #333;
-    border-bottom: 1px solid #C8C5D1;
+    // border: none;
+    // border-bottom: 1px solid #C8C5D1;
+    border: 1px solid #C8C5D1;
 
     &::placeholder{
       color: #333;
@@ -73,11 +79,18 @@
   font-size: 20px;
 }
 .small .search-list__search{
-  height: 20px;
-  padding: 4px 0px;
+  height: 35px;
+  padding: 4px 12px;
   font-size: 14px;
 }
-
+.large .search-list__search{
+  height: 40px;
+  padding: 12px 12px;
+  font-size: 20px;
+}
 .small{
   margin-bottom: 15px;
+}
+.grey .search-list__search{
+  background-color: #f7f7f7;
 }

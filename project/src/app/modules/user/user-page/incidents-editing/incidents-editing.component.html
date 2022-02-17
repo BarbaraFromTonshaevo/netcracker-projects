@@ -7,7 +7,7 @@
   </li>
 </ul>
 <div class="incidents-editing" *ngIf="isOpenedIncidentSearch">
-  <app-search-input [values]="incidentsForSearch" (select)="getId($event)" class="incidents-editing__search"></app-search-input>
+  <app-search-input [values]="incidentsForSearch" (select)="getId($event)" size="large" class="incidents-editing__search"></app-search-input>
   <button class="incidents-editing__btn incidents-editing__btn_add" (click)="addIncident()" [disabled]="isDisabled">Добавить</button>
   <button class="incidents-editing__btn incidents-editing__btn_cancel" (click)="changeIsOpenedIncidentSearch()">Отмена</button>
 </div>
