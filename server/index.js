@@ -32,14 +32,24 @@ app.get("/api/incidents", function(req, res){
 });
 
 app.get("/api/incidents/:id", function(req, res){
-    const id = new objectId(req.params.id);
-    const collection = dbClient.collection("incidents");
-    collection.findOne({_id: id}, function(err, incident){
-               
-        if(err) throw err;
-        console.log(incident)
-        res.send(incident);
-    });
+    if(req.params.id.length === 24){
+        const id = new objectId(req.params.id);
+
+        const collection = dbClient.collection("incidents");
+        collection.findOne({_id: id}, function(err, incident){
+                   
+            if(err) {
+                console.log('ERROR ', err);
+                // throw err
+            };
+            console.log(incident)
+            res.send(incident);
+        });
+    }
+    else{
+        throw "Argument passed in must be a string of 12 bytes or a string of 24 hex characters";
+    }
+
 });
 
 app.post("/api/incidents", jsonParser, function(req, res){
@@ -107,13 +117,18 @@ app.get("/api/users", function(req, res){
 });
 
 app.get("/api/users/:id", function(req, res){
-    const id = new objectId(req.params.id);
-    const collection = dbClient.collection("users");
-    collection.findOne({_id: id}, function(err, user){
-               
-        if(err) throw err;
-        res.send(user);
-    });
+    if(req.params.id.length === 24){
+        const id = new objectId(req.params.id);
+        const collection = dbClient.collection("users");
+        collection.findOne({_id: id}, function(err, user){
+                   
+            if(err) throw err;
+            res.send(user);
+        });
+    }
+    else{
+        throw "Argument passed in must be a string of 12 bytes or a string of 24 hex characters";
+    }
 });
 
 app.post("/api/users", jsonParser, function(req, res){

@@ -54,7 +54,6 @@ export class UserPageComponent implements OnInit {
     this.users$.subscribe((users) => {
       this.usersData = users;
     });
-    this.usersData;
 
     const id = this.route.snapshot.params.id;
     let newUser = this.usersData.find(x => x._id === id);
