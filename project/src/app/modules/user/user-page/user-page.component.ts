@@ -12,6 +12,7 @@ import { IncidentState } from '../../incident/store/incident.reducer';
 import { IncidentChangeAssigneeAction } from '../../incident/store/incident.actions';
 
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UserService } from '../service/user.service';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -44,6 +45,7 @@ export class UserPageComponent implements OnInit {
 
   constructor(
     private userStore$: Store<UserState>,
+    private userService: UserService,
     private incidentStore$: Store<IncidentState>,
     private route: ActivatedRoute,
     private router: Router,
@@ -56,17 +58,23 @@ export class UserPageComponent implements OnInit {
     });
 
     const id = this.route.snapshot.params.id;
-    let newUser = this.usersData.find(x => x._id === id);
-    if(newUser){
-      this.currentUser = newUser;
+    if(id.length === 24){
+      this.userService.getUser(id).subscribe((user)=> {
+        if(user){
+          this.currentUser = user;
 
-      this.name = this.currentUser.fullname.name;
-      this.surname = this.currentUser.fullname.surname;
-      this.lastname = this.currentUser.fullname.lastname;
-      this.login = this.currentUser.login;
-      this.position = this.currentUser.position;
-      this.dateOfBirth = this.setDate(this.currentUser.dateOfBirth);
-      this.incidents = this.currentUser.incidents;
+          this.name = this.currentUser.fullname.name;
+          this.surname = this.currentUser.fullname.surname;
+          this.lastname = this.currentUser.fullname.lastname;
+          this.login = this.currentUser.login;
+          this.position = this.currentUser.position;
+          this.dateOfBirth = this.setDate(this.currentUser.dateOfBirth);
+          this.incidents = this.currentUser.incidents;
+        }
+        else{
+          this.router.navigate(['not-found']);
+        }
+      })
     }
     else{
       this.router.navigate(['not-found']);
