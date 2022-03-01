@@ -70,7 +70,9 @@ export class IncidentPageComponent implements OnInit {
           this.name = this.currentIncident.name;
           this.assignee = this.currentIncident.assignee;
           this.area = this.currentIncident.area;
+          // console.log(typeof(this.currentIncident.dueDate));//////////////////////////////////////////
           this.dueDate = this.setDate(this.currentIncident.dueDate);
+          // console.log(this.dueDate);///////////////////////////////////
           this.startDate = this.setDate(this.currentIncident.startDate);
           this.status = this.currentIncident.status;
           this.description = this.currentIncident.description;
@@ -115,7 +117,7 @@ export class IncidentPageComponent implements OnInit {
     date = new Date(date);
     return date.getFullYear() +'-'+
     ((date.getMonth() + 1) < 10 ? '0'+(date.getMonth()+1): date.getMonth()+1)+'-'+
-    (date.getDay() < 10 ? '0' + date.getDay() : date.getDay());
+    (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
   }
 
   onSelectStatus(status: string){

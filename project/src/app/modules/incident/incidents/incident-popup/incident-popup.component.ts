@@ -111,7 +111,7 @@ export class IncidentPopupComponent implements OnInit {
         assignee: this.assignee,
         priority: this.priority,
         description: this.description,
-        status: 'Открыто'
+        status: 'Открыт'
       }));
       //отчистить
       this.cleanForm();

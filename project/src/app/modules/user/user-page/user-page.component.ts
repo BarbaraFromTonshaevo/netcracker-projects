@@ -40,7 +40,7 @@ export class UserPageComponent implements OnInit {
 
     return date.getFullYear() +'-'+
     ((date.getMonth() + 1) < 10 ? '0'+(date.getMonth()+1): date.getMonth()+1)+'-'+
-    (date.getDay() < 10 ? '0' + date.getDay() : date.getDay());
+    (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
   }
 
   constructor(
