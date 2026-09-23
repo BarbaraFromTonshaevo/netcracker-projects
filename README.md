@@ -4,11 +4,17 @@ A workflow-driven incident tracking system for enterprise use, built as a capsto
 
 ## Demo
 
-> TODO: live demo link, once deployed to Vercel.
+**Live:** https://netcracker-projects-eta.vercel.app
 
 ## Screenshots
 
-> TODO: add after deployment.
+| Incident list | New incident |
+|---|---|
+| ![Incident list](./screenshots/incidents.png) | ![New incident popup](./screenshots/new-incidents.png) |
+
+| User list | User edit |
+|---|---|
+| ![User list](./screenshots/users.png) | ![User edit form](./screenshots/user-update.png) |
 
 ## About this version
 
