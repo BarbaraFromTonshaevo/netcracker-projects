@@ -33,10 +33,11 @@ export class UserPageComponent implements OnInit {
   incidents: {id: number, name: string}[]|null;
 
 
-  setDate(date: Date){
-    return date.getFullYear() +'-'+
-    ((date.getMonth() + 1) < 10 ? '0'+(date.getMonth()+1): date.getMonth()+1)+'-'+
-    (date.getDay() < 10 ? '0' + date.getDay() : date.getDay());
+  setDate(date: Date): string{
+    const d = new Date(date)
+    return d.getFullYear() + '-' +
+    ((d.getMonth() + 1) < 10 ? '0' + (d.getMonth() + 1): d.getMonth() + 1) + '-' +
+    (d.getDate() < 10 ? '0' + d.getDate() : d.getDate());
   }
 
   constructor(
