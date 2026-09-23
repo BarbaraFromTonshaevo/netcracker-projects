@@ -121,10 +121,8 @@ export class UserPageComponent implements OnInit {
   onSubmit(event: Event){
     event.preventDefault();
     this.validation();
-    console.log('UPDATE...');
 
     if(this.isValid){
-      console.log(this.incidents);
       // добавить изменения пользователя
       this.userStore$.dispatch(new UserEditAction({
         id: this.currentUser.id,

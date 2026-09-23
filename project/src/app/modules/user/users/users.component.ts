@@ -30,7 +30,6 @@ export class UsersComponent implements OnInit {
   }
 
   closeUserPopup($event: any){
-    console.log('closeIncidentPopup');
     this.isOpenedPopup = false;
   }
 

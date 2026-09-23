@@ -113,7 +113,6 @@ export class IncidentPopupComponent implements OnInit {
       }));
       //добавить изменения для исполнителя в UserStore
       if(this.assignee !== null){
-        console.log( Math.max.apply(null, this.incidentsData.map(item => item.id)));
         this.usersStore$.dispatch(new UserAddIncidentAction({
           id: this.assignee.id,
           incident: {

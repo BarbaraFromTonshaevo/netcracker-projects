@@ -52,7 +52,6 @@ export class IncidentsEditingComponent implements OnInit {
     });
     this.isOpenedIncidentSearch = !this.isOpenedIncidentSearch;
     this.incidentsForSearch.length === 0? this.isDisabled = true: this.isDisabled = false;
-    console.log(this.currentIncidentsArray);
     this.newIncidentsArray.emit(this.currentIncidentsArray);
   }
 
@@ -61,7 +60,6 @@ export class IncidentsEditingComponent implements OnInit {
   }
 
   openRoute(route: string){
-    console.log(route);
     this.router.navigate(['/', route]);
   }
 

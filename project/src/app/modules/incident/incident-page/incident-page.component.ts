@@ -153,7 +153,6 @@ export class IncidentPageComponent implements OnInit {
   editIncident(event: Event){
     event.preventDefault();
     this.validation();
-    console.log('UPDATE...');
 
     if(this.isValid){
       this.incidentStore$.dispatch(new IncidentEditAction({
@@ -167,7 +166,6 @@ export class IncidentPageComponent implements OnInit {
         priority: this.priority,
         description: this.description,
       }));
-      console.log(this.currentIncident.assignee);
       //удалить старое и добавить новое в userStore
       if(this.currentIncident.id !== this.assignee?.id){
         // если изменили исполнителя

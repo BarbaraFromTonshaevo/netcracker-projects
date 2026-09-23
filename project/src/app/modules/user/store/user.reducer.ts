@@ -58,7 +58,6 @@ export const userReducer = (state: UserState = initialState, action: UserActions
         }: user)
       }
     case userActionsType.edit:
-      console.log(action.payload);
       return {
         ...state,
         userList: state.userList.map(item => item.id === action.payload.id? action.payload : item),
