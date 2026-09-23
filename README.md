@@ -24,16 +24,19 @@ There's also a [`mongoDb`](../../tree/mongoDb) branch with a custom REST API (Ex
 
 ## Architecture
 
-Each feature module (`incident`, `user`, `process`) keeps its own NgRx slice: `actions` → `reducer` → `selector`. Instead of Effects calling an API, a small sync service per module (e.g. [`incident-sync-storage.service.ts`](./project/src/app/modules/incident/service/incident-sync-storage.service.ts)) subscribes to the store, mirrors state into `localStorage` on every change, and rehydrates it on load.
+Each feature module (`incident`, `user`) keeps its own NgRx slice: `actions` → `reducer` → `selector`. Instead of Effects calling an API, a small sync service per module (e.g. [`incident-sync-storage.service.ts`](./project/src/app/modules/incident/service/incident-sync-storage.service.ts)) subscribes to the store, mirrors state into `localStorage` on every change, and rehydrates it on load.
 
 ## Features
 
 - Incident list as a table: status icon, title, assignee, area, start/due dates, status
 - Incident creation with validation (required fields, due date can't be in the past)
 - Incident detail view with editable due date / assignee / description / status
-- Configurable workflow: define statuses and which transitions between them are allowed
 - User directory and user creation form (login, date of birth, position)
 - Validation: required fields, due date not in the past, full names must not contain digits
+
+## Known limitations
+
+- The **Process** tab (configurable status workflow) is a placeholder on this branch — it isn't implemented yet. It's structurally present on the [`mongoDb`](../../tree/mongoDb) branch.
 
 ## Getting started
 
