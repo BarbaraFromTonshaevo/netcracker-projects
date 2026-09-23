@@ -1,0 +1,53 @@
+.incidents-editing {
+  width: 60%;
+  display: flex;
+  margin-bottom: 20px;
+}
+.incidents-editing__search {
+  width: 100%;
+  margin-right: 15px;
+}
+.incidents-editing__btn_add {
+  background-color: #9873FF;
+  color: white;
+  height: 40px;
+  padding: 0 25px;
+  margin-right: 15px;
+  transition: background-color 0.5s;
+}
+.incidents-editing__btn_add:hover {
+  background-color: #b499ff;
+}
+.incidents-editing__btn_add:disabled {
+  background-color: #8e87a3;
+}
+.incidents-editing__btn_cancel {
+  color: #9873FF;
+  border: 1px solid #9873FF;
+  height: 40px;
+  padding: 0 25px;
+}
+.incidents-editing__incidents-link {
+  color: #333;
+  margin-right: 15px;
+}
+.incidents-editing__incidents-link:hover {
+  color: #9873FF;
+}
+.incidents-editing__incidents-id {
+  color: #B89EFF;
+  margin-right: 10px;
+  font-size: 20px;
+}
+.incidents-editing__incidents-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.incidents-editing__incidents-label {
+  display: block;
+  margin-bottom: 15px;
+}
+.incidents-editing__incidents-list {
+  padding-top: 15px;
+  margin-bottom: 15px;
+}

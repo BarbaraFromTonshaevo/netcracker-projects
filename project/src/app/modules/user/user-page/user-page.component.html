@@ -1,0 +1,22 @@
+<h2  class="heading page__heading">Пользователь <span class="page__id">ID: {{currentUser.id}}</span></h2>
+<form class="page__form" (ngSubmit)="onSubmit($event)">
+  <label class="page__label label">Имя:</label>
+  <input class="page__input input" type="text" name="name" [(ngModel)]="name">
+  <label class="page__label label">Фамилия:</label>
+  <input class="page__input input" type="text" name="surname" [(ngModel)]="surname">
+  <label class="page__label label">Отчество:</label>
+  <input class="page__input input" type="text" name="lastname" [(ngModel)]="lastname">
+  <label class="page__label label">Дата рождения:</label>
+  <input class="page__input input" type="date" name="dateOfBirth" [(ngModel)]="dateOfBirth">
+  <label class="page__label label">Логин:</label>
+  <input class="page__input input" type="text" name="login" [(ngModel)]="login">
+  <label class="page__label label">Должность:</label>
+  <input class="page__input input" type="text" name="position" [(ngModel)]="position">
+  <div class="page__incidents">
+    <label class="page__label page__incidents-label">Инциденты:</label>
+    <app-incidents-editing [incidents]="incidents" (newIncidentsArray)="updateIncidents($event)"></app-incidents-editing>
+  </div>
+  <p class="popup__error" *ngIf="!isValid">Ошибка.{{errorMessage}}</p>
+  <button class="page__save btn">Сохранить изменения</button>
+  <p class="save-message" *ngIf="saveMessage">Пользователь был сохранен</p>
+</form>

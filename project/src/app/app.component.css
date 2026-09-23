@@ -1,0 +1,30 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 0 5px #333333;
+  z-index: 1;
+}
+.header__list {
+  display: flex;
+}
+.header__item:not(:last-child) {
+  margin-right: 50px;
+}
+.header__link {
+  color: #333;
+}
+.header__link.active {
+  color: #9873FF;
+}
+.main {
+  min-height: 100vh;
+  background-color: #E5E5E5;
+  padding-top: 130px;
+  padding-bottom: 130px;
+}
