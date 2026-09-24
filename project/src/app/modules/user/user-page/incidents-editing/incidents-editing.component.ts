@@ -47,9 +47,7 @@ export class IncidentsEditingComponent implements OnInit {
     this.currentIncidentsArray.push(
       this.selectedIncident
     );
-    this.incidentsForSearch = this.incidentsForSearch.filter(item =>{
-      item.id !== this.selectedIncident.id;
-    });
+    this.incidentsForSearch = this.incidentsForSearch.filter(item => item.id !== this.selectedIncident.id);
     this.isOpenedIncidentSearch = !this.isOpenedIncidentSearch;
     this.incidentsForSearch.length === 0? this.isDisabled = true: this.isDisabled = false;
     this.newIncidentsArray.emit(this.currentIncidentsArray);
